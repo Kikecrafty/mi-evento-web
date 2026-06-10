@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fiesta Infantil | Paquete Básico</title>
+<meta name="description" content="Demo responsivo de invitación digital para fiesta infantil en paquete básico.">
+<style>
+:root {
+    --cielo: #66d9ff;
+    --marino: #123b6d;
+    --limon: #fff05a;
+    --naranja: #ff9f43;
+    --rosa: #ff6fb1;
+    --morado: #8a6bff;
+    --menta: #73e2a7;
+    --blanco: #ffffff;
+    --crema: #fff7dc;
+    --texto: #28334f;
+    --sombra: 0 18px 42px rgba(18, 59, 109, 0.18);
+    --sombra2: 0 28px 70px rgba(18, 59, 109, 0.24);
+    --borde: rgba(255, 255, 255, 0.68);
+    --radio1: 34px;
+    --radio2: 24px;
+}
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+html {
+    scroll-behavior: smooth;
+}
+body {
+    min-height: 100vh;
+    color: var(--texto);
+    font-family: "Trebuchet MS", Arial, sans-serif;
+    background: radial-gradient(circle at 14% 10%, rgba(255, 240, 90, .5), transparent 24%), radial-gradient(circle at 86% 16%, rgba(255, 111, 177, .42), transparent 26%), linear-gradient(135deg, #e9f9ff, #fff7dc 48%, #ffeafa);
+    overflow-x: hidden;
+}
+a {
+    color: inherit;
+    text-decoration: none;
+}
+button,
+a {
+    -webkit-tap-highlight-color: transparent;
+}
+.fondo {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    overflow: hidden;
+}
+.figura {
+    position: absolute;
+    opacity: .85;
+    filter: drop-shadow(0 12px 14px rgba(18, 59, 109, .12));
+    animation: flotar 7s ease-in-out infinite;
+}
+.globo1 {
+    width: 76px;
+    height: 92px;
+    top: 70px;
+    left: 5%;
+    border-radius: 50% 50% 48% 48%;
+    background: var(--limon);
+}
+.globo1::after {
+    content: "";
+    position: absolute;
+    width: 2px;
+    height: 70px;
+    left: 50%;
+    top: 90px;
+    background: rgba(18, 59, 109, .25);
+}
+.globo2 {
+    width: 58px;
+    height: 72px;
+    top: 300px;
+    right: 7%;
+    border-radius: 50% 50% 48% 48%;
+    background: var(--rosa);
+    animation-delay: 1.2s;
+}
+.estrella1 {
+    width: 70px;
+    height: 70px;
+    left: 8%;
+    bottom: 24%;
+    background: var(--morado);
+    clip-path: polygon(50% 0, 61% 34%, 98% 34%, 68% 55%, 79% 91%, 50% 70%, 21% 91%, 32% 55%, 2% 34%, 39% 34%);
+    animation-delay: .6s;
+}
+.estrella2 {
+    width: 54px;
+    height: 54px;
+    right: 12%;
+    bottom: 10%;
+    background: var(--naranja);
+    clip-path: polygon(50% 0, 61% 34%, 98% 34%, 68% 55%, 79% 91%, 50% 70%, 21% 91%, 32% 55%, 2% 34%, 39% 34%);
+    animation-delay: 2s;
+}
+@keyframes flotar {
+    0%, 100% {
+        transform: translateY(0) rotate(0deg);
+    }
+    50% {
+        transform: translateY(-18px) rotate(7deg);
+    }
+}
+.pagina {
+    width: min(1180px, calc(100% - 28px));
+    margin: 0 auto;
+    padding: 18px 0 42px;
+}
+.portada {
+    display: grid;
+    grid-template-columns: minmax(0, 1.08fr) minmax(280px, .92fr);
+    gap: 22px;
+    align-items: stretch;
+    padding: 18px 0;
+}
+.tarjeta-principal {
+    position: relative;
+    overflow: hidden;
+    min-height: 610px;
+    padding: clamp(28px, 4vw, 58px);
+    border: 3px solid var(--borde);
+    border-radius: var(--radio1);
+    background: linear-gradient(160deg, rgba(255,255,255,.9), rgba(255,247,220,.88)), radial-gradient(circle at 18% 18%, rgba(102,217,255,.42), transparent 30%), radial-gradient(circle at 88% 84%, rgba(255,159,67,.34), transparent 30%);
+    box-shadow: var(--sombra2);
+}
+.tarjeta-principal::before {
+    content: "";
+    position: absolute;
+    width: 260px;
+    height: 260px;
+    top: -105px;
+    right: -75px;
+    border-radius: 50%;
+    background: rgba(255, 240, 90, .75);
+}
+.tarjeta-principal::after {
+    content: "";
+    position: absolute;
+    width: 170px;
+    height: 170px;
+    left: -64px;
+    bottom: -54px;
+    border-radius: 50%;
+    background: rgba(102, 217, 255, .5);
+}
+.contenido-portada {
+    position: relative;
+    z-index: 2;
+}
+.etiqueta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 28px;
+    padding: 10px 16px;
+    border-radius: 999px;
+    color: var(--marino);
+    background: var(--blanco);
+    font-size: .86rem;
+    font-weight: 900;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    box-shadow: 0 10px 20px rgba(18, 59, 109, .12);
+}
+.etiqueta span {
+    display: grid;
+    place-items: center;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: var(--limon);
+}
+.subtitulo {
+    margin-bottom: 12px;
+    color: var(--rosa);
+    font-size: clamp(1rem, 2.8vw, 1.32rem);
+    font-weight: 900;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+}
+h1 {
+    max-width: 760px;
+    color: var(--marino);
+    font-size: clamp(3rem, 9vw, 7rem);
+    line-height: .88;
+    letter-spacing: -.08em;
+}
+.nombre {
+    display: inline-block;
+    margin-top: 8px;
+    color: var(--naranja);
+    text-shadow: 4px 4px 0 rgba(255, 240, 90, .7);
+}
+.mensaje-portada {
+    max-width: 590px;
+    margin-top: 28px;
+    font-size: clamp(1.04rem, 2.5vw, 1.28rem);
+    line-height: 1.7;
+}
+.botones-portada {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 34px;
+}
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-height: 52px;
+    padding: 14px 20px;
+    border-radius: 999px;
+    border: 0;
+    font-weight: 900;
+    box-shadow: 0 14px 26px rgba(18, 59, 109, .18);
+    transition: transform .2s ease, box-shadow .2s ease;
+}
+.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 20px 34px rgba(18, 59, 109, .23);
+}
+.btn-amarillo {
+    color: var(--marino);
+    background: var(--limon);
+}
+.btn-rosa {
+    color: var(--blanco);
+    background: var(--rosa);
+}
+.columna-lateral {
+    display: grid;
+    grid-template-rows: .9fr 1.1fr;
+    gap: 22px;
+}
+.tarjeta-lateral {
+    position: relative;
+    overflow: hidden;
+    border: 3px solid var(--borde);
+    border-radius: var(--radio1);
+    background: rgba(255,255,255,.74);
+    box-shadow: var(--sombra);
+}
+.boleto {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 30px;
+    background: linear-gradient(145deg, rgba(102,217,255,.78), rgba(255,255,255,.76)), radial-gradient(circle at 82% 20%, rgba(255,240,90,.82), transparent 32%);
+}
+.boleto::before,
+.boleto::after {
+    content: "";
+    position: absolute;
+    width: 84px;
+    height: 84px;
+    top: calc(50% - 42px);
+    border-radius: 50%;
+    background: #e9f9ff;
+}
+.boleto::before {
+    left: -42px;
+}
+.boleto::after {
+    right: -42px;
+}
+.boleto small {
+    color: var(--marino);
+    font-weight: 900;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+}
+.boleto strong {
+    margin-top: 16px;
+    color: var(--marino);
+    font-size: clamp(2.4rem, 6vw, 4.8rem);
+    line-height: .9;
+}
+.boleto p {
+    margin-top: 16px;
+    line-height: 1.6;
+    font-weight: 700;
+}
+.mascota {
+    display: grid;
+    place-items: center;
+    min-height: 330px;
+    padding: 24px;
+    background: linear-gradient(160deg, rgba(255,111,177,.66), rgba(255,247,220,.8)), radial-gradient(circle at 30% 30%, rgba(255,255,255,.85), transparent 28%);
+}
+.carita {
+    position: relative;
+    width: 190px;
+    height: 190px;
+    border-radius: 50%;
+    background: var(--limon);
+    box-shadow: inset -16px -18px 0 rgba(255,159,67,.35);
+}
+.carita::before,
+.carita::after {
+    content: "";
+    position: absolute;
+    top: -20px;
+    width: 68px;
+    height: 68px;
+    border-radius: 50%;
+    background: var(--limon);
+}
+.carita::before {
+    left: 4px;
+}
+.carita::after {
+    right: 4px;
+}
+.gorro {
+    position: absolute;
+    left: 50%;
+    top: -78px;
+    width: 94px;
+    height: 106px;
+    transform: translateX(-50%) rotate(6deg);
+    background: linear-gradient(135deg, var(--morado), var(--rosa));
+    clip-path: polygon(50% 0, 0 100%, 100% 100%);
+}
+.ojo {
+    position: absolute;
+    top: 74px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--marino);
+}
+.ojo.izq {
+    left: 55px;
+}
+.ojo.der {
+    right: 55px;
+}
+.nariz {
+    position: absolute;
+    left: 50%;
+    top: 104px;
+    width: 46px;
+    height: 30px;
+    border-radius: 50%;
+    background: var(--marino);
+    transform: translateX(-50%);
+}
+.sonrisa {
+    position: absolute;
+    left: 50%;
+    top: 128px;
+    width: 64px;
+    height: 34px;
+    border-bottom: 5px solid var(--marino);
+    border-radius: 0 0 80px 80px;
+    transform: translateX(-50%);
+}
+.contenido {
+    display: grid;
+    grid-template-columns: 1.05fr .95fr;
+    gap: 22px;
+    margin-top: 18px;
+}
+.panel-info {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+}
+.caja {
+    position: relative;
+    overflow: hidden;
+    min-height: 210px;
+    padding: 24px;
+    border: 3px solid var(--borde);
+    border-radius: var(--radio2);
+    background: rgba(255,255,255,.8);
+    box-shadow: var(--sombra);
+}
+.caja.ancha {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 22px;
+    align-items: center;
+    min-height: 180px;
+    background: linear-gradient(135deg, rgba(255,240,90,.7), rgba(255,255,255,.82)), radial-gradient(circle at 84% 24%, rgba(255,111,177,.32), transparent 32%);
+}
+.icono {
+    display: grid;
+    place-items: center;
+    width: 58px;
+    height: 58px;
+    margin-bottom: 18px;
+    border-radius: 20px;
+    font-size: 1.8rem;
+    background: var(--crema);
+    box-shadow: inset 0 -6px 0 rgba(18, 59, 109, .08);
+}
+.caja h2,
+.contador h2,
+.confirmacion h2 {
+    color: var(--marino);
+    font-size: clamp(1.35rem, 3vw, 2rem);
+    line-height: 1.08;
+}
+.caja p,
+.confirmacion p,
+.nota p,
+.pie p {
+    margin-top: 12px;
+    line-height: 1.62;
+}
+.hora-resaltada {
+    display: inline-flex;
+    margin-top: 16px;
+    padding: 10px 14px;
+    border-radius: 14px;
+    color: var(--marino);
+    background: var(--limon);
+    font-weight: 900;
+}
+.burbuja-mapa {
+    display: grid;
+    place-items: center;
+    width: 132px;
+    height: 132px;
+    border-radius: 36px;
+    color: var(--blanco);
+    font-size: 3rem;
+    background: linear-gradient(135deg, var(--morado), var(--marino));
+    box-shadow: 0 18px 34px rgba(18, 59, 109, .28);
+    transform: rotate(5deg);
+}
+.columna-accion {
+    display: grid;
+    gap: 22px;
+}
+.contador,
+.confirmacion {
+    position: relative;
+    overflow: hidden;
+    padding: 26px;
+    border: 3px solid var(--borde);
+    border-radius: var(--radio1);
+    box-shadow: var(--sombra);
+}
+.contador {
+    color: var(--blanco);
+    background: linear-gradient(160deg, rgba(18,59,109,.94), rgba(138,107,255,.88)), radial-gradient(circle at 15% 20%, rgba(255,240,90,.46), transparent 34%);
+}
+.contador h2,
+.contador p {
+    color: var(--blanco);
+}
+.contador p {
+    margin-top: 10px;
+    line-height: 1.55;
+    opacity: .92;
+}
+.tiempo {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 10px;
+    margin-top: 24px;
+}
+.unidad {
+    min-height: 96px;
+    display: grid;
+    place-items: center;
+    padding: 14px 8px;
+    border-radius: 22px;
+    text-align: center;
+    background: rgba(255,255,255,.16);
+    border: 1px solid rgba(255,255,255,.24);
+}
+.unidad strong {
+    display: block;
+    font-size: clamp(1.7rem, 6vw, 3rem);
+    line-height: 1;
+}
+.unidad span {
+    display: block;
+    margin-top: 7px;
+    font-size: .76rem;
+    font-weight: 900;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+}
+.confirmacion {
+    background: linear-gradient(135deg, rgba(115,226,167,.72), rgba(255,255,255,.86)), radial-gradient(circle at 86% 16%, rgba(255,240,90,.72), transparent 30%);
+}
+.botones-rsvp {
+    display: grid;
+    gap: 12px;
+    margin-top: 20px;
+}
+.botones-rsvp .btn {
+    width: 100%;
+}
+.frase-final {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 22px;
+    margin-top: 22px;
+}
+.nota {
+    min-height: 178px;
+    padding: 24px;
+    border: 3px solid var(--borde);
+    border-radius: var(--radio2);
+    background: rgba(255,255,255,.8);
+    box-shadow: var(--sombra);
+}
+.nota:nth-child(1) {
+    background: linear-gradient(145deg, rgba(255,111,177,.34), rgba(255,255,255,.84));
+}
+.nota:nth-child(2) {
+    background: linear-gradient(145deg, rgba(102,217,255,.38), rgba(255,255,255,.84));
+}
+.nota h3 {
+    color: var(--marino);
+    font-size: 1.35rem;
+}
+.pie {
+    margin-top: 22px;
+    padding: 24px;
+    border: 3px solid var(--borde);
+    border-radius: var(--radio1);
+    text-align: center;
+    background: rgba(255,255,255,.78);
+    box-shadow: var(--sombra);
+}
+.pie strong {
+    color: var(--rosa);
+}
+@media (max-width: 920px) {
+    .portada,
+    .contenido,
+    .frase-final {
+        grid-template-columns: 1fr;
+    }
+    .tarjeta-principal {
+        min-height: auto;
+    }
+    .columna-lateral {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto;
+    }
+}
+@media (max-width: 680px) {
+    .pagina {
+        width: min(100% - 20px, 520px);
+        padding-top: 10px;
+    }
+    .portada {
+        gap: 14px;
+        padding: 10px 0;
+    }
+    .tarjeta-principal,
+    .tarjeta-lateral,
+    .contador,
+    .confirmacion,
+    .pie {
+        border-radius: 28px;
+    }
+    .tarjeta-principal {
+        padding: 28px 20px;
+    }
+    .botones-portada,
+    .btn {
+        width: 100%;
+    }
+    .columna-lateral,
+    .panel-info {
+        grid-template-columns: 1fr;
+    }
+    .caja.ancha {
+        grid-template-columns: 1fr;
+    }
+    .burbuja-mapa {
+        width: 100%;
+        height: 96px;
+        transform: rotate(0deg);
+    }
+    .tiempo {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .boleto,
+    .mascota,
+    .caja,
+    .contador,
+    .confirmacion,
+    .nota {
+        padding: 22px;
+    }
+    .carita {
+        width: 156px;
+        height: 156px;
+    }
+    .ojo {
+        top: 62px;
+    }
+    .ojo.izq {
+        left: 45px;
+    }
+    .ojo.der {
+        right: 45px;
+    }
+    .nariz {
+        top: 86px;
+    }
+    .sonrisa {
+        top: 107px;
+    }
+}
+</style>
+</head>
+<body>
+<div class="fondo" aria-hidden="true">
+    <span class="figura globo1"></span>
+    <span class="figura globo2"></span>
+    <span class="figura estrella1"></span>
+    <span class="figura estrella2"></span>
+</div>
+<main class="pagina">
+    <section class="portada" id="inicio">
+        <article class="tarjeta-principal">
+            <div class="contenido-portada">
+                <div class="etiqueta">
+                    <span>🎈</span>
+                    Paquete Básico
+                </div>
+                <p class="subtitulo">Fiesta infantil</p>
+                <h1>
+                    ¡A jugar,
+                    <span class="nombre">Sofía cumple 6!</span>
+                </h1>
+                <p class="mensaje-portada">
+                    Te esperamos en una tarde llena de risas, pastel, juegos y sorpresas.
+                    Ven con toda tu energía para celebrar un día muy especial junto a Sofía.
+                </p>
+                <div class="botones-portada">
+                    <a class="btn btn-amarillo" href="#detalles">
+                        Ver detalles
+                        <span>⭐</span>
+                    </a>
+                    <a class="btn btn-rosa" href="#confirmar">
+                        Confirmar asistencia
+                        <span>💬</span>
+                    </a>
+                </div>
+            </div>
+        </article>
+        <aside class="columna-lateral" aria-label="Información destacada">
+            <div class="tarjeta-lateral boleto">
+                <small>Entrada especial</small>
+                <strong>06</strong>
+                <p>
+                    Una aventura colorida para celebrar con juegos, dulces y muchas fotos divertidas.
+                </p>
+            </div>
+            <div class="tarjeta-lateral mascota">
+                <div class="carita" aria-hidden="true">
+                    <span class="gorro"></span>
+                    <span class="ojo izq"></span>
+                    <span class="ojo der"></span>
+                    <span class="nariz"></span>
+                    <span class="sonrisa"></span>
+                </div>
+            </div>
+        </aside>
+    </section>
+    <section class="contenido" id="detalles">
+        <div class="panel-info">
+            <article class="caja">
+                <div class="icono">📅</div>
+                <h2>Fecha</h2>
+                <p>
+                    Sábado 20 de julio de 2026.
+                    Será una celebración de tarde para que todos puedan llegar con calma.
+                </p>
+            </article>
+            <article class="caja">
+                <div class="icono">⏰</div>
+                <h2>Hora</h2>
+                <p>
+                    La diversión empieza a las 4:30 p.m.
+                    Recomendamos llegar unos minutos antes para recibir a los pequeños invitados.
+                </p>
+                <span class="hora-resaltada">Inicio: 4:30 PM</span>
+            </article>
+            <article class="caja ancha">
+                <div>
+                    <div class="icono">📍</div>
+                    <h2>Ubicación</h2>
+                    <p>
+                        Salón Arcoíris Kids, Av. de los Globos 123,
+                        Col. Jardines de la Alegría, Ciudad de México.
+                    </p>
+                    <p>
+                        Presiona el botón para abrir la ruta directamente en Google Maps.
+                    </p>
+                    <a class="btn btn-amarillo" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Salon%20Arcoiris%20Kids%20Ciudad%20de%20Mexico">
+                        Abrir Google Maps
+                        <span>🗺️</span>
+                    </a>
+                </div>
+                <div class="burbuja-mapa" aria-hidden="true">🧭</div>
+            </article>
+        </div>
+        <div class="columna-accion">
+            <article class="contador" id="contador">
+                <h2>Falta muy poco para la fiesta</h2>
+                <p>
+                    El contador se actualiza automáticamente para mostrar cuánto falta para el gran día.
+                </p>
+                <div class="tiempo" aria-label="Contador regresivo">
+                    <div class="unidad">
+                        <div>
+                            <strong id="dias">00</strong>
+                            <span>Días</span>
+                        </div>
+                    </div>
+                    <div class="unidad">
+                        <div>
+                            <strong id="horas">00</strong>
+                            <span>Horas</span>
+                        </div>
+                    </div>
+                    <div class="unidad">
+                        <div>
+                            <strong id="minutos">00</strong>
+                            <span>Min</span>
+                        </div>
+                    </div>
+                    <div class="unidad">
+                        <div>
+                            <strong id="segundos">00</strong>
+                            <span>Seg</span>
+                        </div>
+                    </div>
+                </div>
+            </article>
+            <article class="confirmacion" id="confirmar">
+                <h2>Confirmación por WhatsApp</h2>
+                <p>
+                    Confirma de forma básica enviando un mensaje con el nombre de los asistentes.
+                    Esto ayuda a preparar mesas, sorpresas y bolsitas de dulces.
+                </p>
+                <div class="botones-rsvp">
+                    <a class="btn btn-rosa" target="_blank" rel="noopener" href="https://wa.me/5215512345678?text=Hola%2C%20confirmo%20mi%20asistencia%20a%20la%20fiesta%20infantil%20de%20Sof%C3%ADa.%20Nombre%3A%20">
+                        Confirmar por WhatsApp
+                        <span>✅</span>
+                    </a>
+                    <a class="btn btn-amarillo" href="#inicio">
+                        Volver a la portada
+                        <span>🎉</span>
+                    </a>
+                </div>
+            </article>
+        </div>
+    </section>
+    <section class="frase-final" aria-label="Notas para invitados">
+        <article class="nota">
+            <h3>Para los pequeños</h3>
+            <p>
+                Habrá juegos sencillos, espacio para correr y una mesa dulce pensada para que la tarde sea cómoda y alegre.
+            </p>
+        </article>
+        <article class="nota">
+            <h3>Mensaje de la familia</h3>
+            <p>
+                Tu presencia hará que este cumpleaños sea todavía más especial.
+                Gracias por acompañarnos en un momento lleno de ilusión para Sofía.
+            </p>
+        </article>
+    </section>
+    <footer class="pie">
+        <p>
+            Demo de invitación digital para <strong>Fiesta Infantil</strong> 
+        </p>
+    </footer>
+</main>
+<script>
+const fechaEvento = new Date("2026-07-20T16:30:00-06:00").getTime();
+const dias = document.getElementById("dias");
+const horas = document.getElementById("horas");
+const minutos = document.getElementById("minutos");
+const segundos = document.getElementById("segundos");
+function dosDigitos(valor) {
+    return String(valor).padStart(2, "0");
+}
+function actualizarContador() {
+    const ahora = new Date().getTime();
+    const diferencia = fechaEvento - ahora;
+    if (diferencia <= 0) {
+        dias.textContent = "00";
+        horas.textContent = "00";
+        minutos.textContent = "00";
+        segundos.textContent = "00";
+        return;
+    }
+    const d = Math.floor(diferencia / (1000 * 60 * 60 * 24));
+    const h = Math.floor((diferencia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const m = Math.floor((diferencia % (1000 * 60 * 60)) / (1000 * 60));
+    const s = Math.floor((diferencia % (1000 * 60)) / 1000);
+    dias.textContent = dosDigitos(d);
+    horas.textContent = dosDigitos(h);
+    minutos.textContent = dosDigitos(m);
+    segundos.textContent = dosDigitos(s);
+}
+actualizarContador();
+setInterval(actualizarContador, 1000);
+</script>
+</body>
+</html>

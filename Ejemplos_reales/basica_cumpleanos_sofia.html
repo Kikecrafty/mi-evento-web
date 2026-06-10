@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Invitación digital para el cumpleaños de Sofía Martínez">
+    <meta name="theme-color" content="#f7d7df">
+    <title>Cumpleaños de Sofía Martínez</title>
+
+    <style>
+        :root {
+            --rosa-claro: #fff1f5;
+            --rosa: #f5b6c8;
+            --rosa-fuerte: #d96f92;
+            --dorado: #c99a43;
+            --dorado-claro: #f7df9e;
+            --blanco: #ffffff;
+            --marfil: #fffaf2;
+            --texto: #3d2a2f;
+            --texto-suave: #775d63;
+            --sombra: 0 24px 70px rgba(121, 68, 82, 0.18);
+            --sombra-suave: 0 16px 45px rgba(121, 68, 82, 0.12);
+            --radio-grande: 34px;
+            --radio-medio: 22px;
+            --transicion: all 0.35s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            min-height: 100vh;
+            font-family: Georgia, "Times New Roman", serif;
+            color: var(--texto);
+            background:
+                radial-gradient(circle at top left, rgba(255, 221, 231, 0.95), transparent 34%),
+                radial-gradient(circle at bottom right, rgba(247, 223, 158, 0.65), transparent 32%),
+                linear-gradient(145deg, #fff8fb 0%, #fff1f5 45%, #fffaf2 100%);
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            background-image:
+                linear-gradient(rgba(201, 154, 67, 0.08) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(201, 154, 67, 0.08) 1px, transparent 1px);
+            background-size: 42px 42px;
+            mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), transparent 82%);
+            z-index: 0;
+        }
+
+        .decoracion {
+            position: fixed;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 0;
+            filter: blur(1px);
+            opacity: 0.65;
+            animation: flotar 10s ease-in-out infinite alternate;
+        }
+
+        .decoracion.uno {
+            width: 210px;
+            height: 210px;
+            top: 8%;
+            right: -70px;
+            background: rgba(245, 182, 200, 0.55);
+        }
+
+        .decoracion.dos {
+            width: 170px;
+            height: 170px;
+            left: -55px;
+            bottom: 14%;
+            background: rgba(247, 223, 158, 0.55);
+            animation-delay: 1.4s;
+        }
+
+        .decoracion.tres {
+            width: 82px;
+            height: 82px;
+            top: 34%;
+            left: 7%;
+            background: rgba(217, 111, 146, 0.18);
+            animation-delay: 2.2s;
+        }
+
+        @keyframes flotar {
+            from { transform: translateY(0) scale(1); }
+            to { transform: translateY(-28px) scale(1.04); }
+        }
+
+        .pagina {
+            position: relative;
+            z-index: 1;
+            width: min(1120px, calc(100% - 32px));
+            margin: 0 auto;
+            padding: 28px 0 52px;
+        }
+
+        .tarjeta-principal {
+            position: relative;
+            min-height: 92vh;
+            display: grid;
+            place-items: center;
+            padding: 42px 18px;
+        }
+
+        .hero {
+            width: 100%;
+            max-width: 960px;
+            display: grid;
+            grid-template-columns: 1.05fr 0.95fr;
+            gap: 24px;
+            align-items: stretch;
+        }
+
+        .hero-contenido,
+        .hero-fecha,
+        .seccion {
+            background: rgba(255, 255, 255, 0.76);
+            border: 1px solid rgba(201, 154, 67, 0.24);
+            box-shadow: var(--sombra);
+            backdrop-filter: blur(16px);
+            border-radius: var(--radio-grande);
+        }
+
+        .hero-contenido {
+            position: relative;
+            overflow: hidden;
+            padding: 58px 42px;
+        }
+
+        .hero-contenido::before {
+            content: "";
+            position: absolute;
+            inset: 18px;
+            border: 1px solid rgba(201, 154, 67, 0.35);
+            border-radius: 26px;
+            pointer-events: none;
+        }
+
+        .hero-contenido::after {
+            content: "25";
+            position: absolute;
+            right: -8px;
+            bottom: -40px;
+            font-size: clamp(7rem, 18vw, 13rem);
+            line-height: 1;
+            color: rgba(217, 111, 146, 0.09);
+            font-weight: 700;
+            pointer-events: none;
+        }
+
+        .etiqueta {
+            position: relative;
+            z-index: 1;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 16px;
+            border-radius: 999px;
+            background: linear-gradient(135deg, rgba(255, 241, 245, 0.92), rgba(255, 250, 242, 0.92));
+            border: 1px solid rgba(201, 154, 67, 0.28);
+            color: var(--dorado);
+            font-size: 0.78rem;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            font-weight: 700;
+        }
+
+        .etiqueta span {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--rosa-fuerte);
+            box-shadow: 0 0 0 6px rgba(217, 111, 146, 0.12);
+        }
+
+        .titulo {
+            position: relative;
+            z-index: 1;
+            margin-top: 34px;
+            font-size: clamp(3rem, 8vw, 6.8rem);
+            line-height: 0.92;
+            letter-spacing: -0.06em;
+            color: #422930;
+        }
+
+        .titulo span {
+            display: block;
+            color: var(--rosa-fuerte);
+            font-style: italic;
+            font-weight: 400;
+            letter-spacing: -0.04em;
+        }
+
+        .subtitulo {
+            position: relative;
+            z-index: 1;
+            margin-top: 24px;
+            max-width: 570px;
+            color: var(--texto-suave);
+            font-size: clamp(1.08rem, 2vw, 1.28rem);
+            line-height: 1.8;
+        }
+
+        .linea-dorada {
+            position: relative;
+            z-index: 1;
+            width: 112px;
+            height: 2px;
+            margin: 34px 0;
+            background: linear-gradient(90deg, transparent, var(--dorado), transparent);
+        }
+
+        .frase {
+            position: relative;
+            z-index: 1;
+            color: var(--texto);
+            font-size: clamp(1.15rem, 2vw, 1.55rem);
+            line-height: 1.55;
+            font-style: italic;
+        }
+
+        .hero-fecha {
+            padding: 38px 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 24px;
+            background:
+                linear-gradient(160deg, rgba(255, 255, 255, 0.88), rgba(255, 241, 245, 0.82)),
+                radial-gradient(circle at top right, rgba(247, 223, 158, 0.5), transparent 48%);
+        }
+
+        .edad-caja {
+            display: grid;
+            place-items: center;
+            text-align: center;
+            padding: 38px 20px;
+            border-radius: 28px;
+            background: linear-gradient(135deg, rgba(255, 241, 245, 0.9), rgba(255, 250, 242, 0.96));
+            border: 1px solid rgba(201, 154, 67, 0.22);
+        }
+
+        .edad-caja strong {
+            font-size: clamp(5rem, 12vw, 8rem);
+            line-height: 0.85;
+            color: var(--dorado);
+        }
+
+        .edad-caja span,
+        .tiempo span,
+        .dato-item small,
+        .direccion-box strong,
+        .whatsapp-card small {
+            display: block;
+            color: var(--dorado);
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+            font-family: Arial, sans-serif;
+            font-weight: 800;
+            font-size: 0.74rem;
+        }
+
+        .edad-caja span {
+            margin-top: 12px;
+            color: var(--texto-suave);
+            letter-spacing: 0.2em;
+            font-size: 1rem;
+        }
+
+        .dato-rapido,
+        .contador {
+            display: grid;
+            gap: 16px;
+        }
+
+        .dato-item,
+        .info-card,
+        .ubicacion-panel,
+        .direccion-box,
+        .confirmacion-texto,
+        .whatsapp-card,
+        .tiempo {
+            border-radius: var(--radio-medio);
+            border: 1px solid rgba(217, 111, 146, 0.15);
+        }
+
+        .dato-item {
+            padding: 18px;
+            background: rgba(255, 255, 255, 0.72);
+            box-shadow: 0 10px 26px rgba(121, 68, 82, 0.08);
+        }
+
+        .dato-item small,
+        .direccion-box strong { margin-bottom: 6px; }
+        .dato-item p { color: var(--texto); font-size: 1.02rem; line-height: 1.45; }
+
+        .seccion {
+            margin-top: 34px;
+            padding: 34px;
+            box-shadow: var(--sombra-suave);
+        }
+
+        .encabezado-seccion {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            gap: 20px;
+            margin-bottom: 24px;
+        }
+
+        .encabezado-seccion h2,
+        .confirmacion-texto h2 {
+            font-size: clamp(2rem, 4vw, 3.2rem);
+            line-height: 1;
+            letter-spacing: -0.04em;
+            color: #442b31;
+        }
+
+        .encabezado-seccion p,
+        .ubicacion-panel p,
+        .confirmacion-texto p,
+        .whatsapp-card p,
+        .nota-final p {
+            color: var(--texto-suave);
+            line-height: 1.8;
+            font-size: 1.02rem;
+        }
+
+        .encabezado-seccion p { max-width: 390px; }
+
+        .grid-info,
+        .ubicacion,
+        .confirmacion {
+            display: grid;
+            gap: 18px;
+        }
+
+        .grid-info { grid-template-columns: repeat(3, 1fr); }
+        .ubicacion { grid-template-columns: 0.9fr 1.1fr; gap: 22px; }
+        .confirmacion { grid-template-columns: 1fr 0.9fr; gap: 22px; }
+
+        .info-card {
+            position: relative;
+            overflow: hidden;
+            min-height: 190px;
+            padding: 24px;
+            background: linear-gradient(160deg, rgba(255, 250, 242, 0.92), rgba(255, 241, 245, 0.88));
+        }
+
+        .info-card::after {
+            content: "";
+            position: absolute;
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            right: -34px;
+            bottom: -34px;
+            background: rgba(217, 111, 146, 0.12);
+        }
+
+        .icono {
+            width: 48px;
+            height: 48px;
+            display: grid;
+            place-items: center;
+            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(201, 154, 67, 0.26);
+            color: var(--rosa-fuerte);
+            font-size: 1.35rem;
+            margin-bottom: 18px;
+        }
+
+        .info-card h3 {
+            font-size: 1.16rem;
+            margin-bottom: 10px;
+            color: var(--texto);
+        }
+
+        .info-card p,
+        .direccion-box p {
+            color: var(--texto-suave);
+            line-height: 1.65;
+            font-size: 0.98rem;
+        }
+
+        .ubicacion-panel,
+        .confirmacion-texto {
+            padding: 30px;
+            background: linear-gradient(160deg, rgba(255, 241, 245, 0.86), rgba(255, 255, 255, 0.86));
+        }
+
+        .ubicacion-panel h3 {
+            font-size: clamp(1.55rem, 3vw, 2.35rem);
+            line-height: 1.05;
+            color: #442b31;
+            margin-bottom: 16px;
+        }
+
+        .direccion-box,
+        .whatsapp-card {
+            padding: 28px;
+            background: rgba(255, 255, 255, 0.82);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 22px;
+        }
+
+        .direccion-box p,
+        .whatsapp-card p { color: var(--texto); font-size: 1.04rem; }
+        .confirmacion-texto h2 { margin-bottom: 18px; }
+
+        .acciones {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+        }
+
+        .boton {
+            text-decoration: none;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            min-height: 52px;
+            padding: 15px 22px;
+            border-radius: 999px;
+            font-family: Arial, sans-serif;
+            font-size: 0.92rem;
+            font-weight: 800;
+            letter-spacing: 0.03em;
+            transition: var(--transicion);
+        }
+
+        .boton-principal {
+            color: #3d2a2f;
+            background: linear-gradient(135deg, var(--dorado-claro), var(--dorado));
+            box-shadow: 0 14px 28px rgba(201, 154, 67, 0.28);
+        }
+
+        .boton-secundario {
+            color: var(--texto);
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(217, 111, 146, 0.24);
+        }
+
+        .boton:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 18px 36px rgba(121, 68, 82, 0.16);
+        }
+
+        .contador { grid-template-columns: repeat(4, 1fr); }
+
+        .tiempo {
+            position: relative;
+            overflow: hidden;
+            min-height: 150px;
+            display: grid;
+            place-items: center;
+            text-align: center;
+            padding: 20px;
+            background: linear-gradient(160deg, rgba(255, 241, 245, 0.9), rgba(255, 250, 242, 0.95));
+        }
+
+        .tiempo::before {
+            content: "";
+            position: absolute;
+            width: 86px;
+            height: 86px;
+            border-radius: 50%;
+            top: -40px;
+            right: -36px;
+            background: rgba(201, 154, 67, 0.12);
+        }
+
+        .tiempo strong {
+            display: block;
+            font-size: clamp(2.5rem, 6vw, 4.2rem);
+            line-height: 0.95;
+            color: var(--rosa-fuerte);
+        }
+
+        .tiempo span { margin-top: 12px; color: var(--texto-suave); font-size: 0.72rem; }
+
+        .nota-final {
+            margin-top: 34px;
+            text-align: center;
+            padding: 32px 24px;
+            border-radius: var(--radio-grande);
+            background: rgba(255, 255, 255, 0.58);
+            border: 1px solid rgba(201, 154, 67, 0.18);
+        }
+
+        .nota-final p { max-width: 720px; margin: 0 auto; font-size: 1.08rem; }
+        .firma { margin-top: 18px; color: var(--rosa-fuerte); font-size: 1.7rem; font-style: italic; }
+
+        .aparecer {
+            opacity: 0;
+            transform: translateY(24px);
+            animation: aparecer 0.9s ease forwards;
+        }
+
+        .delay-1 { animation-delay: 0.12s; }
+        .delay-2 { animation-delay: 0.24s; }
+        .delay-3 { animation-delay: 0.36s; }
+        @keyframes aparecer { to { opacity: 1; transform: translateY(0); } }
+
+        @media (max-width: 900px) {
+            .hero,
+            .ubicacion,
+            .confirmacion,
+            .grid-info { grid-template-columns: 1fr; }
+            .hero-contenido { padding: 46px 28px; }
+            .encabezado-seccion { align-items: flex-start; flex-direction: column; }
+        }
+
+        @media (max-width: 680px) {
+            .pagina { width: min(100% - 22px, 1120px); padding-top: 12px; }
+            .tarjeta-principal { padding: 24px 0; min-height: auto; }
+            .hero-contenido,
+            .hero-fecha,
+            .seccion { border-radius: 26px; }
+            .hero-contenido { padding: 42px 22px; }
+            .hero-contenido::before { inset: 12px; border-radius: 20px; }
+            .hero-fecha,
+            .seccion { padding: 24px; }
+            .contador { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+            .tiempo { min-height: 126px; padding: 18px 12px; }
+            .acciones { flex-direction: column; }
+            .boton { width: 100%; }
+        }
+
+        @media (max-width: 420px) {
+            .titulo { font-size: 3.15rem; }
+            .edad-caja strong { font-size: 5rem; }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="decoracion uno"></div>
+    <div class="decoracion dos"></div>
+    <div class="decoracion tres"></div>
+
+    <main class="pagina">
+        <section class="tarjeta-principal" aria-label="Portada principal">
+            <div class="hero">
+                <article class="hero-contenido aparecer">
+                    <div class="etiqueta"><span></span>Invitación especial</div>
+                    <h1 class="titulo">Sofía<span>Martínez</span></h1>
+                    <p class="subtitulo">
+                        Estás invitado a celebrar conmigo una noche muy especial, llena de alegría,
+                        amistad y momentos que se quedarán para siempre.
+                    </p>
+                    <div class="linea-dorada"></div>
+                    <p class="frase">“Una noche para celebrar la vida y los buenos momentos.”</p>
+                </article>
+
+                <aside class="hero-fecha aparecer delay-1" aria-label="Información principal del evento">
+                    <div class="edad-caja"><strong>25</strong><span>Años</span></div>
+                    <div class="dato-rapido">
+                        <div class="dato-item"><small>Fecha</small><p>Sábado 20 de julio de 2026</p></div>
+                        <div class="dato-item"><small>Hora</small><p>7:30 p.m.</p></div>
+                        <div class="dato-item"><small>Lugar</small><p>Salón de Fiestas Los Rosales</p></div>
+                    </div>
+                </aside>
+            </div>
+        </section>
+
+        <section class="seccion aparecer delay-2" aria-label="Detalles del evento">
+            <div class="encabezado-seccion">
+                <h2>Detalles del evento</h2>
+                <p>Te esperamos para compartir una celebración elegante, cercana y llena de buenos momentos.</p>
+            </div>
+            <div class="grid-info">
+                <article class="info-card">
+                    <div class="icono">✦</div>
+                    <h3>Celebración</h3>
+                    <p>Cumpleaños número 25 de Sofía Martínez, una reunión especial para familiares y amigos.</p>
+                </article>
+                <article class="info-card">
+                    <div class="icono">◷</div>
+                    <h3>Inicio</h3>
+                    <p>La celebración inicia a las 7:30 p.m. Se recomienda llegar con algunos minutos de anticipación.</p>
+                </article>
+                <article class="info-card">
+                    <div class="icono">♡</div>
+                    <h3>Invitación</h3>
+                    <p>Tu presencia hará que esta noche sea todavía más especial para Sofía.</p>
+                </article>
+            </div>
+        </section>
+
+        <section class="seccion aparecer delay-3" aria-label="Ubicación del evento">
+            <div class="ubicacion">
+                <div class="ubicacion-panel">
+                    <h3>Ubicación</h3>
+                    <p>
+                        El evento se realizará en el Salón de Fiestas Los Rosales, ubicado en Azcapotzalco,
+                        Ciudad de México.
+                    </p>
+                </div>
+                <div class="direccion-box">
+                    <div>
+                        <strong>Dirección</strong>
+                        <p>
+                            Calle 8 628, entre Fundadores y Moldeadores, Azcapotzalco,
+                            Colonia Monte Alto Delegación, Azcapotzalco, 02640 Ciudad de México, CDMX.
+                        </p>
+                    </div>
+                    <div class="acciones">
+                        <a class="boton boton-principal" href="https://maps.app.goo.gl/RBWgsVZ6MVd89rRVA" target="_blank" rel="noopener noreferrer">
+                            Ver ubicación
+                        </a>
+                        <a class="boton boton-secundario" href="#confirmar">Confirmar asistencia</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="seccion aparecer" aria-label="Contador regresivo">
+            <div class="encabezado-seccion">
+                <h2>Falta poco</h2>
+                <p>Cuenta regresiva para celebrar el cumpleaños de Sofía Martínez.</p>
+            </div>
+            <div class="contador" id="contador">
+                <div class="tiempo"><div><strong id="dias">00</strong><span>Días</span></div></div>
+                <div class="tiempo"><div><strong id="horas">00</strong><span>Horas</span></div></div>
+                <div class="tiempo"><div><strong id="minutos">00</strong><span>Minutos</span></div></div>
+                <div class="tiempo"><div><strong id="segundos">00</strong><span>Segundos</span></div></div>
+            </div>
+        </section>
+
+        <section class="seccion aparecer" id="confirmar" aria-label="Confirmación por WhatsApp">
+            <div class="confirmacion">
+                <div class="confirmacion-texto">
+                    <h2>Confirma tu asistencia</h2>
+                    <p>
+                        Para ayudarnos con la organización del evento, confirma tu asistencia por WhatsApp.
+                        El mensaje se abrirá automáticamente para enviarlo a Sofía.
+                    </p>
+                </div>
+                <div class="whatsapp-card">
+                    <div>
+                        <small>WhatsApp</small>
+                        <p>Hola, confirmo mi asistencia al cumpleaños de Sofía Martínez. Mi nombre es:</p>
+                    </div>
+                    <a class="boton boton-principal" href="https://wa.me/527221234567?text=Hola,%20confirmo%20mi%20asistencia%20al%20cumplea%C3%B1os%20de%20Sof%C3%ADa%20Mart%C3%ADnez.%20Mi%20nombre%20es:" target="_blank" rel="noopener noreferrer">
+                        Confirmar por WhatsApp
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section class="nota-final aparecer" aria-label="Mensaje final">
+            <p>Gracias por formar parte de este momento tan especial. Será una alegría compartir esta noche contigo.</p>
+            <div class="firma">Con cariño, Sofía</div>
+        </section>
+    </main>
+
+    <script>
+        const fechaEvento = new Date("2026-07-20T19:30:00-06:00").getTime();
+        const diasElemento = document.getElementById("dias");
+        const horasElemento = document.getElementById("horas");
+        const minutosElemento = document.getElementById("minutos");
+        const segundosElemento = document.getElementById("segundos");
+        const contadorElemento = document.getElementById("contador");
+
+        function formatoNumero(numero) {
+            return numero < 10 ? `0${numero}` : numero;
+        }
+
+        function actualizarContador() {
+            const ahora = new Date().getTime();
+            const distancia = fechaEvento - ahora;
+
+            if (distancia <= 0) {
+                contadorElemento.innerHTML = `
+                    <div class="tiempo" style="grid-column: 1 / -1;">
+                        <div><strong>Hoy</strong><span>Es el gran día</span></div>
+                    </div>
+                `;
+                return;
+            }
+
+            const dias = Math.floor(distancia / (1000 * 60 * 60 * 24));
+            const horas = Math.floor((distancia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutos = Math.floor((distancia % (1000 * 60 * 60)) / (1000 * 60));
+            const segundos = Math.floor((distancia % (1000 * 60)) / 1000);
+
+            diasElemento.textContent = formatoNumero(dias);
+            horasElemento.textContent = formatoNumero(horas);
+            minutosElemento.textContent = formatoNumero(minutos);
+            segundosElemento.textContent = formatoNumero(segundos);
+        }
+
+        actualizarContador();
+        setInterval(actualizarContador, 1000);
+    </script>
+</body>
+</html>

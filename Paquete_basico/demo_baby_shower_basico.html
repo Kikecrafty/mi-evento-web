@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Baby Shower | Demo Básico</title>
+  <meta name="description" content="Invitación digital de Baby Shower para paquete básico.">
+  <style>
+    :root { --fondo: #fff7ee; --crema: #fffaf3; --durazno: #ffc8aa; --coral: #ef8b7c; --rosa: #f8b8c8; --azul: #bee3f4; --menta: #d8f1dc; --salvia: #8eb99c; --texto: #4e3f37; --texto-suave: #78675f; --blanco: #ffffff; --sombra: 0 20px 48px rgba(84, 59, 48, 0.16); --sombra-suave: 0 12px 26px rgba(84, 59, 48, 0.12); --radio-xl: 34px; --radio-lg: 24px; --radio-md: 18px; --titulo: Georgia, 'Times New Roman', serif; --texto-base: 'Segoe UI', Arial, sans-serif; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { min-height: 100vh; font-family: var(--texto-base); color: var(--texto); background: radial-gradient(circle at 12% 8%, rgba(255, 200, 170, .55), transparent 28%), radial-gradient(circle at 88% 16%, rgba(190, 227, 244, .52), transparent 26%), radial-gradient(circle at 50% 82%, rgba(216, 241, 220, .74), transparent 34%), linear-gradient(135deg, var(--fondo), #fffdf9 55%, #fff0dc); overflow-x: hidden; }
+    a { color: inherit; text-decoration: none; }
+    .pagina { width: min(1120px, calc(100% - 28px)); margin: 0 auto; padding: 22px 0 60px; position: relative; }
+    .burbuja { position: fixed; border-radius: 999px; z-index: -1; opacity: .62; animation: flotar 9s ease-in-out infinite alternate; }
+    .burbuja.uno { width: 120px; height: 120px; background: rgba(255, 200, 170, .72); top: 80px; left: -42px; }
+    .burbuja.dos { width: 92px; height: 92px; background: rgba(190, 227, 244, .72); top: 230px; right: -28px; animation-delay: 1s; }
+    .burbuja.tres { width: 105px; height: 105px; background: rgba(142, 185, 156, .48); bottom: 110px; left: 16px; animation-delay: 2s; }
+    .confeti-fondo { position: fixed; inset: 0; z-index: -1; pointer-events: none; overflow: hidden; }
+    .confeti-fondo span { position: absolute; width: 8px; height: 8px; border-radius: 999px; opacity: .34; background: var(--durazno); }
+    .confeti-fondo span:nth-child(1) { left: 5%; top: 7%; background: var(--rosa); }
+    .confeti-fondo span:nth-child(2) { left: 14%; top: 19%; background: var(--azul); }
+    .confeti-fondo span:nth-child(3) { left: 24%; top: 9%; background: var(--menta); }
+    .confeti-fondo span:nth-child(4) { left: 34%; top: 28%; background: var(--durazno); }
+    .confeti-fondo span:nth-child(5) { left: 44%; top: 13%; background: var(--rosa); }
+    .confeti-fondo span:nth-child(6) { left: 54%; top: 24%; background: var(--azul); }
+    .confeti-fondo span:nth-child(7) { left: 64%; top: 10%; background: var(--menta); }
+    .confeti-fondo span:nth-child(8) { left: 74%; top: 30%; background: var(--durazno); }
+    .confeti-fondo span:nth-child(9) { left: 84%; top: 12%; background: var(--rosa); }
+    .confeti-fondo span:nth-child(10) { left: 94%; top: 22%; background: var(--azul); }
+    .confeti-fondo span:nth-child(11) { left: 8%; top: 42%; background: var(--menta); }
+    .confeti-fondo span:nth-child(12) { left: 18%; top: 58%; background: var(--durazno); }
+    .confeti-fondo span:nth-child(13) { left: 28%; top: 44%; background: var(--rosa); }
+    .confeti-fondo span:nth-child(14) { left: 38%; top: 64%; background: var(--azul); }
+    .confeti-fondo span:nth-child(15) { left: 48%; top: 46%; background: var(--menta); }
+    .confeti-fondo span:nth-child(16) { left: 58%; top: 60%; background: var(--durazno); }
+    .confeti-fondo span:nth-child(17) { left: 68%; top: 48%; background: var(--rosa); }
+    .confeti-fondo span:nth-child(18) { left: 78%; top: 68%; background: var(--azul); }
+    .confeti-fondo span:nth-child(19) { left: 88%; top: 44%; background: var(--menta); }
+    .confeti-fondo span:nth-child(20) { left: 96%; top: 62%; background: var(--durazno); }
+    .confeti-fondo span:nth-child(21) { left: 6%; top: 82%; background: var(--rosa); }
+    .confeti-fondo span:nth-child(22) { left: 16%; top: 72%; background: var(--azul); }
+    .confeti-fondo span:nth-child(23) { left: 26%; top: 90%; background: var(--menta); }
+    .confeti-fondo span:nth-child(24) { left: 36%; top: 76%; background: var(--durazno); }
+    .confeti-fondo span:nth-child(25) { left: 46%; top: 88%; background: var(--rosa); }
+    .confeti-fondo span:nth-child(26) { left: 56%; top: 74%; background: var(--azul); }
+    .confeti-fondo span:nth-child(27) { left: 66%; top: 92%; background: var(--menta); }
+    .confeti-fondo span:nth-child(28) { left: 76%; top: 78%; background: var(--durazno); }
+    .confeti-fondo span:nth-child(29) { left: 86%; top: 86%; background: var(--rosa); }
+    .confeti-fondo span:nth-child(30) { left: 96%; top: 94%; background: var(--azul); }
+    .confeti-fondo span:nth-child(31) { left: 12%; top: 34%; background: var(--menta); }
+    .confeti-fondo span:nth-child(32) { left: 22%; top: 52%; background: var(--durazno); }
+    .confeti-fondo span:nth-child(33) { left: 32%; top: 36%; background: var(--rosa); }
+    .confeti-fondo span:nth-child(34) { left: 42%; top: 56%; background: var(--azul); }
+    .confeti-fondo span:nth-child(35) { left: 52%; top: 38%; background: var(--menta); }
+    .confeti-fondo span:nth-child(36) { left: 62%; top: 54%; background: var(--durazno); }
+    .confeti-fondo span:nth-child(37) { left: 72%; top: 40%; background: var(--rosa); }
+    .confeti-fondo span:nth-child(38) { left: 82%; top: 56%; background: var(--azul); }
+    .confeti-fondo span:nth-child(39) { left: 92%; top: 36%; background: var(--menta); }
+    .confeti-fondo span:nth-child(40) { left: 2%; top: 62%; background: var(--durazno); }
+
+    @keyframes flotar { from { transform: translateY(0) scale(1); }
+    to { transform: translateY(-18px) scale(1.06); }
+    }
+    .portada { min-height: 92vh; display: grid; grid-template-columns: 1.05fr .95fr; gap: 28px; align-items: center; padding: 26px 0 30px; }
+    .tarjeta-principal { position: relative; overflow: hidden; border-radius: var(--radio-xl); background: rgba(255, 255, 255, .72); border: 1px solid rgba(255, 255, 255, .86); box-shadow: var(--sombra); backdrop-filter: blur(15px); padding: 34px; }
+    .tarjeta-principal::before { content: ''; position: absolute; inset: 14px; border: 1px dashed rgba(239, 139, 124, .48); border-radius: 28px; pointer-events: none; }
+    .etiqueta { width: fit-content; display: inline-flex; align-items: center; gap: 8px; padding: 9px 14px; border-radius: 999px; background: rgba(216, 241, 220, .92); color: #55775f; font-size: .8rem; font-weight: 900; text-transform: uppercase; letter-spacing: 1.2px; margin-bottom: 18px; }
+    .punto { width: 9px; height: 9px; border-radius: 50%; background: var(--coral); box-shadow: 0 0 0 6px rgba(239, 139, 124, .16); }
+    .portada h1 { font-family: var(--titulo); font-size: clamp(3.2rem, 9vw, 7rem); line-height: .88; letter-spacing: -3px; color: #594234; margin-bottom: 18px; }
+    .portada h1 span { display: block; color: var(--coral); font-style: italic; margin-left: 24px; }
+    .intro { font-size: clamp(1rem, 2vw, 1.18rem); color: var(--texto-suave); line-height: 1.78; max-width: 650px; margin-bottom: 24px; }
+    .datos-rapidos { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 12px; }
+    .pill { padding: 12px 16px; border-radius: 999px; background: linear-gradient(135deg, rgba(255, 200, 170, .90), rgba(248, 184, 200, .76)); font-weight: 900; color: #65483d; box-shadow: var(--sombra-suave); }
+    .acciones { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-top: 26px; }
+    .boton { display: inline-flex; align-items: center; justify-content: center; gap: 10px; width: 100%; min-height: 54px; padding: 13px 18px; border-radius: 999px; border: 0; font-size: .96rem; font-weight: 900; cursor: pointer; transition: transform .2s ease, filter .2s ease; }
+    .boton:hover { transform: translateY(-3px); filter: brightness(1.03); }
+    .mapa { background: linear-gradient(135deg, var(--salvia), #6ea982); color: white; box-shadow: 0 14px 26px rgba(92, 144, 109, .27); }
+    .whatsapp { background: linear-gradient(135deg, #35d46f, #14984a); color: white; box-shadow: 0 14px 26px rgba(20, 152, 74, .24); }
+    .ilustracion { min-height: 620px; position: relative; overflow: hidden; border-radius: 42px; background: linear-gradient(160deg, rgba(255, 255, 255, .76), rgba(255, 242, 218, .88)), repeating-linear-gradient(45deg, rgba(255, 200, 170, .18) 0 12px, transparent 12px 24px); box-shadow: var(--sombra); border: 1px solid rgba(255, 255, 255, .82); }
+    .ilustracion::before { content: ''; position: absolute; width: 360px; height: 360px; border-radius: 50%; background: rgba(190, 227, 244, .56); top: -120px; right: -110px; }
+    .ilustracion::after { content: ''; position: absolute; width: 300px; height: 300px; border-radius: 50%; background: rgba(248, 184, 200, .45); bottom: -80px; left: -96px; }
+    .luna { position: absolute; left: 50%; top: 80px; width: min(310px, 72vw); height: min(310px, 72vw); transform: translateX(-50%); border-radius: 50%; background: linear-gradient(135deg, #fffdf8, #fff0ce); box-shadow: inset -30px -24px 0 rgba(255, 200, 170, .36), 0 28px 55px rgba(105, 80, 65, .18); z-index: 2; }
+    .estrella { position: absolute; width: 18px; height: 18px; background: #f7c66a; clip-path: polygon(50% 0%, 62% 36%, 100% 50%, 62% 64%, 50% 100%, 38% 64%, 0 50%, 38% 36%); animation: brillo 1.8s ease-in-out infinite alternate; }
+    .estrella.a { top: 42px; left: 66px; }
+    .estrella.b { top: 94px; right: 54px; transform: scale(.72); animation-delay: .6s; }
+    .estrella.c { bottom: 66px; left: 98px; transform: scale(.55); animation-delay: 1.2s; }
+    @keyframes brillo { from { opacity: .45; }
+    to { opacity: 1; }
+    }
+    .sonaja { position: absolute; width: 104px; height: 104px; border-radius: 50%; background: var(--rosa); top: 365px; right: 56px; z-index: 3; box-shadow: var(--sombra-suave); }
+    .sonaja::before { content: ''; position: absolute; width: 36px; height: 112px; border-radius: 999px; background: #f7c66a; left: 34px; top: 78px; transform: rotate(-28deg); }
+    .sonaja::after { content: '♡'; position: absolute; inset: 0; display: grid; place-items: center; color: white; font-size: 2rem; font-weight: 900; }
+    .nota-bebe { position: absolute; z-index: 4; left: 32px; right: 32px; bottom: 34px; padding: 22px; border-radius: 28px; background: rgba(255, 255, 255, .80); backdrop-filter: blur(12px); box-shadow: var(--sombra-suave); border: 1px solid rgba(255, 255, 255, .72); }
+    .nota-bebe h2, .fecha h2, .contador h2, .confirmacion h2, .ubicacion h3 { font-family: var(--titulo); color: #594234; }
+    .nota-bebe h2 { font-size: 2rem; margin-bottom: 8px; }
+    .nota-bebe p, .info p, .mini p, .contador p, .confirmacion p, .ubicacion p, .cierre p { color: var(--texto-suave); line-height: 1.65; }
+    .bloque-info { display: grid; grid-template-columns: .85fr 1.15fr; gap: 22px; margin-top: 30px; align-items: stretch; }
+    .columna-info { display: grid; gap: 18px; }
+    .info { position: relative; overflow: hidden; border-radius: var(--radio-lg); padding: 24px; background: rgba(255, 255, 255, .76); box-shadow: var(--sombra-suave); border: 1px solid rgba(255, 255, 255, .74); }
+    .info::before { content: ''; position: absolute; width: 86px; height: 86px; border-radius: 50%; right: -30px; top: -28px; background: rgba(190, 227, 244, .42); }
+    .info:nth-child(2)::before { background: rgba(255, 200, 170, .46); }
+    .info:nth-child(3)::before { background: rgba(216, 241, 220, .78); }
+    .kicker { font-size: .74rem; text-transform: uppercase; letter-spacing: 1.5px; color: #6e997a; font-weight: 900; margin-bottom: 9px; }
+    .info h3 { font-size: 1.32rem; margin-bottom: 8px; color: #543f35; }
+    .fecha { min-height: 100%; border-radius: var(--radio-xl); background: linear-gradient(145deg, rgba(255, 200, 170, .70), rgba(255, 255, 255, .74) 42%, rgba(190, 227, 244, .60)); box-shadow: var(--sombra); padding: 30px; display: flex; flex-direction: column; justify-content: space-between; gap: 24px; overflow: hidden; }
+    .fecha-superior { display: grid; grid-template-columns: 120px 1fr; gap: 20px; align-items: center; }
+    .numero { width: 120px; height: 120px; display: grid; place-items: center; border-radius: 32px; background: #fffdf8; box-shadow: var(--sombra-suave); font-family: var(--titulo); font-size: 3.4rem; font-weight: 900; color: var(--coral); }
+    .fecha h2 { font-size: clamp(2rem, 5vw, 3.2rem); line-height: 1; margin-bottom: 10px; }
+    .fecha p { color: #674f45; line-height: 1.65; font-weight: 700; }
+    .mini-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .mini { border-radius: 20px; padding: 18px; background: rgba(255, 255, 255, .72); border: 1px solid rgba(255, 255, 255, .64); }
+    .mini strong { display: block; color: #543f35; margin-bottom: 6px; }
+    .contador, .confirmacion, .ubicacion { margin-top: 28px; border-radius: var(--radio-xl); background: rgba(255, 255, 255, .78); box-shadow: var(--sombra); border: 1px solid rgba(255, 255, 255, .74); padding: 28px; }
+    .titulo-seccion { display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; margin-bottom: 18px; }
+    .titulo-seccion h2 { font-size: clamp(1.9rem, 5vw, 3rem); line-height: 1; }
+    .titulo-seccion p { max-width: 420px; text-align: right; }
+    .tiempos { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+    .tiempo { min-height: 120px; display: grid; place-items: center; text-align: center; border-radius: 24px; padding: 16px 10px; background: linear-gradient(180deg, rgba(255, 242, 218, .96), rgba(255, 255, 255, .86)); box-shadow: 0 12px 26px rgba(84, 59, 48, .10); }
+    .tiempo b { display: block; font-family: var(--titulo); font-size: clamp(2rem, 6vw, 3.7rem); color: var(--coral); line-height: 1; }
+    .tiempo span { display: block; margin-top: 8px; color: #7b665b; text-transform: uppercase; letter-spacing: 1.1px; font-size: .74rem; font-weight: 900; }
+    .panel-final { display: grid; grid-template-columns: 1.18fr .82fr; gap: 22px; }
+    .confirmacion { background: linear-gradient(135deg, rgba(216, 241, 220, .88), rgba(255, 255, 255, .78)); position: relative; overflow: hidden; }
+    .confirmacion::after { content: '🧸'; position: absolute; right: 20px; bottom: 10px; font-size: 5rem; opacity: .16; transform: rotate(-12deg); }
+    .confirmacion h2 { font-size: clamp(2rem, 5vw, 3.1rem); color: #4e6b55; margin-bottom: 12px; }
+    .chips { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 20px; }
+    .chip { border-radius: 18px; background: rgba(255, 255, 255, .70); padding: 14px; color: #55735e; font-weight: 900; text-align: center; }
+    .ubicacion { background: radial-gradient(circle at top left, rgba(190, 227, 244, .82), transparent 45%), linear-gradient(145deg, rgba(255, 255, 255, .86), rgba(255, 242, 218, .82)); display: flex; flex-direction: column; justify-content: space-between; gap: 18px; }
+    .mapa-dibujo { min-height: 170px; position: relative; overflow: hidden; border-radius: 24px; background: linear-gradient(90deg, rgba(255, 255, 255, .40) 1px, transparent 1px), linear-gradient(rgba(255, 255, 255, .40) 1px, transparent 1px), linear-gradient(135deg, rgba(142, 185, 156, .66), rgba(190, 227, 244, .58)); background-size: 28px 28px, 28px 28px, auto; }
+    .pin { position: absolute; left: 50%; top: 50%; width: 54px; height: 54px; transform: translate(-50%, -70%) rotate(45deg); background: var(--coral); border-radius: 50% 50% 50% 8px; box-shadow: 0 14px 24px rgba(239, 139, 124, .35); }
+    .pin::after { content: ''; position: absolute; width: 20px; height: 20px; border-radius: 50%; background: white; left: 17px; top: 17px; }
+    .ubicacion h3 { font-size: 2rem; }
+    .cierre { text-align: center; margin-top: 34px; padding: 24px 16px 0; }
+    .cierre strong { color: var(--coral); }
+    .nota-final { margin-top: 14px; font-size: .86rem; opacity: .82; }
+    @media (max-width: 880px) { .portada, .bloque-info, .panel-final { grid-template-columns: 1fr; }
+    .ilustracion { min-height: 550px; }
+    .titulo-seccion { align-items: flex-start; flex-direction: column; }
+    .titulo-seccion p { text-align: left; }
+    }
+    @media (max-width: 620px) { .pagina { width: min(100% - 18px, 520px); padding-top: 10px; }
+    .tarjeta-principal { padding: 26px 20px; }
+    .portada h1 span { margin-left: 8px; }
+    .acciones, .fecha-superior, .mini-grid, .chips { grid-template-columns: 1fr; }
+    .tiempos { grid-template-columns: repeat(2, 1fr); }
+    .ilustracion { min-height: 500px; border-radius: 32px; }
+    .luna { top: 48px; }
+    .sonaja { width: 78px; height: 78px; top: 306px; right: 28px; }
+    .sonaja::before { width: 28px; height: 88px; left: 25px; top: 58px; }
+    .nota-bebe { left: 16px; right: 16px; bottom: 18px; }
+    .contador, .confirmacion, .ubicacion, .fecha { padding: 20px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="burbuja uno"></div>
+  <div class="burbuja dos"></div>
+  <div class="burbuja tres"></div>
+  <div class="confeti-fondo" aria-hidden="true">
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+
+  <main class="pagina">
+    <section class="portada" id="inicio">
+      <article class="tarjeta-principal">
+        <div class="etiqueta">
+          <span class="punto"></span>
+          Paquete Básico · Baby Shower
+        </div>
+        <h1>
+          Dulce
+          <span>Espera</span>
+        </h1>
+        <p class="intro">
+          Una celebración suave y familiar para acompañar a mamá en la llegada de su bebé.
+          Queremos compartir una tarde llena de detalles tiernos, sonrisas y buenos deseos.
+        </p>
+        <div class="datos-rapidos">
+          <span class="pill">Mamá: Sofía</span>
+          <span class="pill">Bebé: Valentina</span>
+          <span class="pill">Tema: luna y ositos</span>
+        </div>
+        <div class="acciones">
+          <a class="boton mapa" href="https://www.google.com/maps/search/?api=1&query=Jard%C3%ADn%20Terra%20Luna%2C%20Toluca%2C%20M%C3%A9xico" target="_blank" rel="noopener">
+            Ver ubicación
+          </a>
+          <a class="boton whatsapp" href="https://wa.me/5217221234567?text=Hola%2C%20confirmo%20mi%20asistencia%20al%20Baby%20Shower%20de%20Valentina.%20Mi%20nombre%20es%3A" target="_blank" rel="noopener">
+            Confirmar por WhatsApp
+          </a>
+        </div>
+      </article>
+
+      <aside class="ilustracion" aria-label="Ilustración decorativa de baby shower">
+        <div class="luna">
+          <span class="estrella a"></span>
+          <span class="estrella b"></span>
+          <span class="estrella c"></span>
+        </div>
+        <div class="sonaja"></div>
+        <div class="nota-bebe">
+          <h2>Un bebé viene en camino</h2>
+          <p>
+            Trae tu mejor sonrisa, tus buenos deseos y muchas ganas de celebrar esta nueva etapa.
+          </p>
+        </div>
+      </aside>
+    </section>
+
+    <section class="bloque-info" aria-label="Fecha, hora y ubicación">
+      <div class="columna-info">
+        <article class="info">
+          <div class="kicker">Fecha especial</div>
+          <h3>Sábado 19 de septiembre</h3>
+          <p>
+            La reunión iniciará con una bienvenida, bocadillos dulces y un espacio para fotografías familiares.
+          </p>
+        </article>
+        <article class="info">
+          <div class="kicker">Hora de llegada</div>
+          <h3>4:30 de la tarde</h3>
+          <p>
+            Se recomienda llegar unos minutos antes para participar en la dinámica de predicciones del bebé.
+          </p>
+        </article>
+        <article class="info">
+          <div class="kicker">Lugar</div>
+          <h3>Jardín Terra Luna</h3>
+          <p>
+            Un espacio al aire libre con ambiente familiar, mesa dulce y área tranquila para convivir.
+          </p>
+        </article>
+      </div>
+
+      <article class="fecha">
+        <div class="fecha-superior">
+          <div class="numero">19</div>
+          <div>
+            <h2>Septiembre 2026</h2>
+            <p>
+              Baby Shower de Valentina · 4:30 PM<br>
+              Jardín Terra Luna, Toluca, Estado de México.
+            </p>
+          </div>
+        </div>
+        <div class="mini-grid">
+          <div class="mini">
+            <strong>Recepción</strong>
+            <p>
+              Entrada principal del jardín, mesa de bienvenida y libro de buenos deseos.
+            </p>
+          </div>
+          <div class="mini">
+            <strong>Detalle sugerido</strong>
+            <p>
+              Pañales etapa 1 o 2, accesorios suaves o una tarjetita con mensaje para el bebé.
+            </p>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <section class="contador" aria-label="Contador regresivo">
+      <div class="titulo-seccion">
+        <h2>Falta poquito</h2>
+        <p>
+          El contador se actualiza automáticamente para mostrar cuánto falta para el Baby Shower.
+        </p>
+      </div>
+      <div class="tiempos" data-event-date="2026-09-19T16:30:00">
+        <div class="tiempo">
+          <b id="dias">00</b>
+          <span>Días</span>
+        </div>
+        <div class="tiempo">
+          <b id="horas">00</b>
+          <span>Horas</span>
+        </div>
+        <div class="tiempo">
+          <b id="minutos">00</b>
+          <span>Minutos</span>
+        </div>
+        <div class="tiempo">
+          <b id="segundos">00</b>
+          <span>Segundos</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel-final" aria-label="Confirmación y ubicación">
+      <article class="confirmacion">
+        <h2>Confirma tu asistencia</h2>
+        <p>
+          Para organizar los lugares, la mesa de postres y las dinámicas,
+          confirma por WhatsApp con tu nombre y el número de personas que asistirán contigo.
+        </p>
+        <a class="boton whatsapp" href="https://wa.me/5217221234567?text=Hola%2C%20quiero%20confirmar%20mi%20asistencia%20al%20Baby%20Shower.%20Nombre%3A%20%2F%20Personas%3A" target="_blank" rel="noopener">
+          Enviar confirmación básica
+        </a>
+        <div class="chips">
+          <span class="chip">Mensaje rápido</span>
+          <span class="chip">Sin formulario</span>
+          <span class="chip">Confirmación básica</span>
+        </div>
+      </article>
+
+      <article class="ubicacion">
+        <div class="mapa-dibujo">
+          <span class="pin"></span>
+        </div>
+        <h3>¿Cómo llegar?</h3>
+        <p>
+          Abre la ruta en Google Maps y guarda la ubicación para llegar sin complicaciones el día del evento.
+        </p>
+        <a class="boton mapa" href="https://www.google.com/maps/search/?api=1&query=Jard%C3%ADn%20Terra%20Luna%2C%20Toluca%2C%20M%C3%A9xico" target="_blank" rel="noopener">
+          Abrir Google Maps
+        </a>
+      </article>
+    </section>
+
+    <footer class="cierre">
+      <p>
+        Gracias por ser parte de esta espera tan especial.
+        <strong>Tu presencia será el mejor regalo.</strong>
+      </p>
+      <p class="nota-final">
+        Demo Paquete Básico · Invitación digital Baby Shower
+      </p>
+    </footer>
+  </main>
+
+  <script>
+    const contador = document.querySelector('.tiempos');
+    const fechaEvento = contador.getAttribute('data-event-date');
+    const destino = new Date(fechaEvento).getTime();
+    const dias = document.getElementById('dias');
+    const horas = document.getElementById('horas');
+    const minutos = document.getElementById('minutos');
+    const segundos = document.getElementById('segundos');
+
+    function dosDigitos(valor) {
+      return String(valor).padStart(2, '0');
+    }
+
+    function actualizarContador() {
+      const ahora = new Date().getTime();
+      const distancia = destino - ahora;
+
+      if (distancia <= 0) {
+        dias.textContent = '00';
+        horas.textContent = '00';
+        minutos.textContent = '00';
+        segundos.textContent = '00';
+        return;
+      }
+
+      const d = Math.floor(distancia / (1000 * 60 * 60 * 24));
+      const h = Math.floor((distancia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const m = Math.floor((distancia % (1000 * 60 * 60)) / (1000 * 60));
+      const s = Math.floor((distancia % (1000 * 60)) / 1000);
+
+      dias.textContent = dosDigitos(d);
+      horas.textContent = dosDigitos(h);
+      minutos.textContent = dosDigitos(m);
+      segundos.textContent = dosDigitos(s);
+    }
+
+    actualizarContador();
+    setInterval(actualizarContador, 1000);
+  </script>
+</body>
+</html>

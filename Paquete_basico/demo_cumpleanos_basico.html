@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo Cumpleaños | Paquete Básico</title>
+    <style>
+        :root{--fondo-1:#fff8e8;
+        --fondo-2:#ffe2f1;
+        --fondo-3:#dff7ff;
+        --azul:#2563eb;
+        --azul-oscuro:#1e3a8a;
+        --rosa:#ff5ca8;
+        --naranja:#ff9f1c;
+        --amarillo:#ffe66d;
+        --morado:#7c3aed;
+        --menta:#3ddc97;
+        --texto:#25223a;
+        --gris:#6b657d;
+        --blanco:#ffffff;
+        --sombra:0 24px 60px rgba(45,35,85,.16);
+        --sombra-suave:0 14px 30px rgba(45,35,85,.12);
+        --radio-xl:34px;
+        --radio-lg:24px;
+        --radio-md:18px;
+        --ancho:1060px;
+        }
+        *{box-sizing:border-box;
+        margin:0;
+        padding:0;
+        }
+        html{scroll-behavior:smooth;
+        }
+        body{min-height:100vh;
+        font-family:"Poppins","Segoe UI",Arial,sans-serif;
+        color:var(--texto);
+        background:radial-gradient(circle at top left,rgba(255,92,168,.28),transparent 34%),radial-gradient(circle at 88% 16%,rgba(255,230,109,.52),transparent 28%),radial-gradient(circle at 18% 84%,rgba(61,220,151,.22),transparent 30%),linear-gradient(135deg,var(--fondo-1),var(--fondo-2) 55%,var(--fondo-3));
+        overflow-x:hidden;
+        }
+        body::before{content:"";
+        position:fixed;
+        inset:0;
+        pointer-events:none;
+        opacity:.26;
+        background-image:linear-gradient(45deg,rgba(37,99,235,.12) 25%,transparent 25%),linear-gradient(-45deg,rgba(255,92,168,.12) 25%,transparent 25%),linear-gradient(45deg,transparent 75%,rgba(255,159,28,.14) 75%),linear-gradient(-45deg,transparent 75%,rgba(124,58,237,.12) 75%);
+        background-size:42px 42px;
+        background-position:0 0,0 21px,21px -21px,-21px 0;
+        z-index:-3;
+        }
+        .background-bubbles{position:fixed;
+        inset:0;
+        overflow:hidden;
+        pointer-events:none;
+        z-index:-2;
+        }
+        .bubble{position:absolute;
+        border-radius:999px;
+        filter:blur(.2px);
+        opacity:.62;
+        animation:floatBubble 9s ease-in-out infinite;
+        }
+        .bubble:nth-child(1){width:90px;
+        height:90px;
+        left:8%;
+        top:16%;
+        background:rgba(255,92,168,.22);
+        }
+        .bubble:nth-child(2){width:120px;
+        height:120px;
+        right:6%;
+        top:20%;
+        background:rgba(255,230,109,.38);
+        animation-delay:-2s;
+        }
+        .bubble:nth-child(3){width:78px;
+        height:78px;
+        left:12%;
+        bottom:12%;
+        background:rgba(37,99,235,.2);
+        animation-delay:-4s;
+        }
+        .bubble:nth-child(4){width:140px;
+        height:140px;
+        right:18%;
+        bottom:10%;
+        background:rgba(61,220,151,.22);
+        animation-delay:-6s;
+        }
+        @keyframes floatBubble{0%,100%{transform:translateY(0) scale(1);
+        }
+        50%{transform:translateY(-26px) scale(1.06);
+        }
+        }
+        .page{width:min(100%,var(--ancho));
+        margin:0 auto;
+        padding:22px;
+        }
+        .top-label{display:inline-flex;
+        align-items:center;
+        gap:8px;
+        padding:10px 16px;
+        border:2px solid rgba(37,99,235,.14);
+        border-radius:999px;
+        background:rgba(255,255,255,.68);
+        color:var(--azul-oscuro);
+        font-size:.82rem;
+        font-weight:800;
+        letter-spacing:.08em;
+        text-transform:uppercase;
+        backdrop-filter:blur(12px);
+        }
+        .hero{position:relative;
+        min-height:92vh;
+        display:grid;
+        grid-template-columns:1.05fr .95fr;
+        gap:30px;
+        align-items:center;
+        padding:34px 0 48px;
+        }
+        .hero-copy{position:relative;
+        z-index:2;
+        }
+        .hero h1{margin-top:22px;
+        max-width:620px;
+        font-size:clamp(3.2rem,8vw,7rem);
+        line-height:.86;
+        letter-spacing:-.08em;
+        color:var(--texto);
+        }
+        .hero h1 span{display:block;
+        color:var(--rosa);
+        text-shadow:5px 5px 0 rgba(255,230,109,.75);
+        }
+        .hero-subtitle{max-width:520px;
+        margin-top:24px;
+        color:var(--gris);
+        font-size:clamp(1rem,2.6vw,1.18rem);
+        line-height:1.8;
+        }
+        .hero-actions{display:flex;
+        flex-wrap:wrap;
+        gap:14px;
+        margin-top:28px;
+        }
+        .btn{display:inline-flex;
+        align-items:center;
+        justify-content:center;
+        gap:10px;
+        min-height:54px;
+        padding:14px 22px;
+        border-radius:18px;
+        color:var(--blanco);
+        font-weight:900;
+        text-decoration:none;
+        box-shadow:var(--sombra-suave);
+        transition:transform .25s ease,box-shadow .25s ease,filter .25s ease;
+        }
+        .btn:hover{transform:translateY(-4px);
+        filter:saturate(1.06);
+        box-shadow:0 20px 38px rgba(45,35,85,.2);
+        }
+        .btn-map{background:linear-gradient(135deg,var(--azul),var(--morado));}
+        .btn-whatsapp{background:linear-gradient(135deg,#13b85b,#0c8f4a);}
+        .visual-card{position:relative;min-height:560px;border-radius:44px;background:linear-gradient(145deg,rgba(255,255,255,.86),rgba(255,255,255,.48)),radial-gradient(circle at 50% 20%,rgba(255,230,109,.55),transparent 38%);box-shadow:var(--sombra);overflow:hidden;border:3px solid rgba(255,255,255,.9);}
+        .visual-card::before{content:"";position:absolute;width:320px;height:320px;right:-90px;top:-80px;border-radius:50%;background:rgba(255,92,168,.18);}
+        .visual-card::after{content:"";position:absolute;width:260px;height:260px;left:-80px;bottom:-60px;border-radius:50%;background:rgba(37,99,235,.16);}
+        .cake-stage{position:absolute;left:50%;top:50%;width:min(72%,360px);height:420px;transform:translate(-50%,-45%);z-index:2;}
+        .cake-plate{position:absolute;left:50%;bottom:18px;width:92%;height:38px;transform:translateX(-50%);border-radius:999px;background:linear-gradient(180deg,#ffffff,#dce9ff);box-shadow:0 18px 30px rgba(45,35,85,.18);}
+        .cake-layer{position:absolute;left:50%;transform:translateX(-50%);border:5px solid rgba(255,255,255,.85);box-shadow:0 20px 34px rgba(45,35,85,.13);}
+        .cake-layer.one{bottom:52px;width:88%;height:94px;border-radius:28px 28px 42px 42px;background:linear-gradient(135deg,var(--azul),#7dd3fc);}
+        .cake-layer.two{bottom:130px;width:74%;height:88px;border-radius:26px 26px 38px 38px;background:linear-gradient(135deg,var(--rosa),#ffc2df);}
+        .cake-layer.three{bottom:204px;width:56%;height:80px;border-radius:24px 24px 34px 34px;background:linear-gradient(135deg,var(--naranja),var(--amarillo));}
+        .drip{position:absolute;width:26px;height:46px;top:-3px;border-radius:0 0 999px 999px;background:rgba(255,255,255,.82);}
+        .drip.a{left:18%;}
+        .drip.b{left:47%;height:34px;}
+        .drip.c{right:16%;height:52px;}
+        .candle{position:absolute;bottom:276px;width:18px;height:72px;border-radius:10px;background:repeating-linear-gradient(45deg,#fff,#fff 7px,#ff5ca8 7px,#ff5ca8 14px);box-shadow:0 12px 18px rgba(45,35,85,.14);}
+        .candle.one{left:38%;}
+        .candle.two{left:49%;bottom:286px;}
+        .candle.three{left:60%;}
+        .flame{position:absolute;left:50%;top:-24px;width:18px;height:26px;transform:translateX(-50%) rotate(12deg);border-radius:60% 60% 60% 10%;background:linear-gradient(180deg,#fff6a8,#ff9f1c 60%,#ff5c5c);animation:flameMove 1.3s ease-in-out infinite;}
+        @keyframes flameMove{0%,100%{transform:translateX(-50%) rotate(10deg) scale(1);}
+        50%{transform:translateX(-50%) rotate(-8deg) scale(1.08);}
+        }
+        .confetti{position:absolute;z-index:3;width:12px;height:24px;border-radius:7px;opacity:.82;animation:confettiDrop 5s linear infinite;}
+        .confetti.c1{left:14%;top:-10%;background:var(--rosa);}
+        .confetti.c2{left:34%;top:-18%;background:var(--azul);animation-delay:-1s;}
+        .confetti.c3{left:62%;top:-16%;background:var(--naranja);animation-delay:-2.2s;}
+        .confetti.c4{left:82%;top:-12%;background:var(--menta);animation-delay:-3.4s;}
+        @keyframes confettiDrop{0%{transform:translateY(-60px) rotate(0deg);opacity:0;}
+        15%{opacity:.9;}
+        100%{transform:translateY(680px) rotate(340deg);opacity:0;}
+        }
+        .mini-note{position:absolute;right:28px;bottom:28px;z-index:4;max-width:210px;padding:18px;border-radius:22px;background:rgba(255,255,255,.82);backdrop-filter:blur(14px);box-shadow:var(--sombra-suave);font-weight:800;color:var(--azul-oscuro);}
+        .section-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:24px;padding:42px 0;}
+        .info-panel{position:relative;border-radius:var(--radio-xl);padding:28px;background:rgba(255,255,255,.72);backdrop-filter:blur(16px);border:2px solid rgba(255,255,255,.86);box-shadow:var(--sombra-suave);overflow:hidden;}
+        .info-panel::before{content:"";position:absolute;width:150px;height:150px;border-radius:50%;right:-44px;top:-44px;background:rgba(255,230,109,.54);}
+        .section-title{position:relative;z-index:1;font-size:clamp(1.8rem,5vw,3rem);line-height:1;letter-spacing:-.05em;color:var(--azul-oscuro);}
+        .section-text{position:relative;z-index:1;margin-top:18px;color:var(--gris);line-height:1.75;}
+        .details-stack{display:grid;gap:16px;}
+        .detail-card{display:grid;grid-template-columns:58px 1fr;gap:16px;align-items:center;min-height:116px;padding:18px;border-radius:26px;background:rgba(255,255,255,.72);border:2px solid rgba(255,255,255,.88);box-shadow:var(--sombra-suave);}
+        .detail-icon{width:58px;height:58px;display:grid;place-items:center;border-radius:18px;color:var(--blanco);font-size:1.5rem;box-shadow:0 12px 22px rgba(45,35,85,.14);}
+        .detail-card:nth-child(1) .detail-icon{background:linear-gradient(135deg,var(--rosa),var(--morado));}
+        .detail-card:nth-child(2) .detail-icon{background:linear-gradient(135deg,var(--naranja),#ff6b6b);}
+        .detail-card:nth-child(3) .detail-icon{background:linear-gradient(135deg,var(--menta),var(--azul));}
+        .detail-label{color:var(--gris);font-size:.78rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase;}
+        .detail-value{margin-top:6px;color:var(--texto);font-size:1.12rem;font-weight:900;}
+        .countdown-zone{padding:44px 0;}
+        .countdown-card{position:relative;border-radius:42px;padding:34px;overflow:hidden;background:linear-gradient(135deg,rgba(37,99,235,.95),rgba(124,58,237,.94)),radial-gradient(circle at 90% 0%,rgba(255,230,109,.5),transparent 30%);color:var(--blanco);box-shadow:var(--sombra);}
+        .countdown-card::before{content:"";position:absolute;inset:16px;border:2px dashed rgba(255,255,255,.32);border-radius:34px;pointer-events:none;}
+        .countdown-header{position:relative;z-index:1;display:flex;justify-content:space-between;gap:20px;align-items:flex-start;}
+        .countdown-header h2{font-size:clamp(2rem,6vw,4rem);line-height:.95;letter-spacing:-.06em;}
+        .countdown-header p{max-width:360px;color:rgba(255,255,255,.78);line-height:1.7;font-weight:600;}
+        .timer{position:relative;z-index:1;display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:30px;}
+        .timer-box{min-height:120px;display:grid;place-items:center;padding:14px;border-radius:24px;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.22);backdrop-filter:blur(14px);}
+        .timer-number{display:block;font-size:clamp(2rem,8vw,3.9rem);font-weight:950;line-height:1;}
+        .timer-label{display:block;margin-top:8px;font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.78);font-weight:900;}
+        .action-zone{display:grid;grid-template-columns:1.1fr .9fr;gap:24px;padding:40px 0 60px;}
+        .map-card,.rsvp-card{position:relative;min-height:320px;padding:30px;border-radius:var(--radio-xl);background:rgba(255,255,255,.74);backdrop-filter:blur(16px);border:2px solid rgba(255,255,255,.88);box-shadow:var(--sombra-suave);overflow:hidden;}
+        .map-card::after{content:"";position:absolute;width:240px;height:240px;border-radius:50%;right:-80px;bottom:-90px;background:rgba(37,99,235,.13);}
+        .rsvp-card::after{content:"";position:absolute;width:220px;height:220px;border-radius:50%;left:-90px;top:-90px;background:rgba(19,184,91,.12);}
+        .card-kicker{position:relative;z-index:1;color:var(--rosa);font-weight:950;letter-spacing:.1em;text-transform:uppercase;font-size:.78rem;}
+        .map-card h2,.rsvp-card h2{position:relative;z-index:1;margin-top:10px;font-size:clamp(1.7rem,5vw,2.8rem);line-height:1;letter-spacing:-.05em;}
+        .map-card p,.rsvp-card p{position:relative;z-index:1;margin-top:18px;color:var(--gris);line-height:1.7;}
+        .card-button-wrap{position:relative;z-index:1;margin-top:26px;}
+        .route-lines{position:relative;z-index:1;display:grid;gap:10px;margin-top:22px;}
+        .route-line{display:flex;align-items:center;gap:10px;color:var(--gris);font-size:.96rem;font-weight:700;}
+        .dot{width:13px;height:13px;border-radius:50%;background:var(--naranja);box-shadow:0 0 0 5px rgba(255,159,28,.14);}
+        .whatsapp-preview{position:relative;z-index:1;margin-top:22px;padding:16px;border-radius:20px;background:#eafff2;border:2px solid rgba(19,184,91,.16);color:#0f6b3a;font-weight:800;line-height:1.55;}
+        .footer{padding:24px 0 40px;text-align:center;color:var(--gris);font-weight:700;}
+        .footer strong{color:var(--azul-oscuro);}
+        @media (max-width:860px){.hero,.section-grid,.action-zone{grid-template-columns:1fr;}
+        .hero{min-height:auto;padding-top:24px;}
+        .visual-card{min-height:500px;}
+        .countdown-header{display:grid;}
+        }
+        @media (max-width:560px){.page{padding:16px;}
+        .hero h1{font-size:clamp(3.7rem,22vw,5.2rem);}
+        .hero-actions,.card-button-wrap{display:grid;}
+        .btn{width:100%;}
+        .visual-card{min-height:440px;border-radius:34px;}
+        .cake-stage{width:88%;transform:translate(-50%,-47%) scale(.88);}
+        .mini-note{left:18px;right:18px;bottom:18px;max-width:none;text-align:center;}
+        .detail-card{grid-template-columns:1fr;text-align:center;justify-items:center;}
+        .timer{grid-template-columns:repeat(2,1fr);}
+        .countdown-card,.map-card,.rsvp-card,.info-panel{border-radius:28px;padding:24px;}
+        }
+    </style>
+</head>
+<body>
+    <div class="background-bubbles" aria-hidden="true">
+        <span class="bubble"></span>
+        <span class="bubble"></span>
+        <span class="bubble"></span>
+        <span class="bubble"></span>
+    </div>
+
+    <main class="page">
+        <section class="hero" id="inicio">
+            <div class="hero-copy">
+                <div class="top-label">🎉 Paquete Básico · Demo Cumpleaños</div>
+                <h1>
+                    Mateo cumple
+                    <span>8 años</span>
+                </h1>
+                <p class="hero-subtitle">
+                    Una invitación digital divertida, colorida y directa para compartir con familia y amigos. Diseño pensado para verse bonito en celular y llevar a los invitados a confirmar rápido.
+                </p>
+                <div class="hero-actions">
+                    <a class="btn btn-map" href="https://www.google.com/maps/search/?api=1&query=Salon+de+Fiestas+Arcoiris" target="_blank" rel="noopener">
+                        📍 Ver ubicación
+                    </a>
+                    <a class="btn btn-whatsapp" href="https://wa.me/5215512345678?text=Hola%2C%20confirmo%20mi%20asistencia%20al%20cumplea%C3%B1os%20de%20Mateo.%20Nombre%3A" target="_blank" rel="noopener">
+                        ✅ Confirmar asistencia
+                    </a>
+                </div>
+            </div>
+
+            <div class="visual-card" aria-label="Ilustración decorativa de pastel de cumpleaños">
+                <span class="confetti c1"></span>
+                <span class="confetti c2"></span>
+                <span class="confetti c3"></span>
+                <span class="confetti c4"></span>
+                <div class="cake-stage">
+                    <div class="candle one"><span class="flame"></span></div>
+                    <div class="candle two"><span class="flame"></span></div>
+                    <div class="candle three"><span class="flame"></span></div>
+                    <div class="cake-layer three">
+                        <span class="drip a"></span>
+                        <span class="drip b"></span>
+                        <span class="drip c"></span>
+                    </div>
+                    <div class="cake-layer two">
+                        <span class="drip a"></span>
+                        <span class="drip b"></span>
+                        <span class="drip c"></span>
+                    </div>
+                    <div class="cake-layer one">
+                        <span class="drip a"></span>
+                        <span class="drip b"></span>
+                        <span class="drip c"></span>
+                    </div>
+                    <div class="cake-plate"></div>
+                </div>
+                <div class="mini-note">Prepárate para juegos, pastel y muchas sorpresas.</div>
+            </div>
+        </section>
+
+        <section class="section-grid" id="detalles">
+            <article class="info-panel">
+                <h2 class="section-title">La fiesta ya tiene fecha</h2>
+                <p class="section-text">
+                    Este demo usa cajas separadas para mostrar la información principal sin repetir todo en cada sección. La estructura mantiene el contenido claro y fácil de leer desde pantalla pequeña.
+                </p>
+            </article>
+
+            <div class="details-stack">
+                <article class="detail-card">
+                    <div class="detail-icon">📅</div>
+                    <div>
+                        <p class="detail-label">Fecha</p>
+                        <p class="detail-value">Sábado 20 de julio de 2026</p>
+                    </div>
+                </article>
+                <article class="detail-card">
+                    <div class="detail-icon">🕓</div>
+                    <div>
+                        <p class="detail-label">Hora</p>
+                        <p class="detail-value">4:30 PM</p>
+                    </div>
+                </article>
+                <article class="detail-card">
+                    <div class="detail-icon">🏰</div>
+                    <div>
+                        <p class="detail-label">Ubicación</p>
+                        <p class="detail-value">Salón de Fiestas Arcoíris, Ciudad de México</p>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section class="countdown-zone" id="contador">
+            <article class="countdown-card">
+                <div class="countdown-header">
+                    <h2>Cuenta regresiva</h2>
+                    <p>
+                        El contador se actualiza automáticamente y ayuda a crear emoción antes del cumpleaños.
+                    </p>
+                </div>
+                <div class="timer" aria-live="polite">
+                    <div class="timer-box">
+                        <div>
+                            <span class="timer-number" id="days">00</span>
+                            <span class="timer-label">Días</span>
+                        </div>
+                    </div>
+                    <div class="timer-box">
+                        <div>
+                            <span class="timer-number" id="hours">00</span>
+                            <span class="timer-label">Horas</span>
+                        </div>
+                    </div>
+                    <div class="timer-box">
+                        <div>
+                            <span class="timer-number" id="minutes">00</span>
+                            <span class="timer-label">Minutos</span>
+                        </div>
+                    </div>
+                    <div class="timer-box">
+                        <div>
+                            <span class="timer-number" id="seconds">00</span>
+                            <span class="timer-label">Segundos</span>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </section>
+
+        <section class="action-zone" id="acciones">
+            <article class="map-card">
+                <p class="card-kicker">Cómo llegar</p>
+                <h2>Abre la ruta en Google Maps</h2>
+                <p>
+                    El botón dirige a los invitados a la ubicación del evento para que puedan calcular su ruta desde el celular.
+                </p>
+                <div class="route-lines">
+                    <div class="route-line"><span class="dot"></span> Entrada principal por Av. de los Globos.</div>
+                    <div class="route-line"><span class="dot"></span> Estacionamiento disponible frente al salón.</div>
+                    <div class="route-line"><span class="dot"></span> Referencia: fachada azul con estrellas amarillas.</div>
+                </div>
+                <div class="card-button-wrap">
+                    <a class="btn btn-map" href="https://www.google.com/maps/search/?api=1&query=Salon+de+Fiestas+Arcoiris" target="_blank" rel="noopener">
+                        📍 Abrir Google Maps
+                    </a>
+                </div>
+            </article>
+
+            <article class="rsvp-card">
+                <p class="card-kicker">Confirmación básica</p>
+                <h2>Responde por WhatsApp</h2>
+                <p>
+                    Confirmación sencilla para saber quién asistirá. El mensaje ya viene preparado para que solo agreguen su nombre.
+                </p>
+                <div class="whatsapp-preview">
+                    Hola, confirmo mi asistencia al cumpleaños de Mateo. Nombre:
+                </div>
+                <div class="card-button-wrap">
+                    <a class="btn btn-whatsapp" href="https://wa.me/5215512345678?text=Hola%2C%20confirmo%20mi%20asistencia%20al%20cumplea%C3%B1os%20de%20Mateo.%20Nombre%3A" target="_blank" rel="noopener">
+                        ✅ Confirmar por WhatsApp
+                    </a>
+                </div>
+            </article>
+        </section>
+
+        <footer class="footer">
+            <p><strong>Mi Evento Web</strong> · Demo de cumpleaños para paquete Básico</p>
+        </footer>
+    </main>
+
+    <script>
+        const eventDate = new Date("2026-07-20T16:30:00-06:00").getTime();
+        const daysElement = document.getElementById("days");
+        const hoursElement = document.getElementById("hours");
+        const minutesElement = document.getElementById("minutes");
+        const secondsElement = document.getElementById("seconds");
+
+        function twoDigits(value) {
+            return String(value).padStart(2, "0");
+        }
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = eventDate - now;
+
+            if (distance <= 0) {
+                daysElement.textContent = "00";
+                hoursElement.textContent = "00";
+                minutesElement.textContent = "00";
+                secondsElement.textContent = "00";
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            daysElement.textContent = twoDigits(days);
+            hoursElement.textContent = twoDigits(hours);
+            minutesElement.textContent = twoDigits(minutes);
+            secondsElement.textContent = twoDigits(seconds);
+        }
+
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+    </script>
+</body>
+</html>

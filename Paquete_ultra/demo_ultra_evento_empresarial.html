@@ -1,0 +1,1952 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Demo Ultra | Evento Empresarial</title>
+<meta name="description" content="Demo Ultra para evento empresarial con entrada cinematográfica, animaciones avanzadas, música de fondo, galería, contador y confirmación por WhatsApp.">
+<meta name="theme-color" content="#080d1d">
+<style>
+/* =========================================================
+   DEMO ULTRA - EVENTO EMPRESARIAL
+   Tema: Cumbre Ejecutiva Horizonte
+   Archivo HTML independiente y responsive.
+   ========================================================= */
+:root{
+  --bg:#080d1d;
+  --bg-2:#10172f;
+  --bg-3:#151d3a;
+  --panel:rgba(255,255,255,.08);
+  --panel-strong:rgba(255,255,255,.14);
+  --stroke:rgba(255,255,255,.18);
+  --stroke-gold:rgba(239,194,95,.55);
+  --gold:#efc25f;
+  --gold-soft:#ffdf95;
+  --cyan:#52e6ff;
+  --blue:#3a6dff;
+  --violet:#9b5cff;
+  --white:#f8fbff;
+  --muted:#b7c3da;
+  --text:#eef4ff;
+  --shadow:0 24px 80px rgba(0,0,0,.45);
+  --radius-xl:34px;
+  --radius-lg:24px;
+  --radius-md:18px;
+  --radius-sm:14px;
+  --container:min(1160px, calc(100% - 34px));
+  --font-title: "Inter", "Segoe UI", system-ui, sans-serif;
+  --font-body: "Segoe UI", system-ui, sans-serif;
+}
+*{
+  box-sizing:border-box;
+}
+html{
+  scroll-behavior:smooth;
+}
+body{
+  margin:0;
+  font-family:var(--font-body);
+  color:var(--text);
+  background:
+    radial-gradient(circle at 15% 4%, rgba(82,230,255,.24), transparent 34%),
+    radial-gradient(circle at 88% 8%, rgba(155,92,255,.28), transparent 36%),
+    radial-gradient(circle at 50% 100%, rgba(239,194,95,.16), transparent 38%),
+    linear-gradient(140deg, #050815 0%, #080d1d 44%, #121939 100%);
+  overflow-x:hidden;
+}
+body.no-scroll{
+  overflow:hidden;
+}
+a{
+  color:inherit;
+  text-decoration:none;
+}
+button{
+  font:inherit;
+}
+img{
+  max-width:100%;
+  display:block;
+}
+::selection{
+  background:rgba(239,194,95,.45);
+  color:#fff;
+}
+#scrollProgress{
+  position:fixed;
+  top:0;
+  left:0;
+  width:0%;
+  height:4px;
+  z-index:9999;
+  background:linear-gradient(90deg, var(--cyan), var(--gold), var(--violet));
+  box-shadow:0 0 24px rgba(82,230,255,.65);
+}
+.cinematic-intro{
+  position:fixed;
+  inset:0;
+  z-index:9998;
+  display:grid;
+  place-items:center;
+  background:
+    radial-gradient(circle at 50% 45%, rgba(82,230,255,.18), transparent 24%),
+    radial-gradient(circle at 50% 55%, rgba(239,194,95,.18), transparent 18%),
+    linear-gradient(180deg, #030712, #070b18 60%, #01030a);
+  isolation:isolate;
+}
+.cinematic-intro.hide{
+  animation:introExit 1.15s cubic-bezier(.77,0,.18,1) forwards;
+}
+.cinematic-intro::before,
+.cinematic-intro::after{
+  content:"";
+  position:absolute;
+  left:0;
+  width:100%;
+  height:26vh;
+  background:#000;
+  z-index:3;
+}
+.cinematic-intro::before{
+  top:0;
+  animation:barTop 2.6s cubic-bezier(.77,0,.18,1) forwards;
+}
+.cinematic-intro::after{
+  bottom:0;
+  animation:barBottom 2.6s cubic-bezier(.77,0,.18,1) forwards;
+}
+.intro-core{
+  text-align:center;
+  position:relative;
+  z-index:2;
+  width:min(700px, 88vw);
+}
+.intro-logo{
+  width:106px;
+  height:106px;
+  margin:0 auto 26px;
+  border-radius:32px;
+  display:grid;
+  place-items:center;
+  position:relative;
+  background:
+    linear-gradient(145deg, rgba(255,255,255,.16), rgba(255,255,255,.04)),
+    radial-gradient(circle at 30% 25%, rgba(82,230,255,.4), transparent 34%),
+    radial-gradient(circle at 80% 90%, rgba(239,194,95,.45), transparent 36%);
+  border:1px solid rgba(255,255,255,.28);
+  box-shadow:0 35px 90px rgba(0,0,0,.5), inset 0 0 28px rgba(255,255,255,.08);
+  overflow:hidden;
+}
+.intro-logo::before{
+  content:"";
+  position:absolute;
+  inset:-35%;
+  background:conic-gradient(from 90deg, transparent, rgba(82,230,255,.9), transparent, rgba(239,194,95,.9), transparent);
+  animation:spin 3.5s linear infinite;
+}
+.intro-logo span{
+  position:relative;
+  z-index:2;
+  font-weight:900;
+  letter-spacing:-.08em;
+  font-size:42px;
+  color:#fff;
+}
+.intro-title{
+  margin:0;
+  font-family:var(--font-title);
+  font-size:clamp(2.1rem, 8vw, 6rem);
+  line-height:.9;
+  letter-spacing:-.08em;
+  text-transform:uppercase;
+}
+.intro-title .outline{
+  display:block;
+  color:transparent;
+  -webkit-text-stroke:1px rgba(255,255,255,.58);
+}
+.intro-title .gold{
+  display:block;
+  color:var(--gold);
+  text-shadow:0 0 40px rgba(239,194,95,.35);
+}
+.intro-subtitle{
+  margin:22px auto 0;
+  max-width:560px;
+  color:var(--muted);
+  letter-spacing:.28em;
+  text-transform:uppercase;
+  font-size:.78rem;
+}
+.intro-loader{
+  margin:34px auto 0;
+  height:3px;
+  width:min(430px, 70vw);
+  border-radius:99px;
+  background:rgba(255,255,255,.15);
+  overflow:hidden;
+}
+.intro-loader span{
+  display:block;
+  height:100%;
+  width:0%;
+  border-radius:inherit;
+  background:linear-gradient(90deg, var(--cyan), var(--gold), var(--violet));
+  animation:loadIntro 3.2s ease forwards;
+}
+.bg-canvas{
+  position:fixed;
+  inset:0;
+  width:100%;
+  height:100%;
+  z-index:-4;
+  opacity:.62;
+}
+.grid-floor{
+  position:fixed;
+  inset:auto -20% -20% -20%;
+  height:55vh;
+  z-index:-3;
+  background:
+    linear-gradient(rgba(82,230,255,.18) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(82,230,255,.18) 1px, transparent 1px);
+  background-size:56px 56px;
+  transform:perspective(520px) rotateX(62deg);
+  transform-origin:center bottom;
+  mask-image:linear-gradient(to top, rgba(0,0,0,.85), transparent 88%);
+  animation:gridFlow 16s linear infinite;
+}
+.aurora{
+  position:fixed;
+  inset:-30%;
+  z-index:-5;
+  filter:blur(60px);
+  opacity:.62;
+  background:
+    radial-gradient(circle at 22% 28%, rgba(82,230,255,.32), transparent 24%),
+    radial-gradient(circle at 72% 24%, rgba(155,92,255,.38), transparent 26%),
+    radial-gradient(circle at 54% 78%, rgba(239,194,95,.26), transparent 28%);
+  animation:auroraMove 18s ease-in-out infinite alternate;
+}
+.cursor-light{
+  position:fixed;
+  width:420px;
+  height:420px;
+  border-radius:50%;
+  pointer-events:none;
+  z-index:-2;
+  background:radial-gradient(circle, rgba(82,230,255,.12), transparent 64%);
+  transform:translate(-50%, -50%);
+  opacity:.9;
+}
+.top-nav{
+  position:fixed;
+  top:16px;
+  left:50%;
+  transform:translateX(-50%);
+  width:var(--container);
+  z-index:100;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:18px;
+  padding:12px 14px 12px 18px;
+  border:1px solid rgba(255,255,255,.14);
+  background:rgba(8,13,29,.58);
+  backdrop-filter:blur(18px);
+  box-shadow:0 16px 40px rgba(0,0,0,.22);
+  border-radius:999px;
+}
+.brand{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  min-width:max-content;
+}
+.brand-mark{
+  width:42px;
+  height:42px;
+  border-radius:15px;
+  display:grid;
+  place-items:center;
+  font-weight:900;
+  letter-spacing:-.07em;
+  color:#06101e;
+  background:linear-gradient(135deg, var(--gold), #fff1b8);
+  box-shadow:0 0 24px rgba(239,194,95,.28);
+}
+.brand-text{
+  display:flex;
+  flex-direction:column;
+  line-height:1.02;
+}
+.brand-text strong{
+  font-size:.9rem;
+  letter-spacing:.04em;
+}
+.brand-text small{
+  color:var(--muted);
+  font-size:.68rem;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+}
+.nav-links{
+  display:flex;
+  gap:2px;
+  align-items:center;
+}
+.nav-links a{
+  padding:10px 12px;
+  border-radius:999px;
+  color:rgba(238,244,255,.8);
+  font-size:.86rem;
+  transition:.25s ease;
+}
+.nav-links a:hover{
+  background:rgba(255,255,255,.1);
+  color:#fff;
+}
+.nav-action{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+.music-toggle{
+  border:0;
+  cursor:pointer;
+  color:#06101e;
+  background:linear-gradient(135deg, var(--cyan), var(--gold));
+  border-radius:999px;
+  min-width:46px;
+  height:46px;
+  display:grid;
+  place-items:center;
+  box-shadow:0 14px 30px rgba(82,230,255,.18);
+  transition:.25s ease;
+}
+.music-toggle:hover{
+  transform:translateY(-2px) scale(1.03);
+}
+.menu-button{
+  display:none;
+  border:1px solid rgba(255,255,255,.15);
+  background:rgba(255,255,255,.08);
+  color:#fff;
+  border-radius:999px;
+  width:46px;
+  height:46px;
+}
+main{
+  position:relative;
+  z-index:1;
+}
+.section{
+  width:var(--container);
+  margin:0 auto;
+  padding:98px 0;
+}
+.hero{
+  min-height:100vh;
+  display:grid;
+  align-items:center;
+  position:relative;
+  padding:120px 0 70px;
+}
+.hero-shell{
+  width:var(--container);
+  margin:0 auto;
+  display:grid;
+  grid-template-columns:1.08fr .92fr;
+  gap:34px;
+  align-items:center;
+}
+.kicker{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  padding:10px 14px;
+  border:1px solid rgba(239,194,95,.34);
+  color:var(--gold-soft);
+  background:rgba(239,194,95,.08);
+  border-radius:999px;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  font-size:.72rem;
+  font-weight:800;
+  box-shadow:inset 0 0 18px rgba(239,194,95,.06);
+}
+.kicker::before{
+  content:"";
+  width:8px;
+  height:8px;
+  border-radius:999px;
+  background:var(--cyan);
+  box-shadow:0 0 18px var(--cyan);
+}
+.hero-title{
+  margin:28px 0 0;
+  font-family:var(--font-title);
+  font-size:clamp(3.4rem, 9vw, 8.8rem);
+  line-height:.83;
+  letter-spacing:-.095em;
+  text-transform:uppercase;
+}
+.hero-title span{
+  display:block;
+}
+.hero-title .line-1{
+  color:var(--white);
+}
+.hero-title .line-2{
+  color:transparent;
+  -webkit-text-stroke:1px rgba(255,255,255,.55);
+}
+.hero-title .line-3{
+  background:linear-gradient(135deg, var(--gold), #fff0ba 45%, var(--cyan));
+  -webkit-background-clip:text;
+  color:transparent;
+  text-shadow:0 0 60px rgba(239,194,95,.1);
+}
+.hero-copy{
+  margin:24px 0 0;
+  color:var(--muted);
+  max-width:690px;
+  font-size:1.06rem;
+  line-height:1.75;
+}
+.hero-actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:14px;
+  margin-top:32px;
+}
+.btn{
+  position:relative;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  min-height:54px;
+  padding:0 22px;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,.16);
+  overflow:hidden;
+  isolation:isolate;
+  transition:.28s ease;
+  cursor:pointer;
+}
+.btn::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(120deg, transparent, rgba(255,255,255,.26), transparent);
+  transform:translateX(-110%);
+  transition:.6s ease;
+  z-index:-1;
+}
+.btn:hover{
+  transform:translateY(-3px);
+  box-shadow:0 18px 38px rgba(0,0,0,.25);
+}
+.btn:hover::before{
+  transform:translateX(110%);
+}
+.btn-primary{
+  background:linear-gradient(135deg, var(--gold), #fff2bb);
+  color:#071026;
+  font-weight:900;
+}
+.btn-secondary{
+  background:rgba(255,255,255,.08);
+  color:#fff;
+  backdrop-filter:blur(12px);
+}
+.btn-whatsapp{
+  background:linear-gradient(135deg, #25D366, #c4ffd9);
+  color:#061e10;
+  font-weight:900;
+}
+.hero-meta{
+  display:grid;
+  grid-template-columns:repeat(3, minmax(0,1fr));
+  gap:12px;
+  margin-top:34px;
+}
+.meta-card{
+  position:relative;
+  overflow:hidden;
+  min-height:122px;
+  padding:20px;
+  border-radius:24px;
+  border:1px solid rgba(255,255,255,.14);
+  background:linear-gradient(145deg, rgba(255,255,255,.1), rgba(255,255,255,.045));
+  backdrop-filter:blur(18px);
+}
+.meta-card::after{
+  content:"";
+  position:absolute;
+  inset:auto -30% -55% -30%;
+  height:90px;
+  background:radial-gradient(circle, rgba(82,230,255,.28), transparent 68%);
+}
+.meta-card small{
+  color:var(--muted);
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  font-size:.68rem;
+  font-weight:800;
+}
+.meta-card strong{
+  display:block;
+  margin-top:12px;
+  font-size:1rem;
+  line-height:1.35;
+}
+.hero-visual{
+  min-height:660px;
+  position:relative;
+  display:grid;
+  place-items:center;
+}
+.executive-card{
+  width:min(430px, 92vw);
+  min-height:570px;
+  position:relative;
+  transform-style:preserve-3d;
+  border-radius:42px;
+  border:1px solid rgba(255,255,255,.2);
+  background:
+    linear-gradient(160deg, rgba(255,255,255,.16), rgba(255,255,255,.04)),
+    radial-gradient(circle at 30% 15%, rgba(82,230,255,.28), transparent 28%),
+    radial-gradient(circle at 85% 85%, rgba(239,194,95,.26), transparent 30%);
+  box-shadow:var(--shadow), inset 0 0 44px rgba(255,255,255,.06);
+  overflow:hidden;
+  animation:floatCard 6s ease-in-out infinite;
+}
+.executive-card::before{
+  content:"";
+  position:absolute;
+  inset:-1px;
+  border-radius:inherit;
+  padding:1px;
+  background:linear-gradient(135deg, rgba(82,230,255,.75), transparent 35%, rgba(239,194,95,.7), rgba(155,92,255,.65));
+  -webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;
+  mask-composite:exclude;
+}
+.executive-card::after{
+  content:"";
+  position:absolute;
+  inset:-70% -40%;
+  background:linear-gradient(120deg, transparent, rgba(255,255,255,.22), transparent);
+  transform:rotate(18deg);
+  animation:shine 5s ease-in-out infinite;
+}
+.card-map{
+  position:absolute;
+  inset:26px 26px auto;
+  height:200px;
+  border-radius:30px;
+  border:1px solid rgba(255,255,255,.16);
+  overflow:hidden;
+  background:
+    linear-gradient(90deg, rgba(82,230,255,.16) 1px, transparent 1px),
+    linear-gradient(rgba(82,230,255,.16) 1px, transparent 1px),
+    radial-gradient(circle at 55% 45%, rgba(239,194,95,.25), transparent 20%),
+    #101934;
+  background-size:28px 28px, 28px 28px, auto, auto;
+}
+.card-map .route{
+  position:absolute;
+  left:12%;
+  top:58%;
+  width:76%;
+  height:4px;
+  border-radius:99px;
+  background:linear-gradient(90deg, var(--cyan), var(--gold), var(--violet));
+  transform:rotate(-13deg);
+  box-shadow:0 0 20px rgba(82,230,255,.45);
+}
+.card-map .pin{
+  position:absolute;
+  left:55%;
+  top:38%;
+  width:28px;
+  height:28px;
+  border-radius:50% 50% 50% 0;
+  background:var(--gold);
+  transform:rotate(-45deg);
+  box-shadow:0 0 24px rgba(239,194,95,.55);
+}
+.card-map .pin::after{
+  content:"";
+  position:absolute;
+  inset:8px;
+  border-radius:50%;
+  background:#091024;
+}
+.card-content{
+  position:absolute;
+  left:26px;
+  right:26px;
+  bottom:26px;
+  padding:26px;
+  border-radius:30px;
+  background:rgba(5,8,18,.58);
+  border:1px solid rgba(255,255,255,.14);
+  backdrop-filter:blur(18px);
+  z-index:2;
+}
+.card-content small{
+  color:var(--gold-soft);
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  font-weight:900;
+}
+.card-content h2{
+  font-size:2rem;
+  line-height:1;
+  letter-spacing:-.06em;
+  margin:14px 0 12px;
+}
+.card-content p{
+  color:var(--muted);
+  line-height:1.65;
+  margin:0;
+}
+.orbit{
+  position:absolute;
+  border-radius:50%;
+  border:1px solid rgba(255,255,255,.12);
+  animation:spin 18s linear infinite;
+}
+.orbit-1{
+  width:560px;
+  height:560px;
+}
+.orbit-2{
+  width:460px;
+  height:460px;
+  animation-duration:13s;
+  animation-direction:reverse;
+}
+.orbit .dot{
+  position:absolute;
+  width:16px;
+  height:16px;
+  border-radius:50%;
+  background:var(--cyan);
+  box-shadow:0 0 22px var(--cyan);
+}
+.orbit-1 .dot{
+  top:42px;
+  left:86px;
+}
+.orbit-2 .dot{
+  right:50px;
+  bottom:90px;
+  background:var(--gold);
+  box-shadow:0 0 22px var(--gold);
+}
+.section-head{
+  display:grid;
+  grid-template-columns:.72fr 1fr;
+  gap:28px;
+  align-items:end;
+  margin-bottom:34px;
+}
+.eyebrow{
+  color:var(--gold-soft);
+  text-transform:uppercase;
+  letter-spacing:.22em;
+  font-size:.72rem;
+  font-weight:900;
+}
+.section-title{
+  margin:10px 0 0;
+  font-size:clamp(2.3rem, 6vw, 5.6rem);
+  line-height:.9;
+  letter-spacing:-.075em;
+  text-transform:uppercase;
+}
+.section-copy{
+  color:var(--muted);
+  font-size:1rem;
+  line-height:1.78;
+  max-width:620px;
+}
+.details-grid{
+  display:grid;
+  grid-template-columns:1.1fr .9fr;
+  gap:18px;
+}
+.glass{
+  position:relative;
+  overflow:hidden;
+  border-radius:var(--radius-xl);
+  border:1px solid rgba(255,255,255,.15);
+  background:linear-gradient(145deg, rgba(255,255,255,.1), rgba(255,255,255,.04));
+  backdrop-filter:blur(18px);
+  box-shadow:0 24px 70px rgba(0,0,0,.22);
+}
+.glass::before{
+  content:"";
+  position:absolute;
+  inset:-1px;
+  background:radial-gradient(circle at var(--mx,50%) var(--my,50%), rgba(82,230,255,.22), transparent 28%);
+  opacity:0;
+  transition:.25s ease;
+  pointer-events:none;
+}
+.glass:hover::before{
+  opacity:1;
+}
+.info-panel{
+  padding:34px;
+}
+.info-panel h3{
+  margin:0;
+  font-size:2rem;
+  letter-spacing:-.05em;
+}
+.info-panel p{
+  color:var(--muted);
+  line-height:1.8;
+}
+.info-list{
+  display:grid;
+  gap:14px;
+  margin-top:24px;
+}
+.info-row{
+  display:grid;
+  grid-template-columns:54px 1fr;
+  gap:16px;
+  align-items:center;
+  padding:16px;
+  border-radius:22px;
+  background:rgba(255,255,255,.055);
+  border:1px solid rgba(255,255,255,.1);
+}
+.info-icon{
+  width:54px;
+  height:54px;
+  border-radius:18px;
+  display:grid;
+  place-items:center;
+  color:#06101e;
+  background:linear-gradient(135deg, var(--cyan), var(--gold));
+  font-weight:900;
+}
+.info-row small{
+  display:block;
+  color:var(--muted);
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  font-size:.67rem;
+  font-weight:900;
+}
+.info-row strong{
+  display:block;
+  margin-top:5px;
+}
+.countdown-panel{
+  padding:34px;
+  display:grid;
+  align-content:space-between;
+  min-height:460px;
+}
+.countdown-panel h3{
+  margin:0;
+  font-size:2rem;
+  letter-spacing:-.05em;
+}
+.countdown{
+  display:grid;
+  grid-template-columns:repeat(2, minmax(0,1fr));
+  gap:14px;
+  margin:28px 0;
+}
+.time-box{
+  min-height:130px;
+  display:grid;
+  place-items:center;
+  text-align:center;
+  border-radius:26px;
+  background:rgba(5,8,18,.42);
+  border:1px solid rgba(255,255,255,.12);
+  position:relative;
+  overflow:hidden;
+}
+.time-box::before{
+  content:"";
+  position:absolute;
+  inset:auto -20% -55% -20%;
+  height:72px;
+  background:radial-gradient(circle, rgba(239,194,95,.24), transparent 66%);
+}
+.time-box b{
+  display:block;
+  font-size:2.6rem;
+  letter-spacing:-.06em;
+}
+.time-box span{
+  color:var(--muted);
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  font-size:.68rem;
+  font-weight:900;
+}
+.itinerary{
+  display:grid;
+  grid-template-columns:repeat(12, 1fr);
+  gap:18px;
+}
+.schedule-card{
+  grid-column:span 4;
+  min-height:300px;
+  padding:28px;
+  transform:translateY(0);
+}
+.schedule-card.feature{
+  grid-column:span 8;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:18px;
+  align-items:center;
+}
+.time-tag{
+  color:#08101f;
+  display:inline-flex;
+  width:max-content;
+  padding:8px 12px;
+  border-radius:999px;
+  background:linear-gradient(135deg, var(--gold), #fff1bd);
+  font-weight:900;
+  letter-spacing:.12em;
+  font-size:.72rem;
+}
+.schedule-card h3{
+  margin:20px 0 12px;
+  font-size:1.65rem;
+  letter-spacing:-.045em;
+}
+.schedule-card p{
+  color:var(--muted);
+  line-height:1.72;
+}
+.decor-stat{
+  border-radius:28px;
+  min-height:220px;
+  display:grid;
+  place-items:center;
+  background:
+    radial-gradient(circle at 50% 35%, rgba(82,230,255,.22), transparent 32%),
+    linear-gradient(145deg, rgba(255,255,255,.08), rgba(255,255,255,.025));
+  border:1px solid rgba(255,255,255,.12);
+}
+.decor-stat b{
+  display:block;
+  font-size:4.5rem;
+  line-height:.86;
+  letter-spacing:-.08em;
+}
+.decor-stat span{
+  color:var(--muted);
+  text-transform:uppercase;
+  letter-spacing:.17em;
+  font-size:.7rem;
+  font-weight:900;
+}
+.dress-code{
+  display:grid;
+  grid-template-columns:.9fr 1.1fr;
+  gap:18px;
+}
+.dress-visual{
+  min-height:560px;
+  overflow:hidden;
+  position:relative;
+}
+.dress-visual::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    linear-gradient(140deg, rgba(82,230,255,.08), transparent 40%),
+    radial-gradient(circle at 50% 32%, rgba(239,194,95,.18), transparent 22%),
+    linear-gradient(180deg, transparent, rgba(0,0,0,.42));
+}
+.suit-lines{
+  position:absolute;
+  inset:40px;
+  border-radius:34px;
+  background:
+    linear-gradient(90deg, transparent 48%, rgba(239,194,95,.48) 49%, transparent 51%),
+    linear-gradient(145deg, transparent 43%, rgba(255,255,255,.12) 44%, transparent 45%),
+    linear-gradient(-145deg, transparent 43%, rgba(255,255,255,.12) 44%, transparent 45%);
+  border:1px solid rgba(255,255,255,.12);
+  box-shadow:inset 0 0 80px rgba(0,0,0,.24);
+}
+.dress-panel{
+  padding:34px;
+}
+.dress-panel h3{
+  font-size:2.6rem;
+  line-height:.95;
+  letter-spacing:-.06em;
+  margin:0 0 18px;
+}
+.dress-panel p{
+  color:var(--muted);
+  line-height:1.8;
+}
+.palette{
+  display:grid;
+  grid-template-columns:repeat(4, 1fr);
+  gap:12px;
+  margin:26px 0;
+}
+.swatch{
+  min-height:118px;
+  border-radius:24px;
+  border:1px solid rgba(255,255,255,.14);
+  padding:14px;
+  display:flex;
+  align-items:flex-end;
+  color:#fff;
+  font-size:.72rem;
+  text-transform:uppercase;
+  letter-spacing:.14em;
+  font-weight:900;
+}
+.swatch.black{
+  background:linear-gradient(145deg, #02050e, #1d243a);
+}
+.swatch.blue{
+  background:linear-gradient(145deg, #071b4b, #3a6dff);
+}
+.swatch.gold{
+  background:linear-gradient(145deg, #9b6d22, #efc25f);
+  color:#111;
+}
+.swatch.violet{
+  background:linear-gradient(145deg, #2b124f, #9b5cff);
+}
+.gallery-wrap{
+  display:grid;
+  grid-template-columns:1.12fr .88fr;
+  gap:18px;
+}
+.gallery-main{
+  min-height:620px;
+  padding:18px;
+  display:grid;
+  grid-template-columns:repeat(6,1fr);
+  grid-template-rows:repeat(6, 1fr);
+  gap:14px;
+}
+.photo-card{
+  position:relative;
+  overflow:hidden;
+  border-radius:26px;
+  border:1px solid rgba(255,255,255,.14);
+  background:#111936;
+  min-height:150px;
+  isolation:isolate;
+}
+.photo-card::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    radial-gradient(circle at 30% 25%, rgba(255,255,255,.36), transparent 18%),
+    linear-gradient(135deg, var(--a), var(--b));
+  opacity:.92;
+  transition:.45s ease;
+}
+.photo-card::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    linear-gradient(180deg, transparent, rgba(0,0,0,.68)),
+    linear-gradient(90deg, rgba(255,255,255,.12) 1px, transparent 1px);
+  background-size:auto, 34px 34px;
+  opacity:.8;
+}
+.photo-card:hover::before{
+  transform:scale(1.08) rotate(2deg);
+}
+.photo-card span{
+  position:absolute;
+  left:18px;
+  right:18px;
+  bottom:18px;
+  z-index:3;
+  font-weight:900;
+  letter-spacing:-.02em;
+}
+.p1{
+  grid-column:span 4;
+  grid-row:span 3;
+  --a:#102652;
+  --b:#52e6ff;
+}
+.p2{
+  grid-column:span 2;
+  grid-row:span 2;
+  --a:#22113d;
+  --b:#9b5cff;
+}
+.p3{
+  grid-column:span 2;
+  grid-row:span 2;
+  --a:#3a260a;
+  --b:#efc25f;
+}
+.p4{
+  grid-column:span 3;
+  grid-row:span 3;
+  --a:#09101f;
+  --b:#3a6dff;
+}
+.p5{
+  grid-column:span 3;
+  grid-row:span 3;
+  --a:#3b1e18;
+  --b:#ff9d6c;
+}
+.gallery-side{
+  padding:34px;
+  display:grid;
+  align-content:center;
+}
+.gallery-side h3{
+  font-size:2.45rem;
+  line-height:.95;
+  letter-spacing:-.06em;
+  margin:0 0 18px;
+}
+.gallery-side p{
+  color:var(--muted);
+  line-height:1.8;
+}
+.feature-list{
+  display:grid;
+  gap:12px;
+  margin-top:24px;
+}
+.feature-item{
+  display:flex;
+  gap:12px;
+  align-items:flex-start;
+  padding:14px;
+  background:rgba(255,255,255,.055);
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:20px;
+}
+.feature-item b{
+  color:var(--gold-soft);
+}
+.rsvp-zone{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:18px;
+  align-items:stretch;
+}
+.rsvp-card{
+  padding:38px;
+}
+.rsvp-card h2{
+  margin:0;
+  font-size:clamp(2.4rem, 5vw, 5rem);
+  line-height:.9;
+  letter-spacing:-.075em;
+  text-transform:uppercase;
+}
+.rsvp-card p{
+  color:var(--muted);
+  line-height:1.78;
+}
+.form-demo{
+  display:grid;
+  gap:14px;
+  margin-top:24px;
+}
+.form-demo input,
+.form-demo select,
+.form-demo textarea{
+  width:100%;
+  border:1px solid rgba(255,255,255,.14);
+  background:rgba(5,8,18,.38);
+  color:#fff;
+  border-radius:18px;
+  min-height:54px;
+  padding:0 16px;
+  outline:0;
+  transition:.2s ease;
+}
+.form-demo textarea{
+  min-height:110px;
+  padding:16px;
+  resize:vertical;
+}
+.form-demo input:focus,
+.form-demo select:focus,
+.form-demo textarea:focus{
+  border-color:rgba(82,230,255,.7);
+  box-shadow:0 0 0 4px rgba(82,230,255,.1);
+}
+.premium-card{
+  padding:38px;
+  min-height:500px;
+  display:grid;
+  align-content:center;
+  text-align:center;
+}
+.premium-seal{
+  width:170px;
+  height:170px;
+  border-radius:50%;
+  margin:0 auto 28px;
+  display:grid;
+  place-items:center;
+  position:relative;
+  border:1px solid rgba(239,194,95,.44);
+  background:
+    conic-gradient(from 0deg, rgba(239,194,95,.12), rgba(82,230,255,.18), rgba(155,92,255,.16), rgba(239,194,95,.12)),
+    rgba(255,255,255,.04);
+  animation:spin 20s linear infinite;
+}
+.premium-seal::before{
+  content:"ULTRA";
+  font-size:1.5rem;
+  letter-spacing:.22em;
+  color:var(--gold-soft);
+  font-weight:900;
+  animation:counterSpin 20s linear infinite;
+}
+.premium-card h3{
+  font-size:2rem;
+  margin:0;
+  letter-spacing:-.04em;
+}
+.premium-card p{
+  color:var(--muted);
+  line-height:1.8;
+}
+.footer{
+  width:var(--container);
+  margin:0 auto;
+  padding:34px 0 70px;
+  color:rgba(238,244,255,.7);
+  display:flex;
+  justify-content:space-between;
+  gap:22px;
+  border-top:1px solid rgba(255,255,255,.12);
+}
+.reveal{
+  opacity:0;
+  transform:translateY(34px);
+  transition:opacity .85s ease, transform .85s cubic-bezier(.2,.85,.2,1);
+}
+.reveal.show{
+  opacity:1;
+  transform:translateY(0);
+}
+.reveal-left{
+  opacity:0;
+  transform:translateX(-34px);
+  transition:opacity .85s ease, transform .85s cubic-bezier(.2,.85,.2,1);
+}
+.reveal-left.show{
+  opacity:1;
+  transform:translateX(0);
+}
+.reveal-right{
+  opacity:0;
+  transform:translateX(34px);
+  transition:opacity .85s ease, transform .85s cubic-bezier(.2,.85,.2,1);
+}
+.reveal-right.show{
+  opacity:1;
+  transform:translateX(0);
+}
+.magnetic{
+  will-change:transform;
+}
+.floating-chip{
+  position:absolute;
+  display:flex;
+  align-items:center;
+  gap:9px;
+  padding:12px 14px;
+  border:1px solid rgba(255,255,255,.14);
+  background:rgba(8,13,29,.58);
+  backdrop-filter:blur(15px);
+  border-radius:999px;
+  box-shadow:0 18px 50px rgba(0,0,0,.26);
+  color:#fff;
+  z-index:3;
+  animation:floatChip 5s ease-in-out infinite;
+}
+.floating-chip::before{
+  content:"";
+  width:9px;
+  height:9px;
+  border-radius:50%;
+  background:var(--cyan);
+  box-shadow:0 0 15px var(--cyan);
+}
+.chip-1{
+  top:15%;
+  right:2%;
+}
+.chip-2{
+  bottom:18%;
+  left:2%;
+  animation-delay:-2s;
+}
+.chip-3{
+  top:50%;
+  right:-6%;
+  animation-delay:-1s;
+}
+@keyframes introExit{
+  to{
+    opacity:0;
+    visibility:hidden;
+    transform:scale(1.04);
+  }
+}
+@keyframes barTop{
+  0%, 55%{
+    transform:translateY(0);
+  }
+  100%{
+    transform:translateY(-102%);
+  }
+}
+@keyframes barBottom{
+  0%, 55%{
+    transform:translateY(0);
+  }
+  100%{
+    transform:translateY(102%);
+  }
+}
+@keyframes loadIntro{
+  to{
+    width:100%;
+  }
+}
+@keyframes spin{
+  to{
+    transform:rotate(360deg);
+  }
+}
+@keyframes counterSpin{
+  to{
+    transform:rotate(-360deg);
+  }
+}
+@keyframes gridFlow{
+  to{
+    background-position:0 56px, 56px 0;
+  }
+}
+@keyframes auroraMove{
+  0%{
+    transform:translate3d(-2%, -1%, 0) rotate(0deg) scale(1);
+  }
+  100%{
+    transform:translate3d(3%, 2%, 0) rotate(9deg) scale(1.08);
+  }
+}
+@keyframes floatCard{
+  0%,100%{
+    transform:translateY(0) rotateX(0deg) rotateY(0deg);
+  }
+  50%{
+    transform:translateY(-18px) rotateX(2deg) rotateY(-2deg);
+  }
+}
+@keyframes shine{
+  0%, 42%{
+    transform:translateX(-85%) rotate(18deg);
+  }
+  60%, 100%{
+    transform:translateX(85%) rotate(18deg);
+  }
+}
+@keyframes floatChip{
+  0%,100%{
+    transform:translateY(0);
+  }
+  50%{
+    transform:translateY(-18px);
+  }
+}
+@media (max-width: 980px){
+  .nav-links{
+    position:absolute;
+    top:66px;
+    right:0;
+    width:min(310px, calc(100vw - 36px));
+    padding:12px;
+    flex-direction:column;
+    align-items:stretch;
+    border-radius:26px;
+    border:1px solid rgba(255,255,255,.14);
+    background:rgba(8,13,29,.92);
+    backdrop-filter:blur(20px);
+    transform:translateY(-12px);
+    opacity:0;
+    pointer-events:none;
+    transition:.25s ease;
+  }
+  .nav-links.open{
+    opacity:1;
+    transform:translateY(0);
+    pointer-events:auto;
+  }
+  .menu-button{
+    display:grid;
+    place-items:center;
+  }
+  .hero-shell,
+  .section-head,
+  .details-grid,
+  .dress-code,
+  .gallery-wrap,
+  .rsvp-zone{
+    grid-template-columns:1fr;
+  }
+  .hero-visual{
+    min-height:560px;
+  }
+  .section{
+    padding:72px 0;
+  }
+  .schedule-card,
+  .schedule-card.feature{
+    grid-column:span 12;
+  }
+  .schedule-card.feature{
+    grid-template-columns:1fr;
+  }
+}
+@media (max-width: 640px){
+  :root{
+    --container:min(100% - 22px, 1160px);
+  }
+  .top-nav{
+    top:10px;
+    padding:10px;
+  }
+  .brand-text small{
+    display:none;
+  }
+  .hero{
+    padding-top:108px;
+  }
+  .hero-title{
+    font-size:clamp(3.1rem, 18vw, 5.8rem);
+  }
+  .hero-meta{
+    grid-template-columns:1fr;
+  }
+  .countdown{
+    grid-template-columns:repeat(2,1fr);
+  }
+  .time-box{
+    min-height:104px;
+  }
+  .time-box b{
+    font-size:2rem;
+  }
+  .executive-card{
+    min-height:510px;
+    border-radius:32px;
+  }
+  .orbit{
+    display:none;
+  }
+  .floating-chip{
+    display:none;
+  }
+  .gallery-main{
+    min-height:auto;
+    display:grid;
+    grid-template-columns:1fr;
+    grid-template-rows:none;
+  }
+  .photo-card{
+    grid-column:auto!important;
+    grid-row:auto!important;
+    min-height:230px;
+  }
+  .palette{
+    grid-template-columns:1fr 1fr;
+  }
+  .footer{
+    flex-direction:column;
+  }
+}
+@media (prefers-reduced-motion: reduce){
+  *,
+  *::before,
+  *::after{
+    animation-duration:.001ms!important;
+    animation-iteration-count:1!important;
+    scroll-behavior:auto!important;
+    transition-duration:.001ms!important;
+  }
+}
+</style>
+</head>
+<body class="no-scroll">
+<div id="scrollProgress"></div>
+<canvas id="particles" class="bg-canvas" aria-hidden="true"></canvas>
+<div class="aurora" aria-hidden="true"></div>
+<div class="grid-floor" aria-hidden="true"></div>
+<div class="cursor-light" id="cursorLight" aria-hidden="true"></div>
+
+<div class="cinematic-intro" id="intro" aria-label="Entrada cinematográfica">
+  <div class="intro-core">
+    <div class="intro-logo"><span>HE</span></div>
+    <h1 class="intro-title">
+      <span class="outline">Evento</span>
+      <span class="gold">Empresarial</span>
+    </h1>
+    <p class="intro-subtitle">Acceso ejecutivo · Experiencia Ultra · Networking de alto nivel</p>
+    <div class="intro-loader"><span></span></div>
+  </div>
+</div>
+
+<nav class="top-nav">
+  <a href="#inicio" class="brand" aria-label="Ir al inicio">
+    <span class="brand-mark">HE</span>
+    <span class="brand-text">
+      <strong>Horizonte Ejecutivo</strong>
+      <small>Corporate Ultra</small>
+    </span>
+  </a>
+  <div class="nav-links" id="navLinks">
+    <a href="#detalles">Detalles</a>
+    <a href="#agenda">Agenda</a>
+    <a href="#vestimenta">Dress Code</a>
+    <a href="#galeria">Galería</a>
+    <a href="#confirmar">Confirmar</a>
+  </div>
+  <div class="nav-action">
+    <button class="music-toggle magnetic" id="musicToggle" aria-label="Activar música de fondo">♪</button>
+    <button class="menu-button" id="menuButton" aria-label="Abrir menú">☰</button>
+  </div>
+</nav>
+
+<main>
+  <header class="hero" id="inicio">
+    <div class="hero-shell">
+      <section class="hero-copy-zone reveal-left">
+        <span class="kicker">Gala corporativa · Demo Ultra</span>
+        <h1 class="hero-title">
+          <span class="line-1">Cumbre</span>
+          <span class="line-2">Ejecutiva</span>
+          <span class="line-3">Horizonte</span>
+        </h1>
+        <p class="hero-copy">
+          Una invitación digital empresarial con estética de alto impacto, entrada cinematográfica,
+          microinteracciones, audio ambiental, agenda ejecutiva y confirmación directa por WhatsApp.
+          Ideal para galas corporativas, lanzamientos, aniversarios de empresa, congresos privados
+          o noches de reconocimiento.
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-primary magnetic" href="#confirmar">Confirmar asistencia</a>
+          <a class="btn btn-secondary magnetic" href="https://www.google.com/maps/search/?api=1&query=Centro+Citibanamex+CDMX" target="_blank" rel="noopener">Abrir Google Maps</a>
+          <a class="btn btn-whatsapp magnetic" href="https://wa.me/5215512345678?text=Hola%2C%20confirmo%20mi%20asistencia%20al%20Evento%20Empresarial%20Horizonte%20Ejecutivo." target="_blank" rel="noopener">WhatsApp RSVP</a>
+        </div>
+        <div class="hero-meta">
+          <article class="meta-card magnetic">
+            <small>Fecha</small>
+            <strong>Viernes 14 de noviembre de 2026</strong>
+          </article>
+          <article class="meta-card magnetic">
+            <small>Hora</small>
+            <strong>7:30 PM · Recepción ejecutiva</strong>
+          </article>
+          <article class="meta-card magnetic">
+            <small>Ubicación</small>
+            <strong>Centro Citibanamex · CDMX</strong>
+          </article>
+        </div>
+      </section>
+
+      <aside class="hero-visual reveal-right" aria-label="Visual principal del evento">
+        <div class="orbit orbit-1"><span class="dot"></span></div>
+        <div class="orbit orbit-2"><span class="dot"></span></div>
+        <div class="floating-chip chip-1">Networking VIP</div>
+        <div class="floating-chip chip-2">Cena ejecutiva</div>
+        <div class="floating-chip chip-3">Premiación</div>
+        <div class="executive-card magnetic" id="tiltCard">
+          <div class="card-map">
+            <span class="route"></span>
+            <span class="pin"></span>
+          </div>
+          <div class="card-content">
+            <small>Entrada Ultra</small>
+            <h2>Una experiencia digital con presencia de marca.</h2>
+            <p>
+              Diseño personalizado por temática máxima: lujo corporativo, tecnología,
+              elegancia nocturna, acentos dorados y energía futurista.
+            </p>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </header>
+
+  <section class="section" id="detalles">
+    <div class="section-head reveal">
+      <div>
+        <span class="eyebrow">Fecha · Hora · Ubicación</span>
+        <h2 class="section-title">Detalles del evento</h2>
+      </div>
+      <p class="section-copy">
+        La distribución visual evita repetir información y presenta cada dato en módulos diferentes:
+        ficha ejecutiva, ubicación interactiva, contador regresivo y accesos rápidos.
+      </p>
+    </div>
+
+    <div class="details-grid">
+      <article class="glass info-panel reveal-left">
+        <h3>Recepción empresarial de alto nivel</h3>
+        <p>
+          La noche está pensada para reunir socios, directivos, aliados comerciales y equipo estratégico
+          en un ambiente formal, moderno y memorable.
+        </p>
+        <div class="info-list">
+          <div class="info-row">
+            <span class="info-icon">01</span>
+            <span><small>Día</small><strong>Viernes 14 de noviembre de 2026</strong></span>
+          </div>
+          <div class="info-row">
+            <span class="info-icon">02</span>
+            <span><small>Hora</small><strong>19:30 hrs · Registro y coctel de bienvenida</strong></span>
+          </div>
+          <div class="info-row">
+            <span class="info-icon">03</span>
+            <span><small>Sede</small><strong>Centro Citibanamex, Ciudad de México</strong></span>
+          </div>
+          <div class="info-row">
+            <span class="info-icon">04</span>
+            <span><small>Acceso</small><strong>Confirmación previa por WhatsApp indispensable</strong></span>
+          </div>
+        </div>
+      </article>
+
+      <article class="glass countdown-panel reveal-right">
+        <div>
+          <span class="eyebrow">Cuenta regresiva</span>
+          <h3>El encuentro comienza en</h3>
+        </div>
+        <div class="countdown" id="countdown">
+          <div class="time-box"><b id="days">00</b><span>Días</span></div>
+          <div class="time-box"><b id="hours">00</b><span>Horas</span></div>
+          <div class="time-box"><b id="minutes">00</b><span>Minutos</span></div>
+          <div class="time-box"><b id="seconds">00</b><span>Segundos</span></div>
+        </div>
+        <a class="btn btn-secondary magnetic" href="https://www.google.com/maps/search/?api=1&query=Centro+Citibanamex+CDMX" target="_blank" rel="noopener">Ver ruta en Google Maps</a>
+      </article>
+    </div>
+  </section>
+
+  <section class="section" id="agenda">
+    <div class="section-head reveal">
+      <div>
+        <span class="eyebrow">Programa ejecutivo</span>
+        <h2 class="section-title">Agenda dinámica</h2>
+      </div>
+      <p class="section-copy">
+        Cada bloque utiliza animación de aparición, tarjetas con profundidad y micro brillo
+        para mantener una experiencia visual tipo premium sin perder claridad.
+      </p>
+    </div>
+
+    <div class="itinerary">
+      <article class="glass schedule-card feature reveal">
+        <div>
+          <span class="time-tag">19:30</span>
+          <h3>Registro, bienvenida y coctel empresarial</h3>
+          <p>
+            Acceso con confirmación, recepción por anfitriones, fotografía ejecutiva y primera ronda
+            de networking dirigido.
+          </p>
+        </div>
+        <div class="decor-stat"><div><b data-count="250">0</b><span>Invitados clave</span></div></div>
+      </article>
+      <article class="glass schedule-card reveal">
+        <span class="time-tag">20:15</span>
+        <h3>Mensaje institucional</h3>
+        <p>Presentación de visión, logros y objetivos estratégicos para la siguiente etapa.</p>
+      </article>
+      <article class="glass schedule-card reveal">
+        <span class="time-tag">21:00</span>
+        <h3>Cena & presentación</h3>
+        <p>Servicio formal acompañado de visuales corporativos, música ambiental y proyección de marca.</p>
+      </article>
+      <article class="glass schedule-card reveal">
+        <span class="time-tag">22:20</span>
+        <h3>Reconocimientos</h3>
+        <p>Entrega de distinciones a equipos, socios y líderes destacados.</p>
+      </article>
+      <article class="glass schedule-card feature reveal">
+        <div>
+          <span class="time-tag">23:00</span>
+          <h3>Networking nocturno y cierre premium</h3>
+          <p>
+            Espacio para alianzas, conversaciones estratégicas y sesión fotográfica final con iluminación
+            corporativa.
+          </p>
+        </div>
+        <div class="decor-stat"><div><b data-count="14">0</b><span>Áreas de conexión</span></div></div>
+      </article>
+    </div>
+  </section>
+
+  <section class="section" id="vestimenta">
+    <div class="dress-code">
+      <div class="glass dress-visual reveal-left">
+        <div class="suit-lines"></div>
+      </div>
+      <article class="glass dress-panel reveal-right">
+        <span class="eyebrow">Código de vestimenta</span>
+        <h3>Business Gala con acentos premium.</h3>
+        <p>
+          Se recomienda traje formal, vestido de noche ejecutivo o atuendo business elegante.
+          La paleta sugerida mantiene coherencia con la identidad visual del evento:
+          negro, azul noche, dorado y detalles violeta.
+        </p>
+        <div class="palette">
+          <span class="swatch black">Negro</span>
+          <span class="swatch blue">Azul noche</span>
+          <span class="swatch gold">Dorado</span>
+          <span class="swatch violet">Violeta</span>
+        </div>
+        <a class="btn btn-primary magnetic" href="#galeria">Ver inspiración visual</a>
+      </article>
+    </div>
+  </section>
+
+  <section class="section" id="galeria">
+    <div class="section-head reveal">
+      <div>
+        <span class="eyebrow">Galería de fotos</span>
+        <h2 class="section-title">Moodboard empresarial</h2>
+      </div>
+      <p class="section-copy">
+        La galería está diseñada con distribución tipo editorial, ideal para mostrar sede,
+        branding, montaje, ponentes, reconocimientos y momentos sociales.
+      </p>
+    </div>
+
+    <div class="gallery-wrap">
+      <div class="glass gallery-main reveal-left">
+        <figure class="photo-card p1"><span>Escenario principal con luces ejecutivas</span></figure>
+        <figure class="photo-card p2"><span>Coctel de bienvenida</span></figure>
+        <figure class="photo-card p3"><span>Premiación dorada</span></figure>
+        <figure class="photo-card p4"><span>Networking VIP</span></figure>
+        <figure class="photo-card p5"><span>Cena corporativa</span></figure>
+      </div>
+      <aside class="glass gallery-side reveal-right">
+        <span class="eyebrow">Diseño personalizado máximo</span>
+        <h3>Una estética distinta para un evento de negocios.</h3>
+        <p>
+          En lugar de usar cajas repetidas, el demo combina hero cinematográfico, paneles de cristal,
+          mapa abstracto, módulos asimétricos, galería editorial, contador integrado y RSVP con estilo app.
+        </p>
+        <div class="feature-list">
+          <div class="feature-item"><b>✓</b><span>Entrada cinematográfica con barras, brillo y carga animada.</span></div>
+          <div class="feature-item"><b>✓</b><span>Partículas en canvas y fondo de rejilla futurista.</span></div>
+          <div class="feature-item"><b>✓</b><span>Música ambiental generada desde el navegador.</span></div>
+          <div class="feature-item"><b>✓</b><span>Optimizado para celular, tablet y escritorio.</span></div>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section" id="confirmar">
+    <div class="rsvp-zone">
+      <article class="glass rsvp-card reveal-left">
+        <span class="eyebrow">Confirmación por WhatsApp</span>
+        <h2>Reserva tu lugar ejecutivo.</h2>
+        <p>
+          El formulario prepara un mensaje automático para WhatsApp. En producción puede conectarse
+          a una base de datos, CRM o Google Sheets.
+        </p>
+        <div class="form-demo">
+          <input id="guestName" type="text" placeholder="Nombre del invitado">
+          <select id="guestRole">
+            <option value="Directivo">Directivo</option>
+            <option value="Socio comercial">Socio comercial</option>
+            <option value="Colaborador">Colaborador</option>
+            <option value="Invitado especial">Invitado especial</option>
+          </select>
+          <textarea id="guestNote" placeholder="Mensaje adicional o acompañantes"></textarea>
+          <button class="btn btn-whatsapp magnetic" id="whatsappButton">Confirmar por WhatsApp</button>
+        </div>
+      </article>
+
+      <aside class="glass premium-card reveal-right">
+        <div class="premium-seal" aria-hidden="true"></div>
+        <h3>Paquete Ultra</h3>
+        <p>
+          Incluye portada principal, fecha/hora/ubicación, Google Maps, WhatsApp, contador,
+          dress code, galería, música, animaciones avanzadas, entrada cinematográfica y diseño
+          personalizado al máximo.
+        </p>
+        <a class="btn btn-primary magnetic" href="#inicio">Volver al inicio</a>
+      </aside>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <span>Demo Ultra · Evento Empresarial </span>
+  <span></span>
+</footer>
+
+<script>
+/* =========================================================
+   JS DEMO ULTRA - EVENTO EMPRESARIAL
+   ========================================================= */
+const intro = document.getElementById('intro');
+const body = document.body;
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    intro.classList.add('hide');
+    body.classList.remove('no-scroll');
+  }, 3300);
+});
+
+const navLinks = document.getElementById('navLinks');
+const menuButton = document.getElementById('menuButton');
+menuButton.addEventListener('click', () => navLinks.classList.toggle('open'));
+navLinks.querySelectorAll('a').forEach(link => {
+  link.addEventListener('click', () => navLinks.classList.remove('open'));
+});
+
+const scrollProgress = document.getElementById('scrollProgress');
+window.addEventListener('scroll', () => {
+  const max = document.documentElement.scrollHeight - window.innerHeight;
+  const progress = max > 0 ? (window.scrollY / max) * 100 : 0;
+  scrollProgress.style.width = progress + '%';
+});
+
+const cursorLight = document.getElementById('cursorLight');
+window.addEventListener('pointermove', (event) => {
+  cursorLight.style.left = event.clientX + 'px';
+  cursorLight.style.top = event.clientY + 'px';
+});
+
+document.querySelectorAll('.glass').forEach(card => {
+  card.addEventListener('pointermove', event => {
+    const rect = card.getBoundingClientRect();
+    card.style.setProperty('--mx', `${event.clientX - rect.left}px`);
+    card.style.setProperty('--my', `${event.clientY - rect.top}px`);
+  });
+});
+
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if(entry.isIntersecting){
+      entry.target.classList.add('show');
+      if(entry.target.querySelectorAll('[data-count]').length){
+        entry.target.querySelectorAll('[data-count]').forEach(animateCounter);
+      }
+    }
+  });
+}, { threshold: .18 });
+document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(el => observer.observe(el));
+
+function animateCounter(element){
+  if(element.dataset.done) return;
+  element.dataset.done = 'true';
+  const target = Number(element.dataset.count || 0);
+  let start = 0;
+  const duration = 1200;
+  const begin = performance.now();
+  function tick(now){
+    const progress = Math.min((now - begin) / duration, 1);
+    const eased = 1 - Math.pow(1 - progress, 3);
+    element.textContent = Math.round(start + (target - start) * eased);
+    if(progress < 1) requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+}
+
+const targetDate = new Date('2026-11-14T19:30:00-06:00').getTime();
+const countdownElements = {
+  days: document.getElementById('days'),
+  hours: document.getElementById('hours'),
+  minutes: document.getElementById('minutes'),
+  seconds: document.getElementById('seconds')
+};
+function updateCountdown(){
+  const now = Date.now();
+  const distance = Math.max(targetDate - now, 0);
+  const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((distance / (1000 * 60 * 60)) % 24);
+  const minutes = Math.floor((distance / (1000 * 60)) % 60);
+  const seconds = Math.floor((distance / 1000) % 60);
+  countdownElements.days.textContent = String(days).padStart(2, '0');
+  countdownElements.hours.textContent = String(hours).padStart(2, '0');
+  countdownElements.minutes.textContent = String(minutes).padStart(2, '0');
+  countdownElements.seconds.textContent = String(seconds).padStart(2, '0');
+}
+updateCountdown();
+setInterval(updateCountdown, 1000);
+
+const tiltCard = document.getElementById('tiltCard');
+tiltCard.addEventListener('pointermove', event => {
+  const rect = tiltCard.getBoundingClientRect();
+  const x = (event.clientX - rect.left) / rect.width - .5;
+  const y = (event.clientY - rect.top) / rect.height - .5;
+  tiltCard.style.transform = `rotateX(${y * -8}deg) rotateY(${x * 8}deg) translateY(-8px)`;
+});
+tiltCard.addEventListener('pointerleave', () => {
+  tiltCard.style.transform = '';
+});
+
+document.querySelectorAll('.magnetic').forEach(item => {
+  item.addEventListener('pointermove', event => {
+    const rect = item.getBoundingClientRect();
+    const x = event.clientX - rect.left - rect.width / 2;
+    const y = event.clientY - rect.top - rect.height / 2;
+    item.style.transform = `translate(${x * .12}px, ${y * .12}px)`;
+  });
+  item.addEventListener('pointerleave', () => item.style.transform = '');
+});
+
+const canvas = document.getElementById('particles');
+const ctx = canvas.getContext('2d');
+let particles = [];
+function resizeCanvas(){
+  canvas.width = window.innerWidth * devicePixelRatio;
+  canvas.height = window.innerHeight * devicePixelRatio;
+  ctx.setTransform(devicePixelRatio, 0, 0, devicePixelRatio, 0, 0);
+  const count = Math.min(90, Math.max(42, Math.floor(window.innerWidth / 15)));
+  particles = Array.from({length: count}, (_, index) => ({
+    x: Math.random() * window.innerWidth,
+    y: Math.random() * window.innerHeight,
+    vx: (Math.random() - .5) * .28,
+    vy: (Math.random() - .5) * .28,
+    r: Math.random() * 1.8 + .7,
+    hue: index % 3
+  }));
+}
+function drawParticles(){
+  ctx.clearRect(0,0,window.innerWidth,window.innerHeight);
+  for(const p of particles){
+    p.x += p.vx;
+    p.y += p.vy;
+    if(p.x < -10) p.x = window.innerWidth + 10;
+    if(p.x > window.innerWidth + 10) p.x = -10;
+    if(p.y < -10) p.y = window.innerHeight + 10;
+    if(p.y > window.innerHeight + 10) p.y = -10;
+    const color = p.hue === 0 ? '82,230,255' : p.hue === 1 ? '239,194,95' : '155,92,255';
+    ctx.beginPath();
+    ctx.fillStyle = `rgba(${color}, .55)`;
+    ctx.shadowBlur = 18;
+    ctx.shadowColor = `rgba(${color}, .75)`;
+    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+    ctx.fill();
+  }
+  for(let i=0;i<particles.length;i++){
+    for(let j=i+1;j<particles.length;j++){
+      const a = particles[i];
+      const b = particles[j];
+      const dx = a.x-b.x;
+      const dy = a.y-b.y;
+      const dist = Math.hypot(dx,dy);
+      if(dist < 110){
+        ctx.beginPath();
+        ctx.strokeStyle = `rgba(82,230,255, ${.12 * (1 - dist/110)})`;
+        ctx.lineWidth = 1;
+        ctx.moveTo(a.x,a.y);
+        ctx.lineTo(b.x,b.y);
+        ctx.stroke();
+      }
+    }
+  }
+  requestAnimationFrame(drawParticles);
+}
+resizeCanvas();
+drawParticles();
+window.addEventListener('resize', resizeCanvas);
+
+let audioContext = null;
+let musicOn = false;
+let audioNodes = [];
+const musicToggle = document.getElementById('musicToggle');
+function startMusic(){
+  audioContext = audioContext || new (window.AudioContext || window.webkitAudioContext)();
+  const master = audioContext.createGain();
+  master.gain.value = .06;
+  master.connect(audioContext.destination);
+
+  const notes = [130.81, 196.00, 246.94, 392.00];
+  notes.forEach((frequency, index) => {
+    const osc = audioContext.createOscillator();
+    const gain = audioContext.createGain();
+    osc.type = index % 2 ? 'triangle' : 'sine';
+    osc.frequency.value = frequency;
+    gain.gain.value = .18 / (index + 1);
+    osc.connect(gain);
+    gain.connect(master);
+    osc.start();
+    audioNodes.push(osc, gain);
+  });
+
+  const lfo = audioContext.createOscillator();
+  const lfoGain = audioContext.createGain();
+  lfo.frequency.value = .07;
+  lfoGain.gain.value = .03;
+  lfo.connect(lfoGain);
+  lfoGain.connect(master.gain);
+  lfo.start();
+  audioNodes.push(lfo, lfoGain, master);
+}
+function stopMusic(){
+  audioNodes.forEach(node => {
+    try{
+      if(node.stop) node.stop();
+      if(node.disconnect) node.disconnect();
+    }catch(error){}
+  });
+  audioNodes = [];
+}
+musicToggle.addEventListener('click', async () => {
+  musicOn = !musicOn;
+  if(musicOn){
+    startMusic();
+    if(audioContext.state === 'suspended') await audioContext.resume();
+    musicToggle.textContent = 'Ⅱ';
+    musicToggle.setAttribute('aria-label', 'Pausar música de fondo');
+  }else{
+    stopMusic();
+    musicToggle.textContent = '♪';
+    musicToggle.setAttribute('aria-label', 'Activar música de fondo');
+  }
+});
+
+const whatsappButton = document.getElementById('whatsappButton');
+whatsappButton.addEventListener('click', () => {
+  const name = document.getElementById('guestName').value.trim() || 'Invitado';
+  const role = document.getElementById('guestRole').value;
+  const note = document.getElementById('guestNote').value.trim() || 'Sin comentarios adicionales';
+  const message = `Hola, confirmo mi asistencia al Evento Empresarial Horizonte Ejecutivo.%0A%0ANombre: ${encodeURIComponent(name)}%0ARol: ${encodeURIComponent(role)}%0AMensaje: ${encodeURIComponent(note)}`;
+  window.open(`https://wa.me/5215512345678?text=${message}`, '_blank');
+});
+</script>

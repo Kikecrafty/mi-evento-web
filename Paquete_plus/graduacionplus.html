@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Graduación | Paquete Plus</title>
+
+  <style>
+    :root {
+      --azul: #0f2344;
+      --azul-2: #162f5f;
+      --vino: #7b1f3a;
+      --oro: #d6a84f;
+      --crema: #fff8ea;
+      --blanco: #ffffff;
+      --gris: #5c6270;
+      --sombra: 0 18px 45px rgba(15, 35, 68, 0.22);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: "Segoe UI", Arial, sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(214, 168, 79, 0.25), transparent 35%),
+        linear-gradient(180deg, #f8f1df 0%, #ffffff 45%, #eef2f8 100%);
+      color: var(--azul);
+      overflow-x: hidden;
+    }
+
+    .page {
+      width: 100%;
+      max-width: 480px;
+      margin: 0 auto;
+      background: rgba(255, 255, 255, 0.72);
+      min-height: 100vh;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .page::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(15, 35, 68, 0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(15, 35, 68, 0.035) 1px, transparent 1px);
+      background-size: 34px 34px;
+      pointer-events: none;
+    }
+
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      padding: 34px 22px 48px;
+      color: var(--blanco);
+      background:
+        linear-gradient(135deg, rgba(15, 35, 68, 0.94), rgba(123, 31, 58, 0.86)),
+        url("https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=900&q=80");
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      clip-path: polygon(0 0, 100% 0, 100% 94%, 0 100%);
+      z-index: 2;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 80% 20%, rgba(214, 168, 79, 0.35), transparent 28%),
+        linear-gradient(180deg, transparent, rgba(15, 35, 68, 0.35));
+      z-index: -1;
+    }
+
+    .top-label {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.72rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .badge {
+      border: 1px solid rgba(255, 255, 255, 0.45);
+      border-radius: 999px;
+      padding: 8px 12px;
+      backdrop-filter: blur(8px);
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .cap {
+      width: 70px;
+      height: 70px;
+      border-radius: 24px;
+      background: rgba(255, 255, 255, 0.12);
+      display: grid;
+      place-items: center;
+      font-size: 2.2rem;
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.25);
+      animation: float 3.8s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0) rotate(-4deg); }
+      50% { transform: translateY(-12px) rotate(4deg); }
+    }
+
+    .hero-content {
+      margin-top: 70px;
+    }
+
+    .small-title {
+      color: var(--oro);
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      font-size: 0.76rem;
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      font-size: clamp(3.2rem, 15vw, 5.4rem);
+      line-height: 0.88;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: -3px;
+    }
+
+    h1 span {
+      display: block;
+      font-size: clamp(1.9rem, 9vw, 3.4rem);
+      color: var(--oro);
+      letter-spacing: 2px;
+    }
+
+    .graduate-name {
+      margin-top: 24px;
+      padding-left: 16px;
+      border-left: 4px solid var(--oro);
+    }
+
+    .graduate-name p {
+      font-size: 0.9rem;
+      color: rgba(255, 255, 255, 0.82);
+      margin-bottom: 6px;
+    }
+
+    .graduate-name h2 {
+      font-size: 1.65rem;
+      font-family: Georgia, serif;
+      font-weight: 500;
+    }
+
+    .hero-message {
+      margin-top: 28px;
+      font-size: 0.98rem;
+      line-height: 1.7;
+      color: rgba(255, 255, 255, 0.88);
+      max-width: 360px;
+    }
+
+    .scroll-note {
+      font-size: 0.78rem;
+      color: rgba(255, 255, 255, 0.72);
+      text-align: center;
+      letter-spacing: 1px;
+      animation: blink 1.5s infinite;
+    }
+
+    @keyframes blink {
+      50% { opacity: 0.45; }
+    }
+
+    section {
+      position: relative;
+      z-index: 3;
+      padding: 34px 20px;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .section-title .mini {
+      color: var(--vino);
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-size: 0.76rem;
+    }
+
+    .section-title h3 {
+      margin-top: 8px;
+      font-size: 1.8rem;
+      font-family: Georgia, serif;
+    }
+
+    .info-grid {
+      display: grid;
+      gap: 15px;
+    }
+
+    .info-card {
+      background: var(--blanco);
+      border-radius: 26px;
+      padding: 22px;
+      box-shadow: var(--sombra);
+      border: 1px solid rgba(15, 35, 68, 0.08);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .info-card:nth-child(2) {
+      transform: translateX(14px);
+      background: linear-gradient(145deg, #ffffff, #fff3d5);
+    }
+
+    .info-card:nth-child(3) {
+      transform: translateX(-14px);
+      background: linear-gradient(145deg, #ffffff, #eef3ff);
+    }
+
+    .info-card::before {
+      content: "";
+      position: absolute;
+      width: 80px;
+      height: 80px;
+      right: -28px;
+      top: -28px;
+      border-radius: 50%;
+      background: rgba(214, 168, 79, 0.24);
+    }
+
+    .icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 16px;
+      display: grid;
+      place-items: center;
+      background: var(--azul);
+      color: var(--oro);
+      font-size: 1.25rem;
+      margin-bottom: 14px;
+    }
+
+    .info-card h4 {
+      font-size: 1.15rem;
+      margin-bottom: 6px;
+    }
+
+    .info-card p {
+      color: var(--gris);
+      line-height: 1.55;
+      font-size: 0.96rem;
+    }
+
+    .actions {
+      display: grid;
+      gap: 14px;
+      margin-top: 22px;
+    }
+
+    .btn {
+      text-decoration: none;
+      border: none;
+      border-radius: 18px;
+      padding: 16px 18px;
+      font-weight: 800;
+      text-align: center;
+      display: block;
+      cursor: pointer;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 14px 28px rgba(15, 35, 68, 0.2);
+    }
+
+    .btn-map {
+      background: var(--azul);
+      color: var(--blanco);
+    }
+
+    .btn-whatsapp {
+      background: #1f9d55;
+      color: var(--blanco);
+    }
+
+    .countdown-wrap {
+      margin-top: -10px;
+      padding-top: 46px;
+      background:
+        linear-gradient(160deg, var(--azul), var(--azul-2));
+      color: var(--blanco);
+      border-radius: 34px 34px 0 0;
+    }
+
+    .countdown {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-top: 22px;
+    }
+
+    .time-box {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 22px;
+      padding: 15px 8px;
+      text-align: center;
+      backdrop-filter: blur(10px);
+    }
+
+    .time-box strong {
+      display: block;
+      color: var(--oro);
+      font-size: 1.55rem;
+    }
+
+    .time-box span {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: rgba(255, 255, 255, 0.75);
+    }
+
+    .dress {
+      background: var(--crema);
+    }
+
+    .dress-card {
+      background: var(--blanco);
+      border-radius: 30px;
+      padding: 24px;
+      box-shadow: var(--sombra);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .dress-card::after {
+      content: "✦";
+      position: absolute;
+      font-size: 6rem;
+      color: rgba(214, 168, 79, 0.16);
+      right: 14px;
+      bottom: -22px;
+    }
+
+    .dress-list {
+      display: grid;
+      gap: 14px;
+      margin-top: 16px;
+    }
+
+    .dress-item {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      color: var(--gris);
+      line-height: 1.5;
+    }
+
+    .dot {
+      min-width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--vino);
+      margin-top: 6px;
+      box-shadow: 0 0 0 5px rgba(123, 31, 58, 0.12);
+    }
+
+    .gallery {
+      padding-bottom: 44px;
+    }
+
+    .photo-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .photo {
+      min-height: 180px;
+      border-radius: 26px;
+      overflow: hidden;
+      position: relative;
+      box-shadow: var(--sombra);
+    }
+
+    .photo.big {
+      grid-column: span 2;
+      min-height: 220px;
+    }
+
+    .photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      filter: saturate(0.92) contrast(1.04);
+      transition: transform 0.5s ease;
+    }
+
+    .photo:hover img {
+      transform: scale(1.07);
+    }
+
+    .caption {
+      position: absolute;
+      left: 12px;
+      right: 12px;
+      bottom: 12px;
+      padding: 10px 12px;
+      border-radius: 16px;
+      background: rgba(15, 35, 68, 0.74);
+      color: var(--blanco);
+      font-size: 0.82rem;
+      backdrop-filter: blur(8px);
+    }
+
+    .footer {
+      text-align: center;
+      padding: 26px 22px 38px;
+      background: var(--azul);
+      color: rgba(255, 255, 255, 0.78);
+      font-size: 0.88rem;
+    }
+
+    .footer strong {
+      color: var(--oro);
+      display: block;
+      margin-bottom: 8px;
+      font-size: 1.05rem;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: 0.7s ease;
+    }
+
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (min-width: 700px) {
+      body {
+        padding: 24px 0;
+      }
+
+      .page {
+        border-radius: 36px;
+        box-shadow: 0 25px 70px rgba(15, 35, 68, 0.2);
+      }
+
+      .hero {
+        border-radius: 36px 36px 0 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="page">
+
+    <header class="hero">
+      <div class="top-label">
+        <div class="badge">Generación 20XX</div>
+        <div class="cap">🎓</div>
+      </div>
+
+      <div class="hero-content">
+        <p class="small-title">Ceremonia de Graduación</p>
+        <h1>Logro<span>Académico</span></h1>
+
+        <div class="graduate-name">
+          <p>Celebrando el esfuerzo y una nueva etapa de</p>
+          <h2>Valeria Montes Rivera</h2>
+        </div>
+
+        <p class="hero-message">
+          Después de años de dedicación, aprendizaje y sueños cumplidos,
+          ha llegado el momento de celebrar una meta que marca el inicio
+          de un camino brillante.
+        </p>
+      </div>
+
+      <p class="scroll-note">Desliza para ver los detalles ↓</p>
+    </header>
+
+    <section class="details">
+      <div class="section-title reveal">
+        <p class="mini">Detalles del evento</p>
+        <h3>Una noche para recordar</h3>
+      </div>
+
+      <div class="info-grid">
+        <article class="info-card reveal">
+          <div class="icon">📅</div>
+          <h4>Fecha y hora</h4>
+          <p>
+            <strong id="eventDateText">Sábado 18 de julio de 20XX</strong><br>
+            Recepción: 6:00 PM<br>
+            Ceremonia: 7:00 PM
+          </p>
+        </article>
+
+        <article class="info-card reveal">
+          <div class="icon">📍</div>
+          <h4>Ubicación</h4>
+          <p>
+            Salón Imperial Universidad<br>
+            Av. Paseo del Conocimiento 245,<br>
+            Ciudad de México.
+          </p>
+        </article>
+
+        <article class="info-card reveal">
+          <div class="icon">🥂</div>
+          <h4>Celebración</h4>
+          <p>
+            Al finalizar la ceremonia compartiremos brindis,
+            fotografías y una cena especial con familiares y amigos.
+          </p>
+        </article>
+      </div>
+
+      <div class="actions reveal">
+        <a
+          class="btn btn-map"
+          href="https://www.google.com/maps/search/?api=1&query=Ciudad+Universitaria+CDMX"
+          target="_blank">
+          Ver ubicación en Google Maps
+        </a>
+
+        <a
+          class="btn btn-whatsapp"
+          target="_blank"
+          href="https://wa.me/5215512345678?text=Hola%2C%20confirmo%20mi%20asistencia%20a%20la%20graduaci%C3%B3n%20de%20Valeria%20Montes.">
+          Confirmar asistencia por WhatsApp
+        </a>
+      </div>
+    </section>
+
+    <section class="countdown-wrap">
+      <div class="section-title reveal">
+        <p class="mini" style="color: #d6a84f;">Cuenta regresiva</p>
+        <h3>Falta muy poco</h3>
+      </div>
+
+      <div class="countdown reveal">
+        <div class="time-box">
+          <strong id="days">00</strong>
+          <span>Días</span>
+        </div>
+        <div class="time-box">
+          <strong id="hours">00</strong>
+          <span>Horas</span>
+        </div>
+        <div class="time-box">
+          <strong id="minutes">00</strong>
+          <span>Min</span>
+        </div>
+        <div class="time-box">
+          <strong id="seconds">00</strong>
+          <span>Seg</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="dress">
+      <div class="section-title reveal">
+        <p class="mini">Código de vestimenta</p>
+        <h3>Elegancia formal</h3>
+      </div>
+
+      <div class="dress-card reveal">
+        <h4>Vestimenta sugerida</h4>
+
+        <div class="dress-list">
+          <div class="dress-item">
+            <span class="dot"></span>
+            <p>
+              Damas: vestido formal en tonos neutros, vino, azul marino,
+              dorado suave o colores elegantes.
+            </p>
+          </div>
+
+          <div class="dress-item">
+            <span class="dot"></span>
+            <p>
+              Caballeros: traje, camisa formal y zapatos de vestir.
+              Corbata opcional.
+            </p>
+          </div>
+
+          <div class="dress-item">
+            <span class="dot"></span>
+            <p>
+              Evitar ropa deportiva, mezclilla rota o colores demasiado neón
+              para conservar la estética del evento.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="gallery">
+      <div class="section-title reveal">
+        <p class="mini">Galería</p>
+        <h3>Momentos de la generación</h3>
+      </div>
+
+      <div class="photo-grid">
+        <div class="photo big reveal">
+          <img src="https://images.unsplash.com/photo-1523580846011-d3a5bc25702b?auto=format&fit=crop&w=900&q=80" alt="Graduados celebrando">
+          <div class="caption">El cierre de una etapa inolvidable</div>
+        </div>
+
+        <div class="photo reveal">
+          <img src="https://images.unsplash.com/photo-1607013407627-6ee814329547?auto=format&fit=crop&w=700&q=80" alt="Birrete de graduación">
+          <div class="caption">Orgullo y dedicación</div>
+        </div>
+
+        <div class="photo reveal">
+          <img src="https://images.unsplash.com/photo-1627556704290-2b1f5853ff78?auto=format&fit=crop&w=700&q=80" alt="Celebración académica">
+          <div class="caption">Una meta cumplida</div>
+        </div>
+
+        <div class="photo big reveal">
+          <img src="https://images.unsplash.com/photo-1590012314607-cda9d9b699ae?auto=format&fit=crop&w=900&q=80" alt="Ceremonia elegante">
+          <div class="caption">El comienzo de nuevos sueños</div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <strong>Valeria Montes Rivera</strong>
+      Gracias por acompañarme en este momento tan especial.
+    </footer>
+
+  </main>
+
+  <script>
+    const eventMonth = 6;
+    const eventDay = 18;
+    const eventHour = 18;
+
+    function getNextEventDate() {
+      const now = new Date();
+      let target = new Date(now.getFullYear(), eventMonth, eventDay, eventHour, 0, 0);
+
+      if (target <= now) {
+        target = new Date(now.getFullYear() + 1, eventMonth, eventDay, eventHour, 0, 0);
+      }
+
+      return target;
+    }
+
+    const eventDate = getNextEventDate();
+    const dateText = document.getElementById("eventDateText");
+
+    dateText.textContent = `Sábado 18 de julio de ${eventDate.getFullYear()}`;
+
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const distance = eventDate.getTime() - now;
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((distance / (1000 * 60)) % 60);
+      const seconds = Math.floor((distance / 1000) % 60);
+
+      document.getElementById("days").textContent = String(days).padStart(2, "0");
+      document.getElementById("hours").textContent = String(hours).padStart(2, "0");
+      document.getElementById("minutes").textContent = String(minutes).padStart(2, "0");
+      document.getElementById("seconds").textContent = String(seconds).padStart(2, "0");
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+
+    const reveals = document.querySelectorAll(".reveal");
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("active");
+        }
+      });
+    }, {
+      threshold: 0.16
+    });
+
+    reveals.forEach((item) => observer.observe(item));
+  </script>
+</body>
+</html>

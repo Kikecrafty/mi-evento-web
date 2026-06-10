@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aniversario | Paquete Plus</title>
+
+  <style>
+    :root{
+      --vino:#4b1421;
+      --rosa:#f6d9d9;
+      --crema:#fff8ef;
+      --cobre:#b9794b;
+      --texto:#2f1d1f;
+      --suave:#fff1e6;
+      --sombra:0 18px 45px rgba(75,20,33,.22);
+    }
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+    }
+
+    body{
+      font-family: "Georgia", serif;
+      background:
+        radial-gradient(circle at top left, rgba(185,121,75,.35), transparent 35%),
+        linear-gradient(180deg, #fff8ef 0%, #f6d9d9 45%, #4b1421 100%);
+      color:var(--texto);
+      min-height:100vh;
+      overflow-x:hidden;
+    }
+
+    .page{
+      width:100%;
+      max-width:480px;
+      margin:auto;
+      padding:18px;
+    }
+
+    .hero{
+      min-height:92vh;
+      border-radius:34px;
+      background:
+        linear-gradient(rgba(75,20,33,.20), rgba(75,20,33,.72)),
+        url("https://images.unsplash.com/photo-1523438885200-e635ba2c371e?auto=format&fit=crop&w=900&q=80");
+      background-size:cover;
+      background-position:center;
+      box-shadow:var(--sombra);
+      position:relative;
+      overflow:hidden;
+      display:flex;
+      align-items:flex-end;
+      padding:28px;
+      color:white;
+      animation:fadeIn 1.2s ease;
+    }
+
+    .hero::before{
+      content:"";
+      position:absolute;
+      width:220px;
+      height:220px;
+      border:1px solid rgba(255,255,255,.45);
+      border-radius:50%;
+      top:-70px;
+      right:-70px;
+      animation:float 6s infinite ease-in-out;
+    }
+
+    .hero::after{
+      content:"";
+      position:absolute;
+      inset:18px;
+      border:1px solid rgba(255,255,255,.28);
+      border-radius:28px;
+      pointer-events:none;
+    }
+
+    .hero-content{
+      position:relative;
+      z-index:2;
+      text-align:left;
+      width:100%;
+    }
+
+    .tag{
+      display:inline-block;
+      padding:8px 14px;
+      border-radius:99px;
+      background:rgba(255,255,255,.18);
+      backdrop-filter:blur(8px);
+      font-size:12px;
+      letter-spacing:2px;
+      text-transform:uppercase;
+      margin-bottom:18px;
+    }
+
+    h1{
+      font-size:48px;
+      line-height:.92;
+      font-weight:400;
+      margin-bottom:12px;
+    }
+
+    .names{
+      font-size:20px;
+      letter-spacing:1px;
+      margin-bottom:18px;
+      color:#ffe9d2;
+    }
+
+    .hero-text{
+      font-size:15px;
+      line-height:1.7;
+      color:#fff7ef;
+      max-width:330px;
+    }
+
+    .section{
+      margin-top:22px;
+      border-radius:28px;
+      padding:24px;
+      background:rgba(255,248,239,.82);
+      backdrop-filter:blur(12px);
+      box-shadow:var(--sombra);
+      border:1px solid rgba(255,255,255,.55);
+      animation:rise .8s ease both;
+    }
+
+    .section.dark{
+      background:linear-gradient(145deg, #4b1421, #7c2d3d);
+      color:white;
+    }
+
+    .section.copper{
+      background:linear-gradient(145deg, #fff1e6, #e6b88c);
+    }
+
+    .label{
+      font-size:12px;
+      text-transform:uppercase;
+      letter-spacing:2px;
+      color:var(--cobre);
+      margin-bottom:10px;
+      font-weight:bold;
+    }
+
+    .dark .label{
+      color:#ffd9ae;
+    }
+
+    h2{
+      font-size:28px;
+      font-weight:400;
+      margin-bottom:14px;
+      color:var(--vino);
+    }
+
+    .dark h2{
+      color:white;
+    }
+
+    p{
+      font-size:15px;
+      line-height:1.7;
+    }
+
+    .event-grid{
+      display:grid;
+      grid-template-columns:1fr;
+      gap:14px;
+      margin-top:16px;
+    }
+
+    .info-card{
+      background:white;
+      border-radius:22px;
+      padding:18px;
+      border-left:5px solid var(--cobre);
+      box-shadow:0 10px 25px rgba(75,20,33,.10);
+    }
+
+    .info-card strong{
+      display:block;
+      font-size:14px;
+      color:var(--vino);
+      margin-bottom:6px;
+      letter-spacing:.5px;
+    }
+
+    .info-card span{
+      font-size:15px;
+      line-height:1.5;
+    }
+
+    .btns{
+      display:grid;
+      grid-template-columns:1fr;
+      gap:12px;
+      margin-top:18px;
+    }
+
+    .btn{
+      text-decoration:none;
+      text-align:center;
+      padding:15px 18px;
+      border-radius:18px;
+      font-size:15px;
+      font-weight:bold;
+      letter-spacing:.5px;
+      transition:.3s ease;
+      display:block;
+    }
+
+    .btn.map{
+      background:var(--vino);
+      color:white;
+    }
+
+    .btn.whatsapp{
+      background:#1f9f63;
+      color:white;
+    }
+
+    .btn:hover{
+      transform:translateY(-3px);
+      box-shadow:0 12px 24px rgba(0,0,0,.18);
+    }
+
+    .countdown{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:9px;
+      margin-top:18px;
+    }
+
+    .time-box{
+      background:rgba(255,255,255,.15);
+      border:1px solid rgba(255,255,255,.28);
+      border-radius:18px;
+      padding:14px 6px;
+      text-align:center;
+    }
+
+    .time-box b{
+      display:block;
+      font-size:24px;
+      color:#ffe3bd;
+    }
+
+    .time-box small{
+      font-size:10px;
+      text-transform:uppercase;
+      letter-spacing:1px;
+      color:#fff7ef;
+    }
+
+    .dress{
+      display:flex;
+      gap:14px;
+      align-items:center;
+      margin-top:16px;
+    }
+
+    .dress-icon{
+      width:72px;
+      height:72px;
+      border-radius:50%;
+      background:var(--vino);
+      color:white;
+      display:grid;
+      place-items:center;
+      font-size:32px;
+      flex-shrink:0;
+      box-shadow:0 12px 24px rgba(75,20,33,.26);
+    }
+
+    .palette{
+      display:flex;
+      gap:10px;
+      margin-top:14px;
+    }
+
+    .color{
+      width:42px;
+      height:42px;
+      border-radius:50%;
+      border:3px solid white;
+      box-shadow:0 8px 18px rgba(0,0,0,.15);
+    }
+
+    .c1{background:#4b1421;}
+    .c2{background:#b9794b;}
+    .c3{background:#f6d9d9;}
+    .c4{background:#fff8ef;}
+
+    .gallery{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:10px;
+      margin-top:16px;
+    }
+
+    .gallery img{
+      width:100%;
+      height:155px;
+      object-fit:cover;
+      border-radius:20px;
+      box-shadow:0 12px 25px rgba(75,20,33,.14);
+    }
+
+    .gallery img:nth-child(1){
+      grid-column:1/3;
+      height:210px;
+    }
+
+    .quote{
+      text-align:center;
+      padding:30px 22px;
+    }
+
+    .quote .mark{
+      font-size:54px;
+      line-height:1;
+      color:#ffe3bd;
+    }
+
+    .quote p{
+      font-size:18px;
+      color:#fff8ef;
+      font-style:italic;
+    }
+
+    .footer{
+      text-align:center;
+      color:white;
+      padding:28px 12px 12px;
+      font-size:13px;
+      opacity:.9;
+    }
+
+    @keyframes fadeIn{
+      from{opacity:0; transform:scale(.98);}
+      to{opacity:1; transform:scale(1);}
+    }
+
+    @keyframes rise{
+      from{opacity:0; transform:translateY(25px);}
+      to{opacity:1; transform:translateY(0);}
+    }
+
+    @keyframes float{
+      0%,100%{transform:translateY(0);}
+      50%{transform:translateY(18px);}
+    }
+
+    @media(min-width:700px){
+      .page{
+        max-width:760px;
+        padding:28px;
+      }
+
+      .hero{
+        min-height:720px;
+      }
+
+      h1{
+        font-size:72px;
+      }
+
+      .event-grid{
+        grid-template-columns:1fr 1fr;
+      }
+
+      .btns{
+        grid-template-columns:1fr 1fr;
+      }
+
+      .gallery{
+        grid-template-columns:repeat(4,1fr);
+      }
+
+      .gallery img,
+      .gallery img:nth-child(1){
+        grid-column:auto;
+        height:180px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="page">
+
+    <section class="hero">
+      <div class="hero-content">
+        <div class="tag">Celebración de aniversario</div>
+        <h1>25 años<br>de amor</h1>
+        <div class="names">Claudia & Ernesto</div>
+        <p class="hero-text">
+          Hay historias que no solo se cuentan, se celebran.
+          Acompáñanos a brindar por veinticinco años de recuerdos,
+          promesas cumplidas y nuevos capítulos por vivir.
+        </p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="label">Detalles del evento</div>
+      <h2>Nuestra noche especial</h2>
+      <p>
+        Queremos compartir esta fecha con las personas que han sido parte
+        de nuestro camino. Será una velada íntima, elegante y llena de momentos
+        para recordar.
+      </p>
+
+      <div class="event-grid">
+        <div class="info-card">
+          <strong>Fecha</strong>
+          <span>Sábado 21 de Septiembre de 20XX</span>
+        </div>
+
+        <div class="info-card">
+          <strong>Hora</strong>
+          <span>8:00 PM</span>
+        </div>
+
+        <div class="info-card">
+          <strong>Ubicación</strong>
+          <span>Salón Jardín Imperial, Guadalajara, Jalisco</span>
+        </div>
+
+        <div class="info-card">
+          <strong>Recepción</strong>
+          <span>Cena formal, brindis y música en vivo</span>
+        </div>
+      </div>
+
+      <div class="btns">
+        <a
+          class="btn map"
+          href="https://www.google.com/maps/search/?api=1&query=Salon+Jardin+Imperial+Guadalajara"
+          target="_blank">
+          Ver ubicación
+        </a>
+
+        <a
+          class="btn whatsapp"
+          href="https://wa.me/5213312345678?text=Hola%2C%20confirmo%20mi%20asistencia%20al%20aniversario%20de%20Claudia%20y%20Ernesto."
+          target="_blank">
+          Confirmar por WhatsApp
+        </a>
+      </div>
+    </section>
+
+    <section class="section dark">
+      <div class="label">Falta poco para celebrar</div>
+      <h2>Cuenta regresiva</h2>
+      <p>
+        Cada día nos acerca más a una noche preparada con cariño para compartir,
+        agradecer y celebrar nuestra historia.
+      </p>
+
+      <div class="countdown">
+        <div class="time-box">
+          <b id="days">00</b>
+          <small>Días</small>
+        </div>
+
+        <div class="time-box">
+          <b id="hours">00</b>
+          <small>Horas</small>
+        </div>
+
+        <div class="time-box">
+          <b id="minutes">00</b>
+          <small>Min</small>
+        </div>
+
+        <div class="time-box">
+          <b id="seconds">00</b>
+          <small>Seg</small>
+        </div>
+      </div>
+    </section>
+
+    <section class="section copper">
+      <div class="label">Código de vestimenta</div>
+      <h2>Elegancia cálida</h2>
+
+      <div class="dress">
+        <div class="dress-icon">✦</div>
+        <div>
+          <p>
+            Vestimenta formal en tonos cálidos, neutros o vino.
+            Se sugieren accesorios dorados, cobre o perla.
+          </p>
+        </div>
+      </div>
+
+      <div class="palette">
+        <div class="color c1"></div>
+        <div class="color c2"></div>
+        <div class="color c3"></div>
+        <div class="color c4"></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="label">Galería</div>
+      <h2>Momentos de nuestra historia</h2>
+      <p>
+        Algunos recuerdos merecen volver a sentirse. Esta galería representa
+        pequeños instantes de un amor que ha crecido con los años.
+      </p>
+
+      <div class="gallery">
+        <img src="https://images.unsplash.com/photo-1529634597503-139d3726fed5?auto=format&fit=crop&w=900&q=80" alt="Pareja celebrando aniversario">
+        <img src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=700&q=80" alt="Brindis elegante">
+        <img src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=700&q=80" alt="Decoración romántica">
+        <img src="https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&w=700&q=80" alt="Mesa de celebración">
+        <img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=700&q=80" alt="Celebración con luces">
+      </div>
+    </section>
+
+    <section class="section dark quote">
+      <div class="mark">“</div>
+      <p>
+        El amor verdadero no se mide en años, sino en todos los momentos
+        que siguen eligiéndose.
+      </p>
+    </section>
+
+    <footer class="footer">
+      Invitación digital · Paquete Plus · Demo Aniversario
+    </footer>
+
+  </main>
+
+  <script>
+    const daysEl = document.getElementById("days");
+    const hoursEl = document.getElementById("hours");
+    const minutesEl = document.getElementById("minutes");
+    const secondsEl = document.getElementById("seconds");
+
+    function getFutureDate(){
+      const now = new Date();
+      const target = new Date(now.getFullYear(), 8, 21, 20, 0, 0);
+
+      if(target <= now){
+        target.setFullYear(now.getFullYear() + 1);
+      }
+
+      return target;
+    }
+
+    let eventDate = getFutureDate();
+
+    function updateCountdown(){
+      const now = new Date();
+      const diff = eventDate - now;
+
+      if(diff <= 0){
+        eventDate = getFutureDate();
+        return;
+      }
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diff / (1000 * 60)) % 60);
+      const seconds = Math.floor((diff / 1000) % 60);
+
+      daysEl.textContent = String(days).padStart(2, "0");
+      hoursEl.textContent = String(hours).padStart(2, "0");
+      minutesEl.textContent = String(minutes).padStart(2, "0");
+      secondsEl.textContent = String(seconds).padStart(2, "0");
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+  </script>
+</body>
+</html>

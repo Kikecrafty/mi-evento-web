@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fiesta Infantil | Paquete Plus</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Trebuchet MS", Arial, sans-serif;
+      background: #fff7dd;
+      color: #43302b;
+      overflow-x: hidden;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    .page {
+      width: 100%;
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at 15% 10%, #ffb3c6 0 10%, transparent 11%),
+        radial-gradient(circle at 80% 20%, #8ecae6 0 9%, transparent 10%),
+        radial-gradient(circle at 20% 80%, #b8f7d4 0 8%, transparent 9%),
+        radial-gradient(circle at 90% 85%, #ffd166 0 9%, transparent 10%),
+        #fff7dd;
+    }
+
+    .hero {
+      min-height: 100vh;
+      padding: 32px 20px 45px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .balloon {
+      position: absolute;
+      width: 65px;
+      height: 82px;
+      border-radius: 50%;
+      opacity: 0.85;
+      animation: float 5s ease-in-out infinite;
+    }
+
+    .balloon::after {
+      content: "";
+      position: absolute;
+      width: 2px;
+      height: 55px;
+      background: rgba(70, 45, 45, 0.35);
+      left: 50%;
+      top: 82px;
+    }
+
+    .b1 {
+      background: #ff6b6b;
+      top: 45px;
+      left: 18px;
+      animation-delay: .1s;
+    }
+
+    .b2 {
+      background: #4ecdc4;
+      right: 22px;
+      top: 115px;
+      animation-delay: .6s;
+    }
+
+    .b3 {
+      background: #ffd166;
+      left: 70%;
+      bottom: 125px;
+      animation-delay: 1s;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0) rotate(-3deg); }
+      50% { transform: translateY(-18px) rotate(4deg); }
+    }
+
+    .hero-card {
+      width: min(420px, 100%);
+      background: rgba(255, 255, 255, 0.88);
+      border: 5px solid #ffca3a;
+      border-radius: 38px;
+      padding: 28px 22px 26px;
+      text-align: center;
+      box-shadow: 0 20px 45px rgba(93, 58, 26, 0.18);
+      position: relative;
+      z-index: 2;
+    }
+
+    .tag {
+      display: inline-block;
+      background: #ff8fab;
+      color: white;
+      padding: 8px 16px;
+      border-radius: 999px;
+      font-size: 14px;
+      font-weight: bold;
+      margin-bottom: 18px;
+      box-shadow: 0 6px 0 #d85f80;
+    }
+
+    h1 {
+      font-size: clamp(44px, 13vw, 66px);
+      color: #3a86ff;
+      line-height: .9;
+      text-shadow: 3px 3px 0 #ffd166;
+      margin-bottom: 12px;
+    }
+
+    .age {
+      font-size: 84px;
+      line-height: 1;
+      color: #ff006e;
+      font-weight: 900;
+      text-shadow: 4px 4px 0 #ffe66d;
+    }
+
+    .subtitle {
+      font-size: 18px;
+      color: #5b3b36;
+      margin: 12px 0 24px;
+      line-height: 1.45;
+    }
+
+    .kid-photo {
+      width: 190px;
+      height: 190px;
+      margin: 0 auto 22px;
+      border-radius: 50%;
+      border: 8px solid #a0e7e5;
+      background: url("https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?auto=format&fit=crop&w=700&q=80") center/cover;
+      box-shadow: 0 12px 0 #70d6ff;
+    }
+
+    .hero-buttons {
+      display: grid;
+      gap: 12px;
+    }
+
+    .btn {
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      display: block;
+      width: 100%;
+      padding: 15px 18px;
+      border-radius: 20px;
+      font-weight: 900;
+      font-size: 16px;
+      transition: .25s ease;
+      text-align: center;
+    }
+
+    .btn:hover {
+      transform: translateY(-4px);
+    }
+
+    .btn-map {
+      background: #3a86ff;
+      color: white;
+      box-shadow: 0 7px 0 #1b5fd1;
+    }
+
+    .btn-whatsapp {
+      background: #2ec4b6;
+      color: white;
+      box-shadow: 0 7px 0 #159b90;
+    }
+
+    section {
+      padding: 50px 18px;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 30px;
+      color: #ff006e;
+      margin-bottom: 24px;
+      text-shadow: 2px 2px 0 #ffe66d;
+    }
+
+    .info-grid {
+      max-width: 980px;
+      margin: auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .info-box {
+      background: white;
+      padding: 26px 20px;
+      border-radius: 30px;
+      text-align: center;
+      box-shadow: 0 12px 25px rgba(77, 52, 30, 0.12);
+      border-bottom: 8px solid #ffca3a;
+    }
+
+    .info-box:nth-child(2) {
+      border-bottom-color: #4ecdc4;
+    }
+
+    .info-box:nth-child(3) {
+      border-bottom-color: #ff8fab;
+    }
+
+    .icon {
+      font-size: 38px;
+      margin-bottom: 12px;
+    }
+
+    .info-box h3 {
+      color: #3a86ff;
+      font-size: 21px;
+      margin-bottom: 9px;
+    }
+
+    .info-box p {
+      font-size: 15px;
+      line-height: 1.5;
+      color: #5c4742;
+    }
+
+    .countdown-wrap {
+      max-width: 900px;
+      margin: auto;
+      background: linear-gradient(135deg, #ff8fab, #ffd166, #70d6ff);
+      padding: 8px;
+      border-radius: 36px;
+      box-shadow: 0 18px 35px rgba(80, 50, 20, 0.18);
+    }
+
+    .countdown-card {
+      background: rgba(255, 255, 255, 0.92);
+      border-radius: 30px;
+      padding: 30px 18px;
+      text-align: center;
+    }
+
+    .countdown-card p {
+      font-size: 16px;
+      margin-bottom: 20px;
+      color: #5c4742;
+    }
+
+    .timer {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+
+    .time-box {
+      background: #fff0f6;
+      border-radius: 22px;
+      padding: 18px 6px;
+      border: 3px dashed #ff8fab;
+    }
+
+    .time-box span {
+      display: block;
+      font-size: 28px;
+      font-weight: 900;
+      color: #ff006e;
+    }
+
+    .time-box small {
+      font-size: 12px;
+      font-weight: bold;
+      color: #6b4b45;
+    }
+
+    .dress-section {
+      max-width: 950px;
+      margin: auto;
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 20px;
+      align-items: center;
+    }
+
+    .dress-image {
+      min-height: 330px;
+      border-radius: 36px;
+      background:
+        linear-gradient(rgba(255, 209, 102, .25), rgba(255, 143, 171, .25)),
+        url("https://images.unsplash.com/photo-1530103862676-de8c9debad1d?auto=format&fit=crop&w=900&q=80") center/cover;
+      box-shadow: 0 16px 30px rgba(80, 50, 20, .15);
+    }
+
+    .dress-card {
+      background: white;
+      border-radius: 36px;
+      padding: 30px 24px;
+      box-shadow: 0 16px 30px rgba(80, 50, 20, .13);
+      border-left: 9px solid #70d6ff;
+    }
+
+    .dress-card h2 {
+      color: #3a86ff;
+      font-size: 30px;
+      margin-bottom: 15px;
+    }
+
+    .dress-card p {
+      font-size: 16px;
+      line-height: 1.7;
+      margin-bottom: 14px;
+      color: #5c4742;
+    }
+
+    .dress-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .dress-tags span {
+      background: #fff0b3;
+      color: #694d00;
+      padding: 9px 13px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .gallery {
+      max-width: 980px;
+      margin: auto;
+      display: grid;
+      grid-template-columns: 1.2fr 1fr 1fr;
+      grid-auto-rows: 170px;
+      gap: 14px;
+    }
+
+    .photo {
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: 0 12px 25px rgba(80, 50, 20, .15);
+      position: relative;
+    }
+
+    .photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: .35s ease;
+    }
+
+    .photo:hover img {
+      transform: scale(1.08);
+    }
+
+    .photo.big {
+      grid-row: span 2;
+    }
+
+    .photo::after {
+      content: "★";
+      position: absolute;
+      right: 14px;
+      top: 10px;
+      color: #ffd166;
+      font-size: 24px;
+      text-shadow: 1px 1px 0 #ff006e;
+    }
+
+    .final-card {
+      max-width: 720px;
+      margin: auto;
+      background: white;
+      border-radius: 36px;
+      padding: 32px 22px;
+      text-align: center;
+      box-shadow: 0 15px 35px rgba(77, 52, 30, .14);
+      border: 5px solid #b8f7d4;
+    }
+
+    .final-card h2 {
+      color: #ff006e;
+      font-size: 31px;
+      margin-bottom: 14px;
+    }
+
+    .final-card p {
+      color: #5c4742;
+      line-height: 1.6;
+      margin-bottom: 18px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 22px;
+      font-size: 13px;
+      color: #70544e;
+    }
+
+    .confetti {
+      position: fixed;
+      top: -20px;
+      width: 10px;
+      height: 16px;
+      background: #ff006e;
+      opacity: .8;
+      animation: fall 6s linear infinite;
+      z-index: 1;
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(110vh) rotate(360deg);
+      }
+    }
+
+    @media (max-width: 760px) {
+      .hero {
+        padding-top: 22px;
+      }
+
+      .hero-card {
+        border-radius: 32px;
+      }
+
+      .kid-photo {
+        width: 160px;
+        height: 160px;
+      }
+
+      .age {
+        font-size: 72px;
+      }
+
+      .info-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .timer {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .dress-section {
+        grid-template-columns: 1fr;
+      }
+
+      .dress-image {
+        min-height: 260px;
+      }
+
+      .gallery {
+        grid-template-columns: 1fr 1fr;
+        grid-auto-rows: 145px;
+      }
+
+      .photo.big {
+        grid-column: span 2;
+      }
+
+      section {
+        padding: 40px 16px;
+      }
+    }
+
+    @media (max-width: 430px) {
+      h1 {
+        font-size: 48px;
+      }
+
+      .section-title {
+        font-size: 27px;
+      }
+
+      .gallery {
+        grid-template-columns: 1fr;
+      }
+
+      .photo.big {
+        grid-column: auto;
+      }
+
+      .timer {
+        gap: 10px;
+      }
+
+      .time-box span {
+        font-size: 25px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="page">
+
+    <section class="hero">
+      <div class="balloon b1"></div>
+      <div class="balloon b2"></div>
+      <div class="balloon b3"></div>
+
+      <div class="hero-card">
+        <span class="tag">Invitación especial</span>
+
+        <div class="kid-photo"></div>
+
+        <h1>Fiesta de<br>Santiago</h1>
+        <div class="age">7</div>
+
+        <p class="subtitle">
+          Acompáñanos a celebrar una tarde llena de juegos,
+          dulces, pastel, música y muchas sonrisas.
+        </p>
+
+        <div class="hero-buttons">
+          <a class="btn btn-map" href="https://maps.google.com/?q=Jardin+de+Fiestas+Arcoiris" target="_blank">
+            Ver ubicación en Google Maps
+          </a>
+
+          <a class="btn btn-whatsapp" href="https://wa.me/5215551234567?text=Hola,%20confirmo%20mi%20asistencia%20a%20la%20fiesta%20de%20Santiago" target="_blank">
+            Confirmar por WhatsApp
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="section-title">Detalles del evento</h2>
+
+      <div class="info-grid">
+        <div class="info-box">
+          <div class="icon">📅</div>
+          <h3>Fecha</h3>
+          <p>Sábado 21 de septiembre, 20XX</p>
+        </div>
+
+        <div class="info-box">
+          <div class="icon">⏰</div>
+          <h3>Hora</h3>
+          <p>4:30 PM a 8:30 PM</p>
+        </div>
+
+        <div class="info-box">
+          <div class="icon">📍</div>
+          <h3>Ubicación</h3>
+          <p>Jardín Arcoíris, Salón Pequeños Sueños, Ciudad de México.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="section-title">Falta muy poquito</h2>
+
+      <div class="countdown-wrap">
+        <div class="countdown-card">
+          <p>
+            La aventura comienza pronto. Prepara tu mejor sonrisa
+            y ven con toda la energía para jugar.
+          </p>
+
+          <div class="timer">
+            <div class="time-box">
+              <span id="days">00</span>
+              <small>Días</small>
+            </div>
+
+            <div class="time-box">
+              <span id="hours">00</span>
+              <small>Horas</small>
+            </div>
+
+            <div class="time-box">
+              <span id="minutes">00</span>
+              <small>Minutos</small>
+            </div>
+
+            <div class="time-box">
+              <span id="seconds">00</span>
+              <small>Segundos</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="dress-section">
+        <div class="dress-image"></div>
+
+        <div class="dress-card">
+          <h2>Código de vestimenta</h2>
+
+          <p>
+            Ven con ropa cómoda para correr, saltar, jugar y disfrutar
+            todas las actividades de la fiesta.
+          </p>
+
+          <p>
+            La temática será de colores alegres, así que puedes usar tonos
+            brillantes, estampados divertidos o accesorios coloridos.
+          </p>
+
+          <div class="dress-tags">
+            <span>Ropa cómoda</span>
+            <span>Colores vivos</span>
+            <span>Tenis recomendados</span>
+            <span>Accesorios divertidos</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="section-title">Galería de momentos</h2>
+
+      <div class="gallery">
+        <div class="photo big">
+          <img src="https://images.unsplash.com/photo-1519340241574-2cec6aef0c01?auto=format&fit=crop&w=900&q=80" alt="Fiesta infantil con globos">
+        </div>
+
+        <div class="photo">
+          <img src="https://images.unsplash.com/photo-1531956531700-dc0ee0f1f9a5?auto=format&fit=crop&w=700&q=80" alt="Pastel infantil">
+        </div>
+
+        <div class="photo">
+          <img src="https://images.unsplash.com/photo-1604668915840-580c30026e5f?auto=format&fit=crop&w=700&q=80" alt="Dulces de fiesta">
+        </div>
+
+        <div class="photo">
+          <img src="https://images.unsplash.com/photo-1602631985686-1bb0e6a8696e?auto=format&fit=crop&w=700&q=80" alt="Decoración infantil">
+        </div>
+
+        <div class="photo">
+          <img src="https://images.unsplash.com/photo-1513151233558-d860c5398176?auto=format&fit=crop&w=700&q=80" alt="Celebración con confeti">
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="final-card">
+        <h2>¡Te esperamos!</h2>
+
+        <p>
+          Tu presencia hará que este día sea todavía más especial.
+          Habrá juegos, sorpresas, mesa de dulces, pastel y mucha diversión.
+        </p>
+
+        <a class="btn btn-whatsapp" href="https://wa.me/5215551234567?text=Hola,%20quiero%20confirmar%20mi%20asistencia%20a%20la%20fiesta%20infantil" target="_blank">
+          Confirmar asistencia
+        </a>
+      </div>
+    </section>
+
+    <footer>
+      Demo Fiesta Infantil | Paquete Plus
+    </footer>
+
+  </main>
+
+  <script>
+    const daysEl = document.getElementById("days");
+    const hoursEl = document.getElementById("hours");
+    const minutesEl = document.getElementById("minutes");
+    const secondsEl = document.getElementById("seconds");
+
+    function getNextEventDate() {
+      const now = new Date();
+      let eventDate = new Date(now.getFullYear(), 8, 21, 16, 30, 0);
+
+      if (eventDate <= now) {
+        eventDate = new Date(now.getFullYear() + 1, 8, 21, 16, 30, 0);
+      }
+
+      return eventDate;
+    }
+
+    const eventDate = getNextEventDate();
+
+    function updateCountdown() {
+      const now = new Date();
+      const distance = eventDate - now;
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((distance / (1000 * 60)) % 60);
+      const seconds = Math.floor((distance / 1000) % 60);
+
+      daysEl.textContent = String(days).padStart(2, "0");
+      hoursEl.textContent = String(hours).padStart(2, "0");
+      minutesEl.textContent = String(minutes).padStart(2, "0");
+      secondsEl.textContent = String(seconds).padStart(2, "0");
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+
+    const colors = ["#ff006e", "#3a86ff", "#ffbe0b", "#2ec4b6", "#fb5607"];
+
+    for (let i = 0; i < 28; i++) {
+      const confetti = document.createElement("div");
+      confetti.className = "confetti";
+      confetti.style.left = Math.random() * 100 + "vw";
+      confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+      confetti.style.animationDuration = 4 + Math.random() * 4 + "s";
+      confetti.style.animationDelay = Math.random() * 5 + "s";
+      confetti.style.transform = `rotate(${Math.random() * 360}deg)`;
+      document.body.appendChild(confetti);
+    }
+  </script>
+</body>
+</html>

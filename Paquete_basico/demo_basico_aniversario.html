@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invitación Aniversario | Paquete Básico</title>
+    <meta name="description" content="Demo de invitación digital básica para aniversario con portada, fecha, ubicación, Google Maps, WhatsApp y contador regresivo.">
+    <style>
+        :root {
+            --vino: #5b1628;
+            --vino-oscuro: #2c0712;
+            --rosa: #e7b8c4;
+            --champagne: #f4dec0;
+            --crema: #fff8ef;
+            --oro: #c99b4a;
+            --cafe: #6a4330;
+            --texto: #321720;
+            --blanco: #ffffff;
+            --sombra: 0 18px 45px rgba(44, 7, 18, 0.18);
+            --radio-grande: 34px;
+            --radio-medio: 22px;
+            --transicion: 0.35s ease;
+        }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            min-height: 100vh;
+            font-family: "Georgia", "Times New Roman", serif;
+            color: var(--texto);
+            background:
+                radial-gradient(circle at top left, rgba(231, 184, 196, 0.45), transparent 32%),
+                radial-gradient(circle at bottom right, rgba(201, 155, 74, 0.28), transparent 36%),
+                linear-gradient(135deg, #fff8ef 0%, #f7e6d8 45%, #efd1d9 100%);
+            overflow-x: hidden;
+        }
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            background-image:
+                linear-gradient(rgba(255, 255, 255, 0.35) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.3) 1px, transparent 1px);
+            background-size: 38px 38px;
+            opacity: 0.24;
+            z-index: -3;
+        }
+        .page-shell {
+            width: min(1120px, calc(100% - 32px));
+            margin: 0 auto;
+            padding: 24px 0 48px;
+        }
+        .hero {
+            min-height: 92vh;
+            position: relative;
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            align-items: center;
+            gap: 28px;
+            padding: 30px 0 24px;
+        }
+        .hero::after {
+            content: "";
+            position: absolute;
+            right: -120px;
+            top: 80px;
+            width: 320px;
+            height: 320px;
+            border-radius: 999px;
+            background: rgba(91, 22, 40, 0.08);
+            filter: blur(4px);
+            z-index: -2;
+        }
+        .hero-card {
+            position: relative;
+            background: rgba(255, 255, 255, 0.72);
+            border: 1px solid rgba(255, 255, 255, 0.78);
+            border-radius: var(--radio-grande);
+            padding: 44px 38px;
+            box-shadow: var(--sombra);
+            backdrop-filter: blur(18px);
+            overflow: hidden;
+        }
+        .hero-card::before {
+            content: "";
+            position: absolute;
+            inset: 14px;
+            border: 1px solid rgba(201, 155, 74, 0.45);
+            border-radius: 26px;
+            pointer-events: none;
+        }
+        .label {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 16px;
+            border-radius: 999px;
+            background: rgba(91, 22, 40, 0.08);
+            color: var(--vino);
+            font-family: Arial, sans-serif;
+            font-size: 0.76rem;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            font-weight: 700;
+            margin-bottom: 26px;
+        }
+        .label span {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--oro);
+            box-shadow: 0 0 0 6px rgba(201, 155, 74, 0.18);
+        }
+        h1 {
+            font-size: clamp(3.1rem, 9vw, 7.4rem);
+            line-height: 0.86;
+            color: var(--vino);
+            letter-spacing: -0.08em;
+            margin-bottom: 22px;
+            font-weight: 500;
+        }
+        .names {
+            display: block;
+            font-size: clamp(2.5rem, 7vw, 6.4rem);
+            color: var(--vino-oscuro);
+            letter-spacing: -0.07em;
+        }
+        .subtitle {
+            max-width: 520px;
+            font-family: Arial, sans-serif;
+            font-size: clamp(1rem, 2.7vw, 1.17rem);
+            line-height: 1.8;
+            color: rgba(50, 23, 32, 0.78);
+            margin-bottom: 30px;
+        }
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+        }
+        .button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            min-height: 52px;
+            padding: 14px 20px;
+            border-radius: 999px;
+            text-decoration: none;
+            font-family: Arial, sans-serif;
+            font-weight: 800;
+            letter-spacing: 0.02em;
+            transition: transform var(--transicion), box-shadow var(--transicion), background var(--transicion);
+        }
+        .button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 16px 30px rgba(91, 22, 40, 0.18);
+        }
+        .button.primary {
+            background: var(--vino);
+            color: var(--blanco);
+        }
+        .button.secondary {
+            background: var(--champagne);
+            color: var(--vino-oscuro);
+            border: 1px solid rgba(201, 155, 74, 0.44);
+        }
+        .visual-panel {
+            min-height: 680px;
+            position: relative;
+            display: grid;
+            place-items: center;
+        }
+        .photo-oval {
+            width: min(420px, 78vw);
+            height: min(560px, 104vw);
+            border-radius: 52% 48% 48% 52% / 42% 42% 58% 58%;
+            background:
+                linear-gradient(rgba(91, 22, 40, 0.12), rgba(91, 22, 40, 0.20)),
+                url("https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=900&q=80") center/cover;
+            border: 12px solid rgba(255, 248, 239, 0.96);
+            box-shadow: 0 30px 70px rgba(44, 7, 18, 0.28);
+        }
+        .floating-note {
+            position: absolute;
+            left: 0;
+            bottom: 72px;
+            width: 230px;
+            padding: 22px;
+            border-radius: 26px;
+            background: rgba(255, 255, 255, 0.82);
+            box-shadow: var(--sombra);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.86);
+        }
+        .floating-note small {
+            display: block;
+            font-family: Arial, sans-serif;
+            color: var(--oro);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+        .floating-note strong {
+            display: block;
+            color: var(--vino);
+            font-size: 1.35rem;
+            line-height: 1.2;
+        }
+        .floating-date {
+            position: absolute;
+            right: 0;
+            top: 72px;
+            width: 190px;
+            height: 190px;
+            border-radius: 50%;
+            background: var(--vino);
+            color: var(--crema);
+            display: grid;
+            place-items: center;
+            text-align: center;
+            box-shadow: 0 28px 55px rgba(91, 22, 40, 0.28);
+        }
+        .floating-date span {
+            display: block;
+            font-family: Arial, sans-serif;
+            font-size: 0.75rem;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: var(--champagne);
+            margin-bottom: 4px;
+        }
+        .floating-date b {
+            display: block;
+            font-size: 3.2rem;
+            line-height: 1;
+            font-weight: 500;
+        }
+        .floating-date em {
+            display: block;
+            font-family: Arial, sans-serif;
+            font-style: normal;
+            margin-top: 8px;
+            font-size: 0.88rem;
+        }
+        .section-grid {
+            display: grid;
+            grid-template-columns: 0.85fr 1.15fr;
+            gap: 24px;
+            align-items: stretch;
+            margin: 30px 0;
+        }
+        .section-title {
+            padding: 34px;
+            border-radius: var(--radio-grande);
+            background: var(--vino-oscuro);
+            color: var(--crema);
+            box-shadow: var(--sombra);
+        }
+        .section-title p {
+            font-family: Arial, sans-serif;
+            color: rgba(255, 248, 239, 0.72);
+            line-height: 1.8;
+            margin-top: 18px;
+        }
+        .section-title h2 {
+            font-size: clamp(2.1rem, 6vw, 4.6rem);
+            line-height: 0.96;
+            font-weight: 500;
+            color: var(--champagne);
+        }
+        .details-board {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 18px;
+        }
+        .detail-card {
+            min-height: 190px;
+            padding: 26px;
+            border-radius: var(--radio-medio);
+            background: rgba(255, 255, 255, 0.72);
+            border: 1px solid rgba(255, 255, 255, 0.82);
+            box-shadow: 0 14px 36px rgba(44, 7, 18, 0.10);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .detail-card:nth-child(2) {
+            transform: translateY(26px);
+            background: rgba(244, 222, 192, 0.7);
+        }
+        .detail-card:nth-child(3) {
+            background: rgba(231, 184, 196, 0.46);
+        }
+        .detail-card:nth-child(4) {
+            transform: translateY(26px);
+            background: rgba(255, 248, 239, 0.86);
+        }
+        .detail-card .icon {
+            width: 46px;
+            height: 46px;
+            border-radius: 16px;
+            display: grid;
+            place-items: center;
+            background: var(--vino);
+            color: var(--crema);
+            font-family: Arial, sans-serif;
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+        .detail-card h3 {
+            font-size: 1.45rem;
+            color: var(--vino);
+            margin-bottom: 10px;
+        }
+        .detail-card p {
+            font-family: Arial, sans-serif;
+            line-height: 1.65;
+            color: rgba(50, 23, 32, 0.76);
+        }
+        .countdown-section {
+            margin: 76px 0 32px;
+            padding: 34px;
+            border-radius: var(--radio-grande);
+            background:
+                linear-gradient(135deg, rgba(91, 22, 40, 0.96), rgba(44, 7, 18, 0.94)),
+                radial-gradient(circle at top right, rgba(201, 155, 74, 0.25), transparent 38%);
+            color: var(--crema);
+            box-shadow: 0 30px 70px rgba(44, 7, 18, 0.26);
+            overflow: hidden;
+            position: relative;
+        }
+        .countdown-section::before {
+            content: "20";
+            position: absolute;
+            right: -20px;
+            top: -50px;
+            font-size: 15rem;
+            line-height: 1;
+            color: rgba(255, 255, 255, 0.04);
+            font-weight: 900;
+            font-family: Arial, sans-serif;
+        }
+        .countdown-header {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            gap: 18px;
+            margin-bottom: 24px;
+        }
+        .countdown-header h2 {
+            font-size: clamp(2rem, 6vw, 4.8rem);
+            line-height: 0.95;
+            font-weight: 500;
+        }
+        .countdown-header p {
+            max-width: 370px;
+            font-family: Arial, sans-serif;
+            line-height: 1.75;
+            color: rgba(255, 248, 239, 0.72);
+        }
+        .timer {
+            position: relative;
+            z-index: 2;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 14px;
+        }
+        .time-box {
+            min-height: 132px;
+            border-radius: 24px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.16);
+            display: grid;
+            place-items: center;
+            text-align: center;
+            padding: 18px 10px;
+        }
+        .time-box span {
+            display: block;
+            font-family: Arial, sans-serif;
+            font-size: clamp(2.2rem, 8vw, 4.3rem);
+            font-weight: 900;
+            color: var(--champagne);
+            line-height: 1;
+        }
+        .time-box small {
+            display: block;
+            margin-top: 10px;
+            font-family: Arial, sans-serif;
+            color: rgba(255, 248, 239, 0.78);
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            font-weight: 700;
+            font-size: 0.72rem;
+        }
+        .location-rsvp {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin-top: 26px;
+        }
+        .map-card,
+        .rsvp-card {
+            border-radius: var(--radio-grande);
+            padding: 32px;
+            box-shadow: var(--sombra);
+        }
+        .map-card {
+            background:
+                linear-gradient(145deg, rgba(255, 248, 239, 0.92), rgba(244, 222, 192, 0.82)),
+                repeating-linear-gradient(45deg, rgba(201, 155, 74, 0.16) 0 1px, transparent 1px 12px);
+            border: 1px solid rgba(255, 255, 255, 0.82);
+        }
+        .rsvp-card {
+            background: rgba(255, 255, 255, 0.76);
+            border: 1px solid rgba(255, 255, 255, 0.86);
+            position: relative;
+            overflow: hidden;
+        }
+        .rsvp-card::after {
+            content: "♡";
+            position: absolute;
+            right: 20px;
+            bottom: -48px;
+            font-size: 11rem;
+            color: rgba(231, 184, 196, 0.32);
+            line-height: 1;
+        }
+        .card-kicker {
+            display: block;
+            font-family: Arial, sans-serif;
+            color: var(--oro);
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            font-weight: 900;
+            font-size: 0.74rem;
+            margin-bottom: 12px;
+        }
+        .map-card h2,
+        .rsvp-card h2 {
+            font-size: clamp(2rem, 5vw, 3.6rem);
+            line-height: 1;
+            color: var(--vino);
+            font-weight: 500;
+            margin-bottom: 16px;
+        }
+        .map-card p,
+        .rsvp-card p {
+            font-family: Arial, sans-serif;
+            line-height: 1.75;
+            color: rgba(50, 23, 32, 0.75);
+            margin-bottom: 22px;
+            position: relative;
+            z-index: 1;
+        }
+        .mini-address {
+            display: grid;
+            gap: 12px;
+            margin-bottom: 22px;
+        }
+        .mini-address div {
+            padding: 14px 16px;
+            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.62);
+            font-family: Arial, sans-serif;
+            color: var(--cafe);
+            font-weight: 700;
+        }
+        .whatsapp-button {
+            background: #1fa855;
+            color: white;
+            position: relative;
+            z-index: 1;
+        }
+        .footer-note {
+            margin: 30px auto 0;
+            text-align: center;
+            max-width: 640px;
+            font-family: Arial, sans-serif;
+            color: rgba(50, 23, 32, 0.68);
+            line-height: 1.7;
+            font-size: 0.96rem;
+        }
+        .ornament-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin: 36px 0 10px;
+        }
+        .ornament-row span {
+            display: block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--oro);
+        }
+        .ornament-row::before,
+        .ornament-row::after {
+            content: "";
+            width: 80px;
+            height: 1px;
+            background: rgba(91, 22, 40, 0.24);
+        }
+        @media (max-width: 920px) {
+            .hero {
+                grid-template-columns: 1fr;
+                min-height: auto;
+            }
+            .visual-panel {
+                min-height: 560px;
+                order: -1;
+            }
+            .section-grid,
+            .location-rsvp {
+                grid-template-columns: 1fr;
+            }
+            .details-board {
+                grid-template-columns: 1fr 1fr;
+            }
+            .detail-card:nth-child(2),
+            .detail-card:nth-child(4) {
+                transform: none;
+            }
+        }
+        @media (max-width: 680px) {
+            .page-shell {
+                width: min(100% - 22px, 520px);
+                padding-top: 12px;
+            }
+            .hero-card {
+                padding: 34px 22px;
+                border-radius: 28px;
+            }
+            .hero-card::before {
+                inset: 10px;
+                border-radius: 22px;
+            }
+            .hero-actions {
+                display: grid;
+            }
+            .button {
+                width: 100%;
+            }
+            .visual-panel {
+                min-height: 470px;
+            }
+            .photo-oval {
+                width: min(330px, 90vw);
+                height: 440px;
+                border-width: 9px;
+            }
+            .floating-note {
+                left: 10px;
+                bottom: 34px;
+                width: 190px;
+                padding: 18px;
+            }
+            .floating-date {
+                right: 8px;
+                top: 24px;
+                width: 142px;
+                height: 142px;
+            }
+            .floating-date b {
+                font-size: 2.3rem;
+            }
+            .section-title,
+            .countdown-section,
+            .map-card,
+            .rsvp-card {
+                padding: 26px 20px;
+                border-radius: 28px;
+            }
+            .details-board,
+            .timer {
+                grid-template-columns: 1fr;
+            }
+            .countdown-header {
+                display: grid;
+            }
+            .time-box {
+                min-height: 105px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main class="page-shell">
+        <section class="hero" id="inicio">
+            <article class="hero-card">
+                <div class="label">
+                    <span></span>
+                    Aniversario de amor
+                </div>
+                <h1>
+                    20 años
+                    <span class="names">Ana & Luis</span>
+                </h1>
+                <p class="subtitle">
+                    Dos décadas compartiendo historias, sueños, viajes, risas y momentos que se quedan para siempre. Queremos celebrar este camino con las personas que han sido parte de nuestra vida.
+                </p>
+                <div class="hero-actions">
+                    <a class="button primary" href="#detalles">Ver detalles</a>
+                    <a class="button secondary" href="#confirmar">Confirmar asistencia</a>
+                </div>
+            </article>
+            <aside class="visual-panel" aria-label="Imagen decorativa de aniversario">
+                <div class="photo-oval"></div>
+                <div class="floating-date">
+                    <div>
+                        <span>Agosto</span>
+                        <b>24</b>
+                        <em>2026</em>
+                    </div>
+                </div>
+                <div class="floating-note">
+                    <small>Celebración íntima</small>
+                    <strong>Una noche para brindar por lo vivido.</strong>
+                </div>
+            </aside>
+        </section>
+        <section class="section-grid" id="detalles">
+            <div class="section-title">
+                <h2>Detalles del encuentro</h2>
+                <p>
+                    Preparamos una celebración cálida, elegante y sencilla para recordar el inicio de esta historia y agradecer cada momento compartido.
+                </p>
+            </div>
+            <div class="details-board">
+                <article class="detail-card">
+                    <div>
+                        <div class="icon">01</div>
+                        <h3>Fecha</h3>
+                        <p>Sábado 24 de agosto de 2026. Una fecha especial para celebrar nuestro aniversario junto a familiares y amigos.</p>
+                    </div>
+                </article>
+                <article class="detail-card">
+                    <div>
+                        <div class="icon">02</div>
+                        <h3>Hora</h3>
+                        <p>La recepción comenzará a las 7:30 p.m. Recomendamos llegar unos minutos antes para disfrutar el brindis inicial.</p>
+                    </div>
+                </article>
+                <article class="detail-card">
+                    <div>
+                        <div class="icon">03</div>
+                        <h3>Ubicación</h3>
+                        <p>Jardín Aurora, Salón Terraza. Un espacio acogedor con ambiente romántico y áreas para convivir cómodamente.</p>
+                    </div>
+                </article>
+                <article class="detail-card">
+                    <div>
+                        <div class="icon">04</div>
+                        <h3>Motivo</h3>
+                        <p>Celebrar 20 años de matrimonio, agradecer lo construido y compartir una cena especial con quienes queremos.</p>
+                    </div>
+                </article>
+            </div>
+        </section>
+        <section class="countdown-section" aria-label="Contador regresivo del aniversario">
+            <div class="countdown-header">
+                <h2>Falta poco para brindar</h2>
+                <p>
+                    Cada día nos acerca más a una noche llena de recuerdos, abrazos y buenos deseos. Guarda la fecha y acompáñanos.
+                </p>
+            </div>
+            <div class="timer" id="contador">
+                <div class="time-box">
+                    <div>
+                        <span id="dias">00</span>
+                        <small>Días</small>
+                    </div>
+                </div>
+                <div class="time-box">
+                    <div>
+                        <span id="horas">00</span>
+                        <small>Horas</small>
+                    </div>
+                </div>
+                <div class="time-box">
+                    <div>
+                        <span id="minutos">00</span>
+                        <small>Minutos</small>
+                    </div>
+                </div>
+                <div class="time-box">
+                    <div>
+                        <span id="segundos">00</span>
+                        <small>Segundos</small>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="location-rsvp" id="confirmar">
+            <article class="map-card">
+                <span class="card-kicker">Cómo llegar</span>
+                <h2>Jardín Aurora</h2>
+                <p>
+                    La celebración será en un salón con terraza, pensado para una velada tranquila y especial. Puedes abrir la ruta directamente en Google Maps.
+                </p>
+                <div class="mini-address">
+                    <div>Av. de las Rosas 120, Centro</div>
+                    <div>Ciudad de México, México</div>
+                </div>
+                <a class="button primary" href="https://www.google.com/maps/search/?api=1&query=Av.+de+las+Rosas+120+Centro+Ciudad+de+Mexico" target="_blank" rel="noopener">Abrir Google Maps</a>
+            </article>
+            <article class="rsvp-card">
+                <span class="card-kicker">Confirmación básica</span>
+                <h2>Confirma por WhatsApp</h2>
+                <p>
+                    Para organizarnos mejor, confirma tu asistencia con un mensaje sencillo. Solo presiona el botón y se abrirá WhatsApp con el texto preparado.
+                </p>
+                <a class="button whatsapp-button" href="https://wa.me/5215512345678?text=Hola%2C%20confirmo%20mi%20asistencia%20al%20aniversario%20de%20Ana%20y%20Luis.%20Mi%20nombre%20es%3A" target="_blank" rel="noopener">Confirmar asistencia</a>
+            </article>
+        </section>
+        <div class="ornament-row" aria-hidden="true">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <p class="footer-note">
+            Demo de invitación digital para paquete básico
+        </p>
+    </main>
+    <script>
+        const fechaEvento = new Date("2026-08-24T19:30:00").getTime();
+        const diasElemento = document.getElementById("dias");
+        const horasElemento = document.getElementById("horas");
+        const minutosElemento = document.getElementById("minutos");
+        const segundosElemento = document.getElementById("segundos");
+        const contador = document.getElementById("contador");
+        function formato(numero) {
+            return numero < 10 ? "0" + numero : numero;
+        }
+        function actualizarContador() {
+            const ahora = new Date().getTime();
+            const distancia = fechaEvento - ahora;
+            if (distancia <= 0) {
+                contador.innerHTML = `
+                    <div class="time-box" style="grid-column: 1 / -1;">
+                        <div>
+                            <span>Hoy</span>
+                            <small>Es momento de celebrar</small>
+                        </div>
+                    </div>
+                `;
+                return;
+            }
+            const dias = Math.floor(distancia / (1000 * 60 * 60 * 24));
+            const horas = Math.floor((distancia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutos = Math.floor((distancia % (1000 * 60 * 60)) / (1000 * 60));
+            const segundos = Math.floor((distancia % (1000 * 60)) / 1000);
+            diasElemento.textContent = formato(dias);
+            horasElemento.textContent = formato(horas);
+            minutosElemento.textContent = formato(minutos);
+            segundosElemento.textContent = formato(segundos);
+        }
+        actualizarContador();
+        setInterval(actualizarContador, 1000);
+    </script>
+</body>
+</html>

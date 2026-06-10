@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Evento Empresarial | Demo Básico</title>
+<style>
+:root {
+    --azul: #071421;
+    --azul-2: #10283d;
+    --menta: #38d6b4;
+    --oro: #e9c46a;
+    --blanco: #f6f8fb;
+    --gris: #9fb0c0;
+    --borde: rgba(255,255,255,.16);
+    --card: rgba(255,255,255,.075);
+    --shadow: 0 24px 70px rgba(0,0,0,.35);
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+html {
+    scroll-behavior: smooth;
+}
+body {
+    min-height: 100vh;
+    font-family: Arial, Helvetica, sans-serif;
+    color: var(--blanco);
+    background: radial-gradient(circle at 8% 8%, rgba(56,214,180,.22), transparent 30%), radial-gradient(circle at 90% 12%, rgba(233,196,106,.18), transparent 28%), linear-gradient(135deg, #071421, #0c1c2c 48%, #101b25);
+    overflow-x: hidden;
+}
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+    pointer-events: none;
+    background-image: linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
+    background-size: 46px 46px;
+    mask-image: linear-gradient(to bottom, black, transparent 88%);
+}
+a {
+    color: inherit;
+    text-decoration: none;
+}
+.shell {
+    width: min(1120px, calc(100% - 32px));
+    margin: auto;
+    padding: 28px 0 42px;
+}
+.top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 26px;
+}
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.logo {
+    width: 46px;
+    height: 46px;
+    display: grid;
+    place-items: center;
+    border-radius: 15px;
+    background: linear-gradient(145deg, var(--menta), var(--oro));
+    color: var(--azul);
+    font-weight: 900;
+}
+.brand strong {
+    display: block;
+    font-size: .94rem;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+}
+.brand span {
+    display: block;
+    margin-top: 3px;
+    color: var(--gris);
+    font-size: .78rem;
+}
+.pill {
+    padding: 10px 15px;
+    border: 1px solid var(--borde);
+    border-radius: 999px;
+    background: rgba(255,255,255,.06);
+    color: var(--oro);
+    font-size: .78rem;
+    font-weight: 800;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+.hero {
+    display: grid;
+    grid-template-columns: 1.05fr .95fr;
+    gap: 22px;
+    min-height: 620px;
+}
+.panel {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid var(--borde);
+    border-radius: 34px;
+    background: linear-gradient(155deg, rgba(255,255,255,.11), rgba(255,255,255,.035)), rgba(255,255,255,.04);
+    box-shadow: var(--shadow);
+    backdrop-filter: blur(18px);
+}
+.hero-main {
+    min-height: 620px;
+    padding: 44px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.hero-main::before {
+    content: "";
+    position: absolute;
+    width: 270px;
+    height: 270px;
+    right: -70px;
+    top: -80px;
+    border-radius: 50%;
+    background: rgba(56,214,180,.16);
+}
+.hero-main::after {
+    content: "";
+    position: absolute;
+    width: 160px;
+    height: 160px;
+    left: -54px;
+    bottom: 76px;
+    border: 1px solid rgba(233,196,106,.32);
+    border-radius: 34px;
+    transform: rotate(18deg);
+}
+.content {
+    position: relative;
+    z-index: 2;
+}
+.eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    margin-bottom: 22px;
+    padding: 9px 13px;
+    border: 1px solid rgba(56,214,180,.32);
+    border-radius: 999px;
+    background: rgba(56,214,180,.08);
+    color: var(--menta);
+    font-size: .77rem;
+    font-weight: 800;
+    letter-spacing: .11em;
+    text-transform: uppercase;
+}
+.dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--menta);
+    box-shadow: 0 0 18px var(--menta);
+}
+h1 {
+    max-width: 640px;
+    font-size: clamp(3.2rem, 8vw, 6.8rem);
+    line-height: .9;
+    letter-spacing: -.07em;
+}
+h1 span {
+    display: block;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(246,248,251,.72);
+}
+.desc {
+    max-width: 570px;
+    margin-top: 24px;
+    color: var(--gris);
+    font-size: 1rem;
+    line-height: 1.75;
+}
+.actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 32px;
+}
+.btn {
+    min-height: 52px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 0 20px;
+    border-radius: 999px;
+    border: 1px solid transparent;
+    font-weight: 900;
+    transition: .3s ease;
+}
+.btn:hover {
+    transform: translateY(-3px);
+}
+.primary {
+    background: linear-gradient(135deg, var(--menta), var(--oro));
+    color: var(--azul);
+}
+.secondary {
+    border-color: var(--borde);
+    background: rgba(255,255,255,.06);
+    color: var(--blanco);
+}
+.strip {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-top: 32px;
+}
+.mini {
+    min-height: 88px;
+    padding: 16px;
+    border: 1px solid rgba(255,255,255,.12);
+    border-radius: 14px;
+    background: rgba(255,255,255,.055);
+}
+.mini small {
+    display: block;
+    color: var(--gris);
+    font-size: .73rem;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+}
+.mini strong {
+    display: block;
+    margin-top: 9px;
+    font-size: .96rem;
+    line-height: 1.35;
+}
+.side {
+    display: grid;
+    grid-template-rows: .86fr 1.14fr;
+    gap: 22px;
+}
+.card {
+    padding: 26px;
+}
+.card-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    margin-bottom: 22px;
+}
+.card-title h2 {
+    font-size: 1.15rem;
+    letter-spacing: -.02em;
+}
+.card-title span {
+    color: var(--oro);
+    font-size: .78rem;
+    font-weight: 900;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+}
+.date-box {
+    display: grid;
+    grid-template-columns: 92px 1fr;
+    gap: 16px;
+    align-items: center;
+    padding: 18px;
+    border-radius: 22px;
+    border: 1px solid rgba(255,255,255,.12);
+    background: rgba(255,255,255,.07);
+}
+.day {
+    min-height: 92px;
+    display: grid;
+    place-items: center;
+    border-radius: 20px;
+    background: var(--blanco);
+    color: var(--azul);
+}
+.day strong {
+    display: block;
+    font-size: 2.2rem;
+    line-height: 1;
+}
+.day span {
+    display: block;
+    margin-top: 5px;
+    font-size: .76rem;
+    font-weight: 900;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+}
+.date-copy h3 {
+    margin-bottom: 7px;
+    font-size: 1.2rem;
+}
+.date-copy p {
+    color: var(--gris);
+    font-size: .92rem;
+    line-height: 1.55;
+}
+.details {
+    display: grid;
+    gap: 12px;
+    margin-top: 16px;
+}
+.line {
+    display: flex;
+    align-items: flex-start;
+    gap: 13px;
+    padding: 15px;
+    border-radius: 18px;
+    background: rgba(255,255,255,.045);
+    border: 1px solid rgba(255,255,255,.1);
+}
+.icon {
+    width: 38px;
+    height: 38px;
+    flex: 0 0 38px;
+    display: grid;
+    place-items: center;
+    border-radius: 12px;
+    background: rgba(56,214,180,.12);
+}
+.line small {
+    display: block;
+    margin-bottom: 4px;
+    color: var(--gris);
+    font-size: .75rem;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+}
+.line strong {
+    display: block;
+    font-size: .98rem;
+    line-height: 1.45;
+}
+.count {
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.count p {
+    margin-top: 10px;
+    color: var(--gris);
+    font-size: .95rem;
+    line-height: 1.7;
+}
+.clock {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 13px;
+    margin-top: 26px;
+}
+.time {
+    position: relative;
+    overflow: hidden;
+    min-height: 118px;
+    padding: 18px;
+    border-radius: 24px;
+    background: linear-gradient(145deg, rgba(56,214,180,.16), rgba(255,255,255,.055));
+    border: 1px solid rgba(56,214,180,.22);
+}
+.time::after {
+    content: "";
+    position: absolute;
+    width: 72px;
+    height: 72px;
+    right: -20px;
+    top: -20px;
+    border-radius: 50%;
+    background: rgba(233,196,106,.18);
+}
+.time strong {
+    position: relative;
+    z-index: 1;
+    display: block;
+    font-size: 2.15rem;
+}
+.time span {
+    position: relative;
+    z-index: 1;
+    display: block;
+    margin-top: 10px;
+    color: var(--gris);
+    font-size: .78rem;
+    font-weight: 900;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+}
+.sections {
+    display: grid;
+    grid-template-columns: .78fr 1.22fr;
+    gap: 22px;
+    margin-top: 22px;
+}
+.info,
+.contact {
+    padding: 30px;
+}
+.label {
+    display: inline-flex;
+    margin-bottom: 14px;
+    padding: 8px 12px;
+    border-radius: 999px;
+    background: rgba(233,196,106,.1);
+    color: var(--oro);
+    font-size: .74rem;
+    font-weight: 900;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+}
+.info h2 {
+    font-size: clamp(1.75rem, 4vw, 3rem);
+    line-height: 1.05;
+    letter-spacing: -.05em;
+}
+.info p,
+.place p,
+.rsvp p {
+    margin-top: 16px;
+    color: var(--gris);
+    font-size: .96rem;
+    line-height: 1.78;
+}
+.contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+.place,
+.rsvp {
+    min-height: 255px;
+    padding: 24px;
+    border-radius: 28px;
+    border: 1px solid rgba(255,255,255,.12);
+    background: linear-gradient(145deg, rgba(255,255,255,.08), rgba(18,50,74,.68));
+}
+.rsvp {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: linear-gradient(145deg, rgba(56,214,180,.13), rgba(255,255,255,.05));
+    border-color: rgba(56,214,180,.2);
+}
+.place h3,
+.rsvp h3 {
+    font-size: 1.35rem;
+    line-height: 1.18;
+    letter-spacing: -.03em;
+}
+.map {
+    position: relative;
+    min-height: 112px;
+    margin-top: 18px;
+    border-radius: 22px;
+    border: 1px solid rgba(56,214,180,.18);
+    background: linear-gradient(90deg, rgba(56,214,180,.14) 1px, transparent 1px), linear-gradient(rgba(56,214,180,.14) 1px, transparent 1px), rgba(7,20,33,.72);
+    background-size: 22px 22px;
+}
+.pin {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 22px;
+    height: 22px;
+    border-radius: 50% 50% 50% 0;
+    background: var(--oro);
+    transform: translate(-50%, -70%) rotate(-45deg);
+    box-shadow: 0 0 0 10px rgba(233,196,106,.13);
+}
+.pin::after {
+    content: "";
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    left: 7px;
+    top: 7px;
+    border-radius: 50%;
+    background: var(--azul);
+}
+.note {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-top: 18px;
+    color: var(--menta);
+    font-size: .85rem;
+    font-weight: 900;
+}
+.footer {
+    margin-top: 22px;
+    padding: 18px 20px;
+    border-radius: 22px;
+    background: rgba(255,255,255,.055);
+    border: 1px solid rgba(255,255,255,.1);
+    color: var(--gris);
+    text-align: center;
+    font-size: .9rem;
+    line-height: 1.6;
+}
+.accent {
+    position: absolute;
+    width: 140px;
+    height: 140px;
+    right: 32px;
+    bottom: 30px;
+    border-radius: 40px;
+    border: 1px solid rgba(56,214,180,.22);
+    transform: rotate(12deg);
+    opacity: .48;
+}
+.accent::before {
+    content: "";
+    position: absolute;
+    inset: 22px;
+    border-radius: 30px;
+    border: 1px solid rgba(233,196,106,.3);
+}
+@media (max-width: 920px) {
+    .hero,
+    .sections {
+        grid-template-columns: 1fr;
+    }
+    .side {
+        grid-template-rows: auto;
+    }
+    .contact-grid {
+        grid-template-columns: 1fr;
+    }
+}
+@media (max-width: 640px) {
+    .shell {
+        width: min(100% - 22px, 1120px);
+        padding-top: 16px;
+    }
+    .top {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+    .pill,
+    .btn {
+        width: 100%;
+        text-align: center;
+    }
+    .hero-main,
+    .card,
+    .count,
+    .info,
+    .contact {
+        padding: 22px;
+        border-radius: 26px;
+    }
+    .hero-main {
+        min-height: auto;
+    }
+    h1 {
+        font-size: clamp(3rem, 18vw, 5rem);
+    }
+    .actions {
+        flex-direction: column;
+    }
+    .strip,
+    .date-box {
+        grid-template-columns: 1fr;
+    }
+    .clock {
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+    }
+    .time {
+        min-height: 102px;
+        padding: 15px;
+    }
+    .time strong {
+        font-size: 1.75rem;
+    }
+    .card-title {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+    .accent {
+        display: none;
+    }
+}
+</style>
+</head>
+<body>
+<main class="shell">
+<header class="top">
+<a class="brand" href="#inicio" aria-label="Ir a portada">
+<div class="logo">EW</div>
+<div>
+<strong>Evento Corporativo</strong>
+<span>Demo de invitación digital básica</span>
+</div>
+</a>
+<div class="pill">Paquete Básico</div>
+</header>
+<section class="hero" id="inicio">
+<article class="panel hero-main">
+<div class="content">
+<div class="eyebrow">
+<span class="dot"></span>
+Networking · Innovación · Liderazgo
+</div>
+<h1>
+Cumbre
+<span>Ejecutiva</span>
+2026
+</h1>
+<p class="desc">
+Una reunión empresarial diseñada para presentar nuevos proyectos,
+fortalecer alianzas estratégicas y conectar con líderes que impulsan
+el crecimiento profesional de la región.
+</p>
+<div class="actions">
+<a class="btn primary" href="#confirmar">Confirmar asistencia</a>
+<a class="btn secondary" href="#ubicacion">Ver ubicación</a>
+</div>
+</div>
+<div class="strip" aria-label="Resumen del evento">
+<div class="mini">
+<small>Formato</small>
+<strong>Presentación empresarial</strong>
+</div>
+<div class="mini">
+<small>Acceso</small>
+<strong>Registro por invitación</strong>
+</div>
+<div class="mini">
+<small>Enfoque</small>
+<strong>Alianzas y crecimiento</strong>
+</div>
+</div>
+<div class="accent" aria-hidden="true"></div>
+</article>
+<aside class="side">
+<article class="panel card" id="detalles">
+<div class="card-title">
+<h2>Fecha, hora y sede</h2>
+<span>Información</span>
+</div>
+<div class="date-box">
+<div class="day">
+<div>
+<strong>25</strong>
+<span>Sep</span>
+</div>
+</div>
+<div class="date-copy">
+<h3>Viernes 25 de septiembre</h3>
+<p>Recepción desde las 6:30 p.m. y apertura oficial a las 7:00 p.m.</p>
+</div>
+</div>
+<div class="details">
+<div class="line">
+<div class="icon">🕖</div>
+<div>
+<small>Horario</small>
+<strong>7:00 p.m. a 10:00 p.m.</strong>
+</div>
+</div>
+<div class="line">
+<div class="icon">📍</div>
+<div>
+<small>Ubicación</small>
+<strong>Business Center Reforma, Ciudad de México</strong>
+</div>
+</div>
+</div>
+</article>
+<article class="panel count">
+<div>
+<div class="card-title">
+<h2>Cuenta regresiva</h2>
+<span>En vivo</span>
+</div>
+<p>
+El contador se actualiza automáticamente para indicar cuánto falta
+para el inicio de esta experiencia empresarial.
+</p>
+</div>
+<div class="clock" aria-label="Contador regresivo">
+<div class="time">
+<strong id="days">00</strong>
+<span>Días</span>
+</div>
+<div class="time">
+<strong id="hours">00</strong>
+<span>Horas</span>
+</div>
+<div class="time">
+<strong id="minutes">00</strong>
+<span>Minutos</span>
+</div>
+<div class="time">
+<strong id="seconds">00</strong>
+<span>Segundos</span>
+</div>
+</div>
+</article>
+</aside>
+</section>
+<section class="sections">
+<article class="panel info">
+<span class="label">Portada principal</span>
+<h2>Una invitación seria, moderna y clara.</h2>
+<p>
+Este demo está pensado para un evento empresarial formal, por eso utiliza
+tonos azul noche, acentos menta y detalles dorados que transmiten confianza,
+tecnología y profesionalismo sin perder elegancia visual.
+</p>
+<p>
+La distribución evita repetir la misma información: la portada presenta el
+concepto, la tarjeta lateral concentra fecha y sede, y la zona inferior
+separa ubicación y confirmación para que sea fácil de usar desde celular.
+</p>
+</article>
+<article class="panel contact" id="ubicacion">
+<div class="contact-grid">
+<div class="place">
+<span class="label">Google Maps</span>
+<h3>Business Center Reforma</h3>
+<p>
+Paseo de la Reforma 222, Colonia Juárez, Ciudad de México.
+Consulta la ruta directa desde tu teléfono antes de salir.
+</p>
+<div class="map" aria-hidden="true">
+<span class="pin"></span>
+</div>
+<a class="btn secondary" style="margin-top:18px;" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Business%20Center%20Reforma%20Ciudad%20de%20Mexico">
+Abrir en Google Maps
+</a>
+</div>
+<div class="rsvp" id="confirmar">
+<div>
+<span class="label">WhatsApp básico</span>
+<h3>Confirma tu asistencia</h3>
+<p>
+Envía un mensaje rápido con tu nombre para apartar tu lugar
+en la lista de invitados del evento.
+</p>
+<div class="note">
+<span>●</span>
+<span>Respuesta directa por WhatsApp</span>
+</div>
+</div>
+<a class="btn primary" target="_blank" href="https://wa.me/5215512345678?text=Hola%2C%20confirmo%20mi%20asistencia%20a%20la%20Cumbre%20Ejecutiva%202026.%20Mi%20nombre%20es%3A">
+Confirmar por WhatsApp
+</a>
+</div>
+</div>
+</article>
+</section>
+<p class="footer">
+Demo básico para evento empresarial
+</p>
+</main>
+<script>
+const eventDate = new Date("2026-09-25T19:00:00-06:00").getTime();
+const dayBox = document.getElementById("days");
+const hourBox = document.getElementById("hours");
+const minuteBox = document.getElementById("minutes");
+const secondBox = document.getElementById("seconds");
+function formatNumber(number) {
+    return String(number).padStart(2, "0");
+}
+function updateCountdown() {
+    const now = new Date().getTime();
+    const distance = eventDate - now;
+    if (distance <= 0) {
+        dayBox.textContent = "00";
+        hourBox.textContent = "00";
+        minuteBox.textContent = "00";
+        secondBox.textContent = "00";
+        return;
+    }
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    dayBox.textContent = formatNumber(days);
+    hourBox.textContent = formatNumber(hours);
+    minuteBox.textContent = formatNumber(minutes);
+    secondBox.textContent = formatNumber(seconds);
+}
+updateCountdown();
+setInterval(updateCountdown, 1000);
+</script>
+</body>
+</html>

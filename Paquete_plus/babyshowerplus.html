@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Baby Shower | Paquete Plus</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --cream: #fffaf0;
+      --mint: #b8eadf;
+      --mint-dark: #68b8a7;
+      --peach: #ffc9b5;
+      --lavender: #d7c5ff;
+      --gold: #d8aa5b;
+      --text: #4b4542;
+      --white: #ffffff;
+      --shadow: 0 18px 45px rgba(92, 72, 55, 0.16);
+      --radius: 28px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Poppins", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(255, 201, 181, .55), transparent 35%),
+        radial-gradient(circle at 90% 20%, rgba(215, 197, 255, .55), transparent 35%),
+        linear-gradient(180deg, #fff7e9 0%, #effffb 45%, #fffaf0 100%);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        radial-gradient(circle, rgba(255,255,255,.9) 0 8px, transparent 9px),
+        radial-gradient(circle, rgba(255,255,255,.55) 0 5px, transparent 6px);
+      background-size: 90px 90px, 130px 130px;
+      background-position: 10px 20px, 50px 70px;
+      opacity: .45;
+      animation: floatDots 16s linear infinite;
+      z-index: -1;
+    }
+
+    @keyframes floatDots {
+      from { transform: translateY(0); }
+      to { transform: translateY(-90px); }
+    }
+
+    .page {
+      width: min(100%, 460px);
+      margin: auto;
+      min-height: 100vh;
+      padding-bottom: 40px;
+    }
+
+    .hero {
+      min-height: 100vh;
+      padding: 26px 22px 34px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cloud {
+      position: absolute;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, .75);
+      filter: blur(.2px);
+      animation: cloudMove 7s ease-in-out infinite alternate;
+    }
+
+    .cloud::before,
+    .cloud::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      background: inherit;
+    }
+
+    .cloud.one {
+      width: 120px;
+      height: 42px;
+      left: -28px;
+      top: 70px;
+    }
+
+    .cloud.one::before {
+      width: 54px;
+      height: 54px;
+      left: 18px;
+      bottom: 10px;
+    }
+
+    .cloud.one::after {
+      width: 70px;
+      height: 70px;
+      right: 18px;
+      bottom: 4px;
+    }
+
+    .cloud.two {
+      width: 105px;
+      height: 36px;
+      right: -22px;
+      top: 145px;
+      animation-delay: .7s;
+    }
+
+    .cloud.two::before {
+      width: 45px;
+      height: 45px;
+      left: 14px;
+      bottom: 8px;
+    }
+
+    .cloud.two::after {
+      width: 58px;
+      height: 58px;
+      right: 15px;
+      bottom: 2px;
+    }
+
+    @keyframes cloudMove {
+      from { transform: translateX(0) translateY(0); }
+      to { transform: translateX(14px) translateY(-8px); }
+    }
+
+    .hero-card {
+      width: 100%;
+      border-radius: 36px;
+      padding: 28px 20px 24px;
+      background:
+        linear-gradient(160deg, rgba(255,255,255,.90), rgba(255,255,255,.68)),
+        linear-gradient(135deg, rgba(184,234,223,.65), rgba(255,201,181,.45));
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(255,255,255,.8);
+      position: relative;
+      backdrop-filter: blur(12px);
+      text-align: center;
+    }
+
+    .label {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 9px 16px;
+      border-radius: 999px;
+      background: rgba(104, 184, 167, .15);
+      color: var(--mint-dark);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+    }
+
+    .moon {
+      width: 132px;
+      height: 132px;
+      margin: 0 auto 18px;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at 36% 28%, #fff 0 9px, transparent 10px),
+        radial-gradient(circle at 68% 62%, #fff 0 6px, transparent 7px),
+        linear-gradient(145deg, #d7c5ff, #b8eadf 55%, #fff1cc);
+      box-shadow:
+        inset -18px -18px 34px rgba(255,255,255,.45),
+        0 18px 35px rgba(104,184,167,.28);
+      position: relative;
+      animation: babyFloat 4.5s ease-in-out infinite;
+    }
+
+    .moon::after {
+      content: "☁";
+      position: absolute;
+      font-size: 76px;
+      color: #fff;
+      bottom: -24px;
+      left: 28px;
+      text-shadow: 0 10px 22px rgba(104,184,167,.18);
+    }
+
+    @keyframes babyFloat {
+      0%, 100% { transform: translateY(0) rotate(-2deg); }
+      50% { transform: translateY(-10px) rotate(2deg); }
+    }
+
+    h1 {
+      font-family: "Marcellus", serif;
+      font-size: clamp(44px, 15vw, 68px);
+      line-height: .9;
+      color: #6d5b8d;
+      font-weight: 400;
+      margin-bottom: 12px;
+    }
+
+    .subtitle {
+      font-size: 17px;
+      color: #7f756e;
+      line-height: 1.7;
+      max-width: 330px;
+      margin: 0 auto 20px;
+    }
+
+    .baby-name {
+      display: block;
+      margin-top: 8px;
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--mint-dark);
+    }
+
+    .parents {
+      padding: 16px;
+      border-radius: 24px;
+      background: rgba(255,255,255,.62);
+      border: 1px dashed rgba(216,170,91,.75);
+      font-size: 14px;
+      line-height: 1.7;
+      color: #6b625c;
+      margin-top: 18px;
+    }
+
+    .scroll-note {
+      margin-top: 20px;
+      font-size: 12px;
+      color: #958b82;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    section {
+      padding: 0 18px 26px;
+    }
+
+    .section-title {
+      font-family: "Marcellus", serif;
+      font-size: 34px;
+      color: #6d5b8d;
+      text-align: center;
+      font-weight: 400;
+      margin-bottom: 16px;
+    }
+
+    .info-stack {
+      display: grid;
+      gap: 16px;
+    }
+
+    .info-card {
+      background: rgba(255,255,255,.78);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 20px;
+      border: 1px solid rgba(255,255,255,.8);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .info-card::before {
+      content: "";
+      position: absolute;
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      right: -45px;
+      top: -45px;
+      background: rgba(255,201,181,.36);
+    }
+
+    .info-card.alt::before {
+      background: rgba(184,234,223,.48);
+    }
+
+    .info-card.wide {
+      background:
+        linear-gradient(135deg, rgba(255,255,255,.85), rgba(255,245,221,.8)),
+        radial-gradient(circle at right top, rgba(215,197,255,.5), transparent 45%);
+    }
+
+    .icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 18px;
+      background: linear-gradient(135deg, var(--mint), var(--lavender));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      margin-bottom: 12px;
+      box-shadow: 0 10px 25px rgba(104,184,167,.18);
+    }
+
+    .info-card h3 {
+      font-size: 18px;
+      color: #5f557a;
+      margin-bottom: 7px;
+    }
+
+    .info-card p {
+      font-size: 14px;
+      line-height: 1.7;
+      color: #6b625c;
+    }
+
+    .date-big {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+    }
+
+    .date-number {
+      width: 90px;
+      min-width: 90px;
+      height: 90px;
+      border-radius: 28px;
+      background: linear-gradient(160deg, var(--peach), #ffe0a9);
+      display: grid;
+      place-items: center;
+      color: white;
+      box-shadow: 0 16px 28px rgba(255, 158, 127, .25);
+      text-align: center;
+    }
+
+    .date-number strong {
+      display: block;
+      font-size: 36px;
+      line-height: .9;
+    }
+
+    .date-number span {
+      font-size: 12px;
+      letter-spacing: 1px;
+      font-weight: 700;
+    }
+
+    .btn-row {
+      display: grid;
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .btn {
+      border: none;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      width: 100%;
+      padding: 15px 16px;
+      border-radius: 18px;
+      font-weight: 700;
+      font-size: 14px;
+      cursor: pointer;
+      transition: transform .25s ease, box-shadow .25s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+    }
+
+    .maps {
+      background: #6d5b8d;
+      color: white;
+      box-shadow: 0 14px 25px rgba(109,91,141,.25);
+    }
+
+    .whatsapp {
+      background: #68b8a7;
+      color: white;
+      box-shadow: 0 14px 25px rgba(104,184,167,.25);
+    }
+
+    .countdown {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .time-box {
+      border-radius: 18px;
+      background: rgba(255,255,255,.72);
+      padding: 12px 6px;
+      text-align: center;
+      border: 1px solid rgba(255,255,255,.9);
+    }
+
+    .time-box strong {
+      display: block;
+      font-size: 22px;
+      color: var(--mint-dark);
+      line-height: 1;
+    }
+
+    .time-box span {
+      display: block;
+      font-size: 10px;
+      margin-top: 6px;
+      color: #8d8178;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .dress-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .dress-item {
+      border-radius: 22px;
+      padding: 15px 10px;
+      background: rgba(255,255,255,.65);
+      text-align: center;
+      border: 1px solid rgba(255,255,255,.9);
+    }
+
+    .dress-item b {
+      display: block;
+      color: #5f557a;
+      font-size: 13px;
+      margin-bottom: 5px;
+    }
+
+    .dress-item span {
+      font-size: 12px;
+      color: #706760;
+    }
+
+    .palette {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    .color-dot {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      border: 3px solid white;
+      box-shadow: 0 6px 14px rgba(0,0,0,.12);
+    }
+
+    .dot1 { background: #b8eadf; }
+    .dot2 { background: #ffc9b5; }
+    .dot3 { background: #d7c5ff; }
+    .dot4 { background: #fff1cc; }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .photo {
+      min-height: 170px;
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      position: relative;
+      background-size: cover;
+      background-position: center;
+      border: 5px solid rgba(255,255,255,.8);
+    }
+
+    .photo.tall {
+      min-height: 250px;
+      grid-row: span 2;
+    }
+
+    .photo::after {
+      content: attr(data-text);
+      position: absolute;
+      left: 10px;
+      right: 10px;
+      bottom: 10px;
+      background: rgba(255,255,255,.82);
+      border-radius: 18px;
+      padding: 9px 10px;
+      font-size: 12px;
+      font-weight: 700;
+      color: #5f557a;
+      text-align: center;
+      backdrop-filter: blur(8px);
+    }
+
+    .p1 {
+      background-image:
+        linear-gradient(rgba(109,91,141,.05), rgba(109,91,141,.12)),
+        url("https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?auto=format&fit=crop&w=700&q=80");
+    }
+
+    .p2 {
+      background-image:
+        linear-gradient(rgba(255,201,181,.1), rgba(255,201,181,.22)),
+        url("https://images.unsplash.com/photo-1522771930-78848d9293e8?auto=format&fit=crop&w=700&q=80");
+    }
+
+    .p3 {
+      background-image:
+        linear-gradient(rgba(184,234,223,.14), rgba(184,234,223,.28)),
+        url("https://images.unsplash.com/photo-1546015720-b8b30df5aa27?auto=format&fit=crop&w=700&q=80");
+    }
+
+    .p4 {
+      background-image:
+        linear-gradient(rgba(215,197,255,.12), rgba(215,197,255,.3)),
+        url("https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?auto=format&fit=crop&w=700&q=80");
+    }
+
+    .gift-note {
+      text-align: center;
+      margin-top: 16px;
+      font-size: 13px;
+      color: #786f69;
+      line-height: 1.7;
+      background: rgba(255,255,255,.62);
+      border-radius: 22px;
+      padding: 14px;
+      border: 1px dashed rgba(104,184,167,.45);
+    }
+
+    footer {
+      text-align: center;
+      padding: 10px 22px 34px;
+      color: #8a7f78;
+      font-size: 12px;
+      line-height: 1.6;
+    }
+
+    .fade-up {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity .8s ease, transform .8s ease;
+    }
+
+    .fade-up.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (min-width: 520px) {
+      body {
+        padding: 20px 0;
+      }
+
+      .page {
+        border-radius: 38px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="page">
+
+    <header class="hero">
+      <div class="cloud one"></div>
+      <div class="cloud two"></div>
+
+      <div class="hero-card fade-up">
+        <div class="label">Baby Shower Plus</div>
+
+        <div class="moon"></div>
+
+        <h1>Dulce Espera</h1>
+
+        <p class="subtitle">
+          Una tarde llena de ternura, risas y abrazos para celebrar la llegada de
+          <span class="baby-name">Emilia Renata</span>
+        </p>
+
+        <div class="parents">
+          Con mucho amor, sus papás<br>
+          <strong>Valeria Montes</strong> y <strong>Andrés Cárdenas</strong><br>
+          te invitan a compartir este momento especial.
+        </div>
+
+        <div class="scroll-note">Desliza para ver los detalles</div>
+      </div>
+    </header>
+
+    <section>
+      <h2 class="section-title fade-up">Detalles del evento</h2>
+
+      <div class="info-stack">
+        <article class="info-card wide fade-up">
+          <div class="date-big">
+            <div>
+              <div class="icon">🍼</div>
+              <h3>Fecha y hora</h3>
+              <p>
+                Sábado <strong id="eventDateText">18 de julio de 20XX</strong><br>
+                Recepción: <strong>5:30 PM</strong>
+              </p>
+            </div>
+
+            <div class="date-number">
+              <div>
+                <strong id="eventDay">18</strong>
+                <span id="eventMonth">JUL</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="info-card alt fade-up">
+          <div class="icon">📍</div>
+          <h3>Ubicación</h3>
+          <p>
+            Jardín Las Nubes<br>
+            Av. Magnolia 245, Col. Primavera, Guadalajara, Jalisco.
+          </p>
+
+          <div class="btn-row">
+            <a
+              class="btn maps"
+              href="https://www.google.com/maps/search/?api=1&query=Jardin+Las+Nubes+Guadalajara+Jalisco"
+              target="_blank"
+              rel="noopener"
+            >
+              Ver ubicación en Google Maps
+            </a>
+          </div>
+        </article>
+
+        <article class="info-card fade-up">
+          <div class="icon">💌</div>
+          <h3>Confirmación por WhatsApp</h3>
+          <p>
+            Confirma tu asistencia antes del 10 de julio para preparar tu lugar con mucho cariño.
+          </p>
+
+          <div class="btn-row">
+            <a
+              class="btn whatsapp"
+              href="https://wa.me/5213312345678?text=Hola%2C%20confirmo%20mi%20asistencia%20al%20Baby%20Shower%20de%20Emilia%20Renata."
+              target="_blank"
+              rel="noopener"
+            >
+              Confirmar asistencia
+            </a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="section-title fade-up">Cuenta regresiva</h2>
+
+      <article class="info-card fade-up">
+        <div class="icon">⏳</div>
+        <h3>Falta poquito para conocerte</h3>
+        <p>
+          Cada día nos acerca más a una nueva historia llena de amor.
+        </p>
+
+        <div class="countdown">
+          <div class="time-box">
+            <strong id="days">00</strong>
+            <span>Días</span>
+          </div>
+
+          <div class="time-box">
+            <strong id="hours">00</strong>
+            <span>Horas</span>
+          </div>
+
+          <div class="time-box">
+            <strong id="minutes">00</strong>
+            <span>Min</span>
+          </div>
+
+          <div class="time-box">
+            <strong id="seconds">00</strong>
+            <span>Seg</span>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <section>
+      <h2 class="section-title fade-up">Código de vestimenta</h2>
+
+      <article class="info-card alt fade-up">
+        <div class="icon">🌸</div>
+        <h3>Estilo recomendado</h3>
+        <p>
+          Queremos una tarde luminosa, suave y familiar. Te sugerimos vestir en tonos claros y cómodos.
+        </p>
+
+        <div class="dress-grid">
+          <div class="dress-item">
+            <b>Colores</b>
+            <span>Menta, beige, lavanda o durazno</span>
+          </div>
+
+          <div class="dress-item">
+            <b>Estilo</b>
+            <span>Casual elegante de jardín</span>
+          </div>
+
+          <div class="dress-item">
+            <b>Evitar</b>
+            <span>Negro total o tonos neón</span>
+          </div>
+
+          <div class="dress-item">
+            <b>Extra</b>
+            <span>Calzado cómodo para césped</span>
+          </div>
+        </div>
+
+        <div class="palette">
+          <span class="color-dot dot1"></span>
+          <span class="color-dot dot2"></span>
+          <span class="color-dot dot3"></span>
+          <span class="color-dot dot4"></span>
+        </div>
+      </article>
+    </section>
+
+    <section>
+      <h2 class="section-title fade-up">Galería</h2>
+
+      <div class="gallery fade-up">
+        <div class="photo tall p1" data-text="Detalles tiernos"></div>
+        <div class="photo p2" data-text="Mesa de dulces"></div>
+        <div class="photo p3" data-text="Momentos en familia"></div>
+        <div class="photo p4" data-text="Recuerdos para Emilia"></div>
+      </div>
+
+      <p class="gift-note fade-up">
+        Mesa de regalos sugerida: pañales etapa 1 y 2, toallitas húmedas, mantitas suaves o un detalle elegido con amor.
+      </p>
+    </section>
+
+    <footer>
+      Demo de invitación digital para Paquete Plus
+    </footer>
+
+  </main>
+
+  <script>
+    const daysEl = document.getElementById("days");
+    const hoursEl = document.getElementById("hours");
+    const minutesEl = document.getElementById("minutes");
+    const secondsEl = document.getElementById("seconds");
+    const eventDateText = document.getElementById("eventDateText");
+    const eventDay = document.getElementById("eventDay");
+    const eventMonth = document.getElementById("eventMonth");
+
+    function createRenewableDate() {
+      const now = new Date();
+      const target = new Date(now);
+      target.setDate(now.getDate() + 55);
+      target.setHours(17, 30, 0, 0);
+      return target;
+    }
+
+    const eventDate = createRenewableDate();
+
+    function formatEventDate() {
+      const monthsLong = [
+        "enero", "febrero", "marzo", "abril", "mayo", "junio",
+        "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"
+      ];
+
+      const monthsShort = [
+        "ENE", "FEB", "MAR", "ABR", "MAY", "JUN",
+        "JUL", "AGO", "SEP", "OCT", "NOV", "DIC"
+      ];
+
+      eventDateText.textContent =
+        `${eventDate.getDate()} de ${monthsLong[eventDate.getMonth()]} de ${eventDate.getFullYear()}`;
+
+      eventDay.textContent = eventDate.getDate();
+      eventMonth.textContent = monthsShort[eventDate.getMonth()];
+    }
+
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const distance = eventDate.getTime() - now;
+
+      if (distance <= 0) {
+        daysEl.textContent = "00";
+        hoursEl.textContent = "00";
+        minutesEl.textContent = "00";
+        secondsEl.textContent = "00";
+        return;
+      }
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((distance / (1000 * 60)) % 60);
+      const seconds = Math.floor((distance / 1000) % 60);
+
+      daysEl.textContent = String(days).padStart(2, "0");
+      hoursEl.textContent = String(hours).padStart(2, "0");
+      minutesEl.textContent = String(minutes).padStart(2, "0");
+      secondsEl.textContent = String(seconds).padStart(2, "0");
+    }
+
+    function revealOnScroll() {
+      const elements = document.querySelectorAll(".fade-up");
+
+      elements.forEach((element) => {
+        const position = element.getBoundingClientRect().top;
+        const screenHeight = window.innerHeight;
+
+        if (position < screenHeight - 80) {
+          element.classList.add("show");
+        }
+      });
+    }
+
+    formatEventDate();
+    updateCountdown();
+    revealOnScroll();
+
+    setInterval(updateCountdown, 1000);
+    window.addEventListener("scroll", revealOnScroll);
+  </script>
+</body>
+</html>

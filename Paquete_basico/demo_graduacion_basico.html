@@ -1,0 +1,1141 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Demo Básico | Graduación</title>
+  <style>
+    :root {
+      --azul-profundo: #101a35;
+      --azul-noche: #172449;
+      --azul-acento: #243b73;
+      --dorado: #d7a84f;
+      --dorado-claro: #f2d38a;
+      --marfil: #fff8ec;
+      --blanco: #ffffff;
+      --gris-suave: #eef1f7;
+      --gris-texto: #526078;
+      --verde-exito: #1f8f64;
+      --sombra: 0 24px 60px rgba(16, 26, 53, 0.18);
+      --radio-grande: 34px;
+      --radio-medio: 24px;
+      --radio-chico: 16px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: "Segoe UI", Arial, sans-serif;
+      color: var(--azul-profundo);
+      background:
+        radial-gradient(circle at top left, rgba(215, 168, 79, 0.22), transparent 34%),
+        radial-gradient(circle at bottom right, rgba(36, 59, 115, 0.20), transparent 36%),
+        linear-gradient(135deg, #f9fbff 0%, #fff8ec 48%, #eef1f7 100%);
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(16, 26, 53, 0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(16, 26, 53, 0.035) 1px, transparent 1px);
+      background-size: 32px 32px;
+      mask-image: linear-gradient(to bottom, rgba(0,0,0,0.85), transparent);
+      z-index: -2;
+    }
+
+    .page {
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 18px 0 70px;
+    }
+
+    .top-label {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      margin: 10px 0 18px;
+      color: var(--gris-texto);
+      font-size: 0.88rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .top-label span {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .top-label span::before {
+      content: "";
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--dorado);
+      box-shadow: 0 0 0 6px rgba(215, 168, 79, 0.15);
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      min-height: 680px;
+      border-radius: 44px;
+      background:
+        linear-gradient(125deg, rgba(16, 26, 53, 0.97), rgba(23, 36, 73, 0.95)),
+        var(--azul-noche);
+      box-shadow: var(--sombra);
+      isolation: isolate;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      width: 620px;
+      height: 620px;
+      right: -260px;
+      top: -240px;
+      border-radius: 50%;
+      background: rgba(215, 168, 79, 0.18);
+      z-index: -1;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      width: 410px;
+      height: 410px;
+      left: -180px;
+      bottom: -170px;
+      border-radius: 50%;
+      background: rgba(255, 248, 236, 0.09);
+      z-index: -1;
+    }
+
+    .hero-content {
+      padding: 62px 46px 48px;
+      color: var(--blanco);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 38px;
+    }
+
+    .badge {
+      width: fit-content;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 11px 15px;
+      border: 1px solid rgba(242, 211, 138, 0.38);
+      border-radius: 999px;
+      color: var(--dorado-claro);
+      background: rgba(255, 255, 255, 0.07);
+      backdrop-filter: blur(12px);
+      font-size: 0.88rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .badge-icon {
+      width: 22px;
+      height: 22px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: rgba(215, 168, 79, 0.18);
+      color: var(--dorado-claro);
+    }
+
+    .hero-title {
+      max-width: 560px;
+    }
+
+    .eyebrow {
+      color: var(--dorado-claro);
+      margin-bottom: 18px;
+      font-size: 0.95rem;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(3.1rem, 9vw, 7rem);
+      line-height: 0.86;
+      letter-spacing: -0.06em;
+      margin-bottom: 22px;
+    }
+
+    .generation {
+      display: inline-flex;
+      padding: 10px 18px;
+      border-radius: 999px;
+      color: var(--azul-profundo);
+      background: linear-gradient(135deg, var(--dorado-claro), var(--dorado));
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .hero-description {
+      max-width: 510px;
+      margin-top: 22px;
+      color: rgba(255, 255, 255, 0.78);
+      font-size: 1.06rem;
+      line-height: 1.8;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      align-items: center;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 54px;
+      padding: 0 22px;
+      border-radius: 999px;
+      border: 0;
+      text-decoration: none;
+      cursor: pointer;
+      font-weight: 800;
+      letter-spacing: 0.01em;
+      transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+    }
+
+    .btn-primary {
+      color: var(--azul-profundo);
+      background: linear-gradient(135deg, var(--dorado-claro), var(--dorado));
+      box-shadow: 0 18px 35px rgba(215, 168, 79, 0.24);
+    }
+
+    .btn-secondary {
+      color: var(--blanco);
+      background: rgba(255, 255, 255, 0.10);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+    }
+
+    .hero-visual {
+      position: relative;
+      padding: 36px 36px 36px 0;
+      display: flex;
+      align-items: stretch;
+    }
+
+    .visual-card {
+      position: relative;
+      width: 100%;
+      min-height: 560px;
+      border-radius: 38px;
+      overflow: hidden;
+      background:
+        linear-gradient(160deg, rgba(255,255,255,0.92), rgba(255,248,236,0.82)),
+        var(--marfil);
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.75);
+    }
+
+    .visual-card::before {
+      content: "";
+      position: absolute;
+      inset: 24px;
+      border-radius: 30px;
+      border: 1px solid rgba(36, 59, 115, 0.12);
+    }
+
+    .cap-art {
+      position: absolute;
+      top: 82px;
+      left: 50%;
+      width: 260px;
+      height: 92px;
+      transform: translateX(-50%) rotate(-10deg);
+      background: var(--azul-profundo);
+      clip-path: polygon(50% 0%, 100% 40%, 50% 80%, 0% 40%);
+      filter: drop-shadow(0 28px 28px rgba(16, 26, 53, 0.20));
+    }
+
+    .cap-band {
+      position: absolute;
+      top: 145px;
+      left: 50%;
+      width: 126px;
+      height: 52px;
+      transform: translateX(-50%);
+      border-radius: 0 0 18px 18px;
+      background: var(--azul-acento);
+      box-shadow: 0 22px 24px rgba(16, 26, 53, 0.16);
+    }
+
+    .tassel {
+      position: absolute;
+      top: 129px;
+      left: calc(50% + 78px);
+      width: 4px;
+      height: 160px;
+      border-radius: 99px;
+      background: var(--dorado);
+      transform: rotate(8deg);
+      transform-origin: top;
+    }
+
+    .tassel::after {
+      content: "";
+      position: absolute;
+      bottom: -25px;
+      left: 50%;
+      width: 30px;
+      height: 52px;
+      transform: translateX(-50%);
+      border-radius: 16px 16px 24px 24px;
+      background: linear-gradient(180deg, var(--dorado-claro), var(--dorado));
+    }
+
+    .diploma {
+      position: absolute;
+      right: 45px;
+      bottom: 82px;
+      width: 180px;
+      height: 76px;
+      border-radius: 42px;
+      background:
+        linear-gradient(90deg, #fff 0%, #fff8ec 58%, #eadfca 100%);
+      border: 3px solid rgba(16, 26, 53, 0.08);
+      box-shadow: 0 22px 28px rgba(16, 26, 53, 0.13);
+    }
+
+    .diploma::before {
+      content: "";
+      position: absolute;
+      inset: 21px 72px;
+      border-radius: 999px;
+      background: var(--dorado);
+    }
+
+    .diploma::after {
+      content: "";
+      position: absolute;
+      right: 17px;
+      top: 16px;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: rgba(215, 168, 79, 0.22);
+      border: 2px solid var(--dorado);
+    }
+
+    .floating-note {
+      position: absolute;
+      left: 36px;
+      bottom: 48px;
+      width: min(245px, calc(100% - 72px));
+      padding: 22px;
+      border-radius: 26px;
+      color: var(--azul-profundo);
+      background: rgba(255, 255, 255, 0.84);
+      box-shadow: 0 22px 42px rgba(16, 26, 53, 0.13);
+      backdrop-filter: blur(14px);
+    }
+
+    .floating-note small {
+      color: var(--gris-texto);
+      display: block;
+      margin-bottom: 9px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      font-weight: 800;
+    }
+
+    .floating-note strong {
+      font-size: 1.34rem;
+      line-height: 1.16;
+      display: block;
+    }
+
+    .shine-dot {
+      position: absolute;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--dorado);
+      box-shadow: 0 0 0 9px rgba(215, 168, 79, 0.16);
+    }
+
+    .dot-one {
+      top: 258px;
+      left: 54px;
+    }
+
+    .dot-two {
+      top: 355px;
+      right: 75px;
+    }
+
+    .dot-three {
+      bottom: 250px;
+      left: 168px;
+    }
+
+    .content-grid {
+      display: grid;
+      grid-template-columns: 0.82fr 1.18fr;
+      gap: 22px;
+      margin-top: 24px;
+      align-items: start;
+    }
+
+    .side-stack {
+      display: grid;
+      gap: 22px;
+    }
+
+    .card {
+      position: relative;
+      overflow: hidden;
+      border-radius: var(--radio-grande);
+      background: rgba(255, 255, 255, 0.76);
+      box-shadow: var(--sombra);
+      border: 1px solid rgba(255, 255, 255, 0.72);
+      backdrop-filter: blur(14px);
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+
+    .section-tag {
+      display: inline-flex;
+      width: fit-content;
+      padding: 8px 12px;
+      border-radius: 999px;
+      color: var(--dorado);
+      background: rgba(215, 168, 79, 0.12);
+      font-size: 0.76rem;
+      font-weight: 900;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .section-number {
+      color: rgba(16, 26, 53, 0.18);
+      font-size: 2.2rem;
+      font-family: Georgia, "Times New Roman", serif;
+      font-weight: 900;
+    }
+
+    .date-card {
+      padding: 30px;
+      background:
+        linear-gradient(150deg, rgba(255,255,255,0.92), rgba(255,248,236,0.84));
+    }
+
+    .date-main {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 18px;
+      align-items: center;
+      margin-bottom: 22px;
+    }
+
+    .date-day {
+      width: 96px;
+      height: 106px;
+      display: grid;
+      place-items: center;
+      border-radius: 24px;
+      color: var(--blanco);
+      background: linear-gradient(160deg, var(--azul-noche), var(--azul-acento));
+      box-shadow: 0 18px 36px rgba(16, 26, 53, 0.17);
+    }
+
+    .date-day span {
+      display: block;
+      font-size: 3rem;
+      font-weight: 900;
+      line-height: 0.9;
+    }
+
+    .date-day small {
+      display: block;
+      color: var(--dorado-claro);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      font-weight: 800;
+    }
+
+    .date-copy h2,
+    .count-card h2,
+    .location-card h2,
+    .rsvp-card h2 {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      line-height: 1;
+      margin-bottom: 10px;
+    }
+
+    .date-copy p,
+    .location-card p,
+    .rsvp-card p {
+      color: var(--gris-texto);
+      line-height: 1.7;
+    }
+
+    .mini-list {
+      display: grid;
+      gap: 12px;
+      margin-top: 22px;
+    }
+
+    .mini-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 14px;
+      border-radius: 18px;
+      background: rgba(238, 241, 247, 0.8);
+    }
+
+    .mini-item b {
+      display: block;
+      margin-bottom: 3px;
+      color: var(--azul-profundo);
+    }
+
+    .mini-item span {
+      color: var(--gris-texto);
+      line-height: 1.45;
+      font-size: 0.94rem;
+    }
+
+    .mini-icon {
+      flex: 0 0 34px;
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      border-radius: 12px;
+      color: var(--azul-profundo);
+      background: rgba(215, 168, 79, 0.22);
+    }
+
+    .count-card {
+      padding: 30px;
+      color: var(--blanco);
+      background:
+        radial-gradient(circle at top right, rgba(215, 168, 79, 0.28), transparent 34%),
+        linear-gradient(145deg, var(--azul-profundo), var(--azul-acento));
+    }
+
+    .count-card .section-tag {
+      color: var(--dorado-claro);
+      background: rgba(255, 255, 255, 0.10);
+    }
+
+    .count-card p {
+      color: rgba(255, 255, 255, 0.72);
+      line-height: 1.7;
+      margin-bottom: 22px;
+    }
+
+    .countdown {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .time-box {
+      padding: 20px 12px;
+      border-radius: 22px;
+      text-align: center;
+      background: rgba(255, 255, 255, 0.10);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+    }
+
+    .time-box strong {
+      display: block;
+      color: var(--dorado-claro);
+      font-size: 2.15rem;
+      line-height: 1;
+    }
+
+    .time-box small {
+      display: block;
+      margin-top: 8px;
+      color: rgba(255, 255, 255, 0.72);
+      font-size: 0.78rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-weight: 800;
+    }
+
+    .main-stack {
+      display: grid;
+      gap: 22px;
+    }
+
+    .location-card {
+      padding: 32px;
+      display: grid;
+      grid-template-columns: 1fr 0.75fr;
+      gap: 22px;
+      align-items: stretch;
+    }
+
+    .map-panel {
+      min-height: 330px;
+      border-radius: 30px;
+      overflow: hidden;
+      position: relative;
+      background:
+        linear-gradient(135deg, rgba(16, 26, 53, 0.94), rgba(36, 59, 115, 0.88)),
+        var(--azul-noche);
+    }
+
+    .map-panel::before {
+      content: "";
+      position: absolute;
+      inset: 32px;
+      border: 2px dashed rgba(242, 211, 138, 0.44);
+      border-radius: 24px;
+    }
+
+    .map-pin {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 74px;
+      height: 74px;
+      display: grid;
+      place-items: center;
+      transform: translate(-50%, -50%) rotate(-8deg);
+      border-radius: 28px 28px 28px 6px;
+      color: var(--azul-profundo);
+      background: linear-gradient(135deg, var(--dorado-claro), var(--dorado));
+      font-size: 2rem;
+      box-shadow: 0 22px 30px rgba(0, 0, 0, 0.18);
+    }
+
+    .map-lines {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(30deg, transparent 43%, rgba(255,255,255,0.09) 44%, transparent 46%),
+        linear-gradient(120deg, transparent 46%, rgba(255,255,255,0.08) 47%, transparent 49%);
+      background-size: 92px 92px;
+      opacity: 0.65;
+    }
+
+    .location-data {
+      display: grid;
+      align-content: space-between;
+      gap: 22px;
+    }
+
+    .address-box {
+      padding: 18px;
+      border-left: 5px solid var(--dorado);
+      border-radius: 0 18px 18px 0;
+      background: rgba(238, 241, 247, 0.78);
+    }
+
+    .address-box b {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 1.08rem;
+    }
+
+    .address-box span {
+      color: var(--gris-texto);
+      line-height: 1.55;
+    }
+
+    .rsvp-card {
+      padding: 34px;
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 26px;
+      align-items: center;
+      background:
+        linear-gradient(140deg, rgba(255,255,255,0.86), rgba(255,248,236,0.92));
+    }
+
+    .phone-card {
+      position: relative;
+      min-height: 340px;
+      border-radius: 34px;
+      padding: 18px;
+      color: var(--blanco);
+      background: linear-gradient(160deg, #101a35, #253968);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.10);
+    }
+
+    .phone-speaker {
+      width: 72px;
+      height: 7px;
+      border-radius: 999px;
+      margin: 0 auto 18px;
+      background: rgba(255,255,255,0.22);
+    }
+
+    .chat-bubble {
+      width: 86%;
+      padding: 14px 16px;
+      margin-bottom: 12px;
+      border-radius: 18px 18px 18px 4px;
+      background: rgba(255,255,255,0.10);
+      color: rgba(255,255,255,0.88);
+      line-height: 1.45;
+    }
+
+    .chat-bubble.reply {
+      margin-left: auto;
+      border-radius: 18px 18px 4px 18px;
+      color: var(--azul-profundo);
+      background: var(--dorado-claro);
+      font-weight: 700;
+    }
+
+    .whatsapp-button {
+      margin-top: 16px;
+      width: 100%;
+      color: var(--blanco);
+      background: var(--verde-exito);
+      box-shadow: 0 16px 34px rgba(31, 143, 100, 0.25);
+    }
+
+    .footer-note {
+      margin-top: 24px;
+      padding: 24px;
+      border-radius: 28px;
+      text-align: center;
+      color: var(--gris-texto);
+      background: rgba(255, 255, 255, 0.58);
+      border: 1px solid rgba(255, 255, 255, 0.75);
+    }
+
+    .footer-note strong {
+      color: var(--azul-profundo);
+    }
+
+    @media (max-width: 920px) {
+      .hero {
+        grid-template-columns: 1fr;
+        min-height: auto;
+      }
+
+      .hero-content {
+        padding: 48px 30px 12px;
+      }
+
+      .hero-visual {
+        padding: 0 20px 28px;
+      }
+
+      .visual-card {
+        min-height: 450px;
+      }
+
+      .content-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .location-card,
+      .rsvp-card {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .page {
+        width: min(100% - 18px, 1120px);
+        padding-top: 8px;
+      }
+
+      .top-label {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 8px;
+        padding: 0 8px;
+      }
+
+      .hero {
+        border-radius: 30px;
+      }
+
+      .hero-content {
+        padding: 38px 22px 10px;
+      }
+
+      .badge {
+        font-size: 0.72rem;
+      }
+
+      .eyebrow {
+        font-size: 0.78rem;
+        letter-spacing: 0.18em;
+      }
+
+      h1 {
+        font-size: clamp(3rem, 18vw, 5.2rem);
+      }
+
+      .hero-description {
+        font-size: 0.98rem;
+      }
+
+      .hero-actions {
+        align-items: stretch;
+        flex-direction: column;
+      }
+
+      .btn {
+        width: 100%;
+      }
+
+      .visual-card {
+        min-height: 390px;
+        border-radius: 28px;
+      }
+
+      .cap-art {
+        width: 220px;
+        top: 66px;
+      }
+
+      .cap-band {
+        top: 123px;
+      }
+
+      .tassel {
+        top: 112px;
+        height: 130px;
+      }
+
+      .diploma {
+        right: 26px;
+        bottom: 58px;
+        width: 146px;
+        height: 64px;
+      }
+
+      .floating-note {
+        left: 24px;
+        bottom: 34px;
+        padding: 18px;
+      }
+
+      .date-card,
+      .count-card,
+      .location-card,
+      .rsvp-card {
+        padding: 24px;
+        border-radius: 26px;
+      }
+
+      .date-main {
+        grid-template-columns: 1fr;
+      }
+
+      .date-day {
+        width: 100%;
+        height: 92px;
+      }
+
+      .countdown {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .time-box strong {
+        font-size: 1.8rem;
+      }
+
+      .map-panel {
+        min-height: 250px;
+      }
+
+      .phone-card {
+        min-height: 310px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <div class="top-label">
+      <span>Demo Paquete Básico</span>
+    </div>
+
+    <section class="hero" id="inicio">
+      <div class="hero-content">
+        <div>
+          <div class="badge">
+            <span class="badge-icon">★</span>
+            Ceremonia de graduación
+          </div>
+
+          <div class="hero-title">
+            <p class="eyebrow">Con orgullo celebramos</p>
+            <h1>Graduación</h1>
+            <span class="generation">Generación 2026</span>
+            <p class="hero-description">
+              Después de años de esfuerzo, proyectos, desvelos y grandes metas,
+              llega el momento de celebrar este logro con las personas que hicieron
+              el camino más especial.
+            </p>
+          </div>
+        </div>
+
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#ubicacion">Ver ubicación</a>
+          <a class="btn btn-secondary" href="#confirmar">Confirmar asistencia</a>
+        </div>
+      </div>
+
+      <div class="hero-visual" aria-hidden="true">
+        <div class="visual-card">
+          <div class="cap-art"></div>
+          <div class="cap-band"></div>
+          <div class="tassel"></div>
+          <div class="diploma"></div>
+          <span class="shine-dot dot-one"></span>
+          <span class="shine-dot dot-two"></span>
+          <span class="shine-dot dot-three"></span>
+          <div class="floating-note">
+            <small>Invitado especial</small>
+            <strong>Tu presencia hará más grande este día.</strong>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="content-grid" aria-label="Información del evento">
+      <div class="side-stack">
+        <article class="card date-card" id="fecha">
+          <div class="card-header">
+            <span class="section-tag">Fecha y hora</span>
+            <span class="section-number">01</span>
+          </div>
+
+          <div class="date-main">
+            <div class="date-day">
+              <div>
+                <span>25</span>
+                <small>Jul</small>
+              </div>
+            </div>
+
+            <div class="date-copy">
+              <h2>Sábado de celebración</h2>
+              <p>
+                La ceremonia iniciará puntualmente a las 6:00 p. m.
+                Se recomienda llegar unos minutos antes para tomar asiento.
+              </p>
+            </div>
+          </div>
+
+          <div class="mini-list">
+            <div class="mini-item">
+              <div class="mini-icon">◷</div>
+              <div>
+                <b>Recepción</b>
+                <span>5:30 p. m. para registro de invitados y acomodo.</span>
+              </div>
+            </div>
+
+            <div class="mini-item">
+              <div class="mini-icon">✦</div>
+              <div>
+                <b>Ceremonia</b>
+                <span>6:00 p. m. con entrega simbólica y mensaje final.</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="card count-card" id="contador">
+          <div class="card-header">
+            <span class="section-tag">Cuenta regresiva</span>
+            <span class="section-number">02</span>
+          </div>
+
+          <h2>Falta poco para el gran logro</h2>
+          <p>
+            El contador se actualiza automáticamente para mostrar cuánto falta
+            para la ceremonia de graduación.
+          </p>
+
+          <div class="countdown" aria-live="polite">
+            <div class="time-box">
+              <strong id="days">00</strong>
+              <small>Días</small>
+            </div>
+
+            <div class="time-box">
+              <strong id="hours">00</strong>
+              <small>Horas</small>
+            </div>
+
+            <div class="time-box">
+              <strong id="minutes">00</strong>
+              <small>Minutos</small>
+            </div>
+
+            <div class="time-box">
+              <strong id="seconds">00</strong>
+              <small>Segundos</small>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <div class="main-stack">
+        <article class="card location-card" id="ubicacion">
+          <div class="location-data">
+            <div>
+              <div class="card-header">
+                <span class="section-tag">Ubicación</span>
+                <span class="section-number">03</span>
+              </div>
+
+              <h2>Auditorio de Gala Universitaria</h2>
+              <p>
+                Un espacio elegante para compartir fotografías, abrazos y el inicio
+                de una nueva etapa profesional.
+              </p>
+            </div>
+
+            <div class="address-box">
+              <b>Dirección del evento</b>
+              <span>
+                Av. Universidad 1200, Zona Centro, Toluca, Estado de México.
+              </span>
+            </div>
+
+            <a
+              class="btn btn-primary"
+              href="https://www.google.com/maps/search/?api=1&query=Av.+Universidad+1200+Toluca+Estado+de+Mexico"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Abrir Google Maps
+            </a>
+          </div>
+
+          <div class="map-panel" aria-label="Vista decorativa de mapa">
+            <div class="map-lines"></div>
+            <div class="map-pin">⌖</div>
+          </div>
+        </article>
+
+        <article class="card rsvp-card" id="confirmar">
+          <div class="phone-card" aria-hidden="true">
+            <div class="phone-speaker"></div>
+            <div class="chat-bubble">
+              Hola, ¿confirmas tu asistencia a la graduación?
+            </div>
+            <div class="chat-bubble reply">
+              Sí, ahí estaré para celebrar este logro.
+            </div>
+            <div class="chat-bubble">
+              Perfecto, te esperamos con mucho gusto.
+            </div>
+          </div>
+
+          <div>
+            <div class="card-header">
+              <span class="section-tag">WhatsApp</span>
+              <span class="section-number">04</span>
+            </div>
+
+            <h2>Confirma tu asistencia</h2>
+            <p>
+              Toca el botón para enviar una confirmación básica por WhatsApp.
+              Puedes cambiar el número y el mensaje directamente en el enlace.
+            </p>
+
+            <a
+              class="btn whatsapp-button"
+              href="https://wa.me/5217221234567?text=Hola%2C%20confirmo%20mi%20asistencia%20a%20la%20graduaci%C3%B3n%20Generaci%C3%B3n%202026."
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Confirmar por WhatsApp
+            </a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <div class="footer-note">
+      <strong>Demo básico de graduación:</strong>
+    </div>
+  </main>
+
+  <script>
+    const eventDate = new Date("2026-07-25T18:00:00-06:00").getTime();
+
+    const daysElement = document.getElementById("days");
+    const hoursElement = document.getElementById("hours");
+    const minutesElement = document.getElementById("minutes");
+    const secondsElement = document.getElementById("seconds");
+
+    function formatNumber(value) {
+      return String(value).padStart(2, "0");
+    }
+
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const distance = eventDate - now;
+
+      if (distance <= 0) {
+        daysElement.textContent = "00";
+        hoursElement.textContent = "00";
+        minutesElement.textContent = "00";
+        secondsElement.textContent = "00";
+        return;
+      }
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      daysElement.textContent = formatNumber(days);
+      hoursElement.textContent = formatNumber(hours);
+      minutesElement.textContent = formatNumber(minutes);
+      secondsElement.textContent = formatNumber(seconds);
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+  </script>
+</body>
+</html>

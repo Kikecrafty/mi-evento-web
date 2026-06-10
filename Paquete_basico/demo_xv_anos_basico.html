@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>XV Años | Valeria Sofía</title>
+<meta name="description" content="Demo de invitación digital para XV años en paquete básico."><link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;800&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+--noche:#120824;
+--uva:#361052;
+--violeta:#62206f;
+--rosa:#f7a8c7;
+--dorado:#f6ce6a;
+--crema:#fff3d8;
+--blanco:#ffffff;
+--cristal:rgba(255,255,255,.11);
+--borde:rgba(255,255,255,.20);
+--sombra:0 25px 70px rgba(0,0,0,.35);
+--radio-xl:34px;
+--radio-lg:24px;
+--radio-md:18px;
+}
+*{
+box-sizing:border-box;
+margin:0;
+padding:0;
+}
+html{
+scroll-behavior:smooth;
+}
+body{
+min-height:100vh;
+font-family:'Montserrat',sans-serif;
+color:var(--blanco);
+background:radial-gradient(circle at 15% 9%,rgba(247,168,199,.35),transparent 28%),radial-gradient(circle at 88% 18%,rgba(246,206,106,.28),transparent 26%),linear-gradient(145deg,#0e061d 0%,#261044 48%,#4b1a61 100%);
+overflow-x:hidden;
+}
+body:before{
+content:'';
+position:fixed;
+inset:0;
+pointer-events:none;
+background-image:radial-gradient(circle,rgba(255,255,255,.40) 1px,transparent 1.8px),radial-gradient(circle,rgba(246,206,106,.28) 1px,transparent 1.8px);
+background-size:42px 42px,74px 74px;
+background-position:0 0,19px 23px;
+opacity:.32;
+z-index:0;
+}
+a{
+color:inherit;
+text-decoration:none;
+}
+.page{
+position:relative;
+z-index:1;
+width:min(1180px,100%);
+margin:0 auto;
+padding:18px;
+}
+.hero{
+position:relative;
+min-height:94vh;
+display:grid;
+place-items:center;
+padding:24px 0 44px;
+}
+.hero-shell{
+width:100%;
+display:grid;
+grid-template-columns:1.08fr .92fr;
+gap:22px;
+align-items:stretch;
+}
+.hero-card{
+position:relative;
+overflow:hidden;
+min-height:640px;
+border:1px solid var(--borde);
+border-radius:var(--radio-xl);
+background:linear-gradient(150deg,rgba(255,255,255,.16),rgba(255,255,255,.06)),radial-gradient(circle at 72% 17%,rgba(246,206,106,.23),transparent 34%);
+box-shadow:var(--sombra);
+padding:clamp(24px,5vw,62px);
+}
+.hero-card:before{
+content:'';
+position:absolute;
+width:460px;
+height:460px;
+border-radius:999px;
+border:1px solid rgba(246,206,106,.40);
+right:-160px;
+top:-180px;
+}
+.hero-card:after{
+content:'XV';
+position:absolute;
+right:-16px;
+bottom:-62px;
+font-family:'Cinzel',serif;
+font-size:clamp(8rem,26vw,18rem);
+line-height:1;
+color:rgba(255,255,255,.055);
+font-weight:800;
+}
+.hero-content{
+position:relative;
+z-index:2;
+height:100%;
+display:flex;
+flex-direction:column;
+justify-content:space-between;
+gap:32px;
+}
+.tag{
+width:fit-content;
+display:inline-flex;
+align-items:center;
+gap:10px;
+padding:10px 16px;
+border:1px solid rgba(246,206,106,.50);
+border-radius:999px;
+background:rgba(18,8,36,.50);
+color:var(--crema);
+font-size:.78rem;
+letter-spacing:.22em;
+text-transform:uppercase;
+font-weight:700;
+}
+.tag-dot{
+width:9px;
+height:9px;
+border-radius:99px;
+background:var(--dorado);
+box-shadow:0 0 20px rgba(246,206,106,.95);
+}
+.intro-text{
+max-width:520px;
+color:rgba(255,255,255,.76);
+font-size:clamp(.95rem,2.8vw,1.08rem);
+line-height:1.8;
+}
+.hero-title{
+margin-top:18px;
+font-family:'Cinzel',serif;
+font-size:clamp(3.8rem,11vw,8.6rem);
+line-height:.87;
+letter-spacing:-.05em;
+text-shadow:0 12px 40px rgba(0,0,0,.36);
+}
+.hero-title span{
+display:block;
+margin-top:16px;
+margin-left:6px;
+color:var(--dorado);
+font-size:.45em;
+letter-spacing:.16em;
+text-transform:uppercase;
+}
+.name-card{
+display:grid;
+gap:8px;
+max-width:540px;
+padding:24px;
+border-left:4px solid var(--dorado);
+border-radius:0 var(--radio-lg) var(--radio-lg) 0;
+background:linear-gradient(90deg,rgba(246,206,106,.16),rgba(255,255,255,.05));
+}
+.name-card small{
+color:var(--crema);
+text-transform:uppercase;
+letter-spacing:.18em;
+font-weight:700;
+}
+.name-card h1{
+font-family:'Cinzel',serif;
+font-size:clamp(2rem,7vw,4.3rem);
+line-height:.94;
+}
+.hero-actions{
+display:flex;
+flex-wrap:wrap;
+gap:12px;
+}
+.btn{
+display:inline-flex;
+align-items:center;
+justify-content:center;
+gap:10px;
+min-height:52px;
+padding:14px 18px;
+border-radius:999px;
+border:1px solid rgba(255,255,255,.16);
+font-weight:800;
+font-size:.92rem;
+transition:.35s ease;
+}
+.btn-primary{
+background:linear-gradient(135deg,var(--dorado),#ffecaa);
+color:#2a1740;
+box-shadow:0 18px 34px rgba(246,206,106,.24);
+}
+.btn-secondary{
+background:rgba(255,255,255,.11);
+backdrop-filter:blur(16px);
+}
+.btn:hover{
+transform:translateY(-3px);
+box-shadow:0 18px 44px rgba(0,0,0,.26);
+}
+.side-panel{
+display:grid;
+gap:18px;
+}
+.portrait-card{
+position:relative;
+overflow:hidden;
+min-height:385px;
+border:1px solid var(--borde);
+border-radius:var(--radio-xl);
+background:radial-gradient(circle at 50% 32%,rgba(247,168,199,.34),transparent 35%),linear-gradient(135deg,#22103e,#6c246d);
+box-shadow:var(--sombra);
+}
+.portrait-card:before{
+content:'';
+position:absolute;
+inset:30px;
+border:1px solid rgba(246,206,106,.42);
+border-radius:999px 999px 34px 34px;
+}
+.portrait-card:after{
+content:'✨';
+position:absolute;
+right:24px;
+top:24px;
+font-size:2.2rem;
+}
+.silhouette{
+position:absolute;
+left:50%;
+bottom:36px;
+width:220px;
+height:300px;
+transform:translateX(-50%);
+border-radius:120px 120px 24px 24px;
+background:radial-gradient(circle at 50% 18%,#ffe6c9 0 34px,transparent 35px),linear-gradient(160deg,rgba(246,206,106,.95),rgba(247,168,199,.72) 42%,rgba(143,45,124,.88));
+box-shadow:0 28px 70px rgba(0,0,0,.38);
+}
+.silhouette:before{
+content:'';
+position:absolute;
+left:50%;
+top:68px;
+width:168px;
+height:190px;
+transform:translateX(-50%);
+border-radius:70px 70px 18px 18px;
+background:linear-gradient(180deg,rgba(255,255,255,.40),rgba(255,255,255,.04));
+clip-path:polygon(50% 0,86% 28%,100% 100%,0 100%,14% 28%);
+}
+.silhouette:after{
+content:'';
+position:absolute;
+left:50%;
+top:18px;
+width:86px;
+height:74px;
+transform:translateX(-50%);
+border-radius:50% 50% 44% 44%;
+background:linear-gradient(140deg,#2b1742,#6e2b68);
+box-shadow:0 0 0 12px rgba(43,23,66,.40);
+}
+.mini-date{
+position:absolute;
+left:22px;
+right:22px;
+bottom:22px;
+display:grid;
+grid-template-columns:auto 1fr;
+gap:14px;
+align-items:center;
+padding:16px;
+border-radius:22px;
+border:1px solid var(--borde);
+background:rgba(18,8,36,.58);
+backdrop-filter:blur(18px);
+}
+.mini-date strong{
+display:grid;
+place-items:center;
+width:72px;
+height:72px;
+border-radius:20px;
+color:#2a1740;
+background:var(--dorado);
+font-size:1.9rem;
+font-family:'Cinzel',serif;
+}
+.mini-date span{
+color:rgba(255,255,255,.84);
+line-height:1.45;
+font-size:.92rem;
+}
+.quick-info{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:18px;
+}
+.quick-box{
+min-height:164px;
+padding:22px;
+border-radius:var(--radio-lg);
+border:1px solid rgba(255,255,255,.18);
+background:var(--cristal);
+box-shadow:0 18px 50px rgba(0,0,0,.20);
+backdrop-filter:blur(18px);
+}
+.quick-box:nth-child(2){
+background:linear-gradient(145deg,rgba(246,206,106,.18),rgba(255,255,255,.08));
+}
+.quick-box small{
+display:block;
+margin-bottom:12px;
+color:var(--crema);
+font-weight:800;
+letter-spacing:.16em;
+text-transform:uppercase;
+font-size:.7rem;
+}
+.quick-box b{
+display:block;
+font-size:clamp(1.15rem,4vw,1.55rem);
+line-height:1.16;
+}
+.section{
+padding:34px 0;
+}
+.section-header{
+display:grid;
+gap:10px;
+max-width:720px;
+margin:0 auto 20px;
+text-align:center;
+}
+.eyebrow{
+color:var(--dorado);
+text-transform:uppercase;
+letter-spacing:.24em;
+font-weight:800;
+font-size:.75rem;
+}
+.section-title{
+font-family:'Cinzel',serif;
+font-size:clamp(2rem,7vw,4.6rem);
+line-height:.98;
+}
+.section-text{
+color:rgba(255,255,255,.74);
+font-size:1rem;
+line-height:1.75;
+}
+.details-layout{
+display:grid;
+grid-template-columns:.82fr 1.18fr;
+gap:18px;
+align-items:stretch;
+}
+.calendar-block{
+position:relative;
+overflow:hidden;
+padding:26px;
+border-radius:var(--radio-xl);
+border:1px solid rgba(255,255,255,.18);
+background:radial-gradient(circle at 24% 20%,rgba(246,206,106,.24),transparent 34%),var(--cristal);
+box-shadow:var(--sombra);
+}
+.calendar-top{
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:16px;
+margin-bottom:24px;
+}
+.month-pill{
+padding:10px 16px;
+border-radius:999px;
+color:#2a1740;
+background:var(--dorado);
+font-weight:900;
+letter-spacing:.15em;
+text-transform:uppercase;
+font-size:.76rem;
+}
+.year-text{
+color:rgba(255,255,255,.70);
+font-weight:800;
+}
+.calendar-day{
+display:grid;
+place-items:center;
+min-height:280px;
+border-radius:28px;
+background:rgba(18,8,36,.54);
+border:1px solid rgba(255,255,255,.16);
+}
+.calendar-day span{
+display:block;
+font-family:'Cinzel',serif;
+font-size:clamp(6rem,22vw,11rem);
+line-height:.8;
+}
+.calendar-day small{
+display:block;
+margin-top:14px;
+color:var(--crema);
+font-weight:800;
+letter-spacing:.22em;
+text-align:center;
+text-transform:uppercase;
+}
+.info-mosaic{
+display:grid;
+grid-template-columns:repeat(2,minmax(0,1fr));
+gap:18px;
+}
+.info-card{
+position:relative;
+overflow:hidden;
+min-height:220px;
+padding:24px;
+border-radius:var(--radio-lg);
+border:1px solid rgba(255,255,255,.18);
+background:var(--cristal);
+box-shadow:0 18px 54px rgba(0,0,0,.22);
+}
+.info-card.wide{
+grid-column:span 2;
+display:grid;
+grid-template-columns:1fr auto;
+gap:18px;
+align-items:center;
+}
+.icon{
+display:grid;
+place-items:center;
+width:54px;
+height:54px;
+margin-bottom:20px;
+border-radius:18px;
+background:linear-gradient(135deg,rgba(246,206,106,.92),rgba(255,243,216,.78));
+color:#2a1740;
+font-size:1.35rem;
+}
+.info-card h3{
+margin-bottom:10px;
+font-size:1.1rem;
+}
+.info-card p{
+color:rgba(255,255,255,.73);
+line-height:1.65;
+font-size:.94rem;
+}
+.countdown-section{
+position:relative;
+overflow:hidden;
+border-radius:var(--radio-xl);
+border:1px solid rgba(255,255,255,.18);
+background:linear-gradient(135deg,rgba(18,8,36,.92),rgba(75,26,98,.78));
+padding:clamp(28px,6vw,58px);
+box-shadow:var(--sombra);
+}
+.countdown-section:before{
+content:'';
+position:absolute;
+inset:18px;
+border:1px solid rgba(246,206,106,.25);
+border-radius:calc(var(--radio-xl) - 14px);
+pointer-events:none;
+}
+.countdown-grid{
+position:relative;
+z-index:1;
+display:grid;
+grid-template-columns:repeat(4,minmax(0,1fr));
+gap:14px;
+margin-top:24px;
+}
+.time-box{
+min-height:132px;
+display:grid;
+place-items:center;
+gap:4px;
+padding:20px 12px;
+border-radius:24px;
+border:1px solid rgba(255,255,255,.16);
+background:var(--cristal);
+backdrop-filter:blur(12px);
+}
+.time-box span{
+font-family:'Cinzel',serif;
+font-size:clamp(2.2rem,7vw,4.8rem);
+color:var(--dorado);
+line-height:.9;
+}
+.time-box small{
+color:rgba(255,255,255,.72);
+text-transform:uppercase;
+letter-spacing:.16em;
+font-weight:800;
+font-size:.70rem;
+}
+.action-zone{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:18px;
+align-items:stretch;
+}
+.action-card{
+min-height:300px;
+display:flex;
+flex-direction:column;
+justify-content:space-between;
+gap:24px;
+padding:28px;
+border-radius:var(--radio-xl);
+border:1px solid rgba(255,255,255,.18);
+background:var(--cristal);
+box-shadow:var(--sombra);
+}
+.action-card.maps{
+background:radial-gradient(circle at 20% 24%,rgba(246,206,106,.26),transparent 32%),var(--cristal);
+}
+.action-card.whatsapp{
+background:radial-gradient(circle at 80% 20%,rgba(247,168,199,.24),transparent 34%),var(--cristal);
+}
+.action-card h2{
+font-family:'Cinzel',serif;
+font-size:clamp(1.8rem,5vw,3.4rem);
+line-height:1;
+}
+.action-card p{
+color:rgba(255,255,255,.74);
+line-height:1.7;
+}
+.map-lines{
+display:grid;
+gap:8px;
+margin-top:12px;
+color:rgba(255,255,255,.82);
+font-size:.92rem;
+}
+.footer-note{
+padding:34px 0 26px;
+text-align:center;
+color:rgba(255,255,255,.62);
+font-size:.88rem;
+line-height:1.65;
+}
+.orb{
+position:absolute;
+border-radius:50%;
+pointer-events:none;
+animation:float 6s ease-in-out infinite;
+}
+.orb.one{
+width:22px;
+height:22px;
+left:8%;
+top:15%;
+background:var(--dorado);
+box-shadow:0 0 28px rgba(246,206,106,.90);
+}
+.orb.two{
+width:16px;
+height:16px;
+right:12%;
+top:58%;
+background:var(--rosa);
+box-shadow:0 0 28px rgba(247,168,199,.90);
+animation-delay:-2s;
+}
+.orb.three{
+width:12px;
+height:12px;
+left:46%;
+bottom:16%;
+background:var(--crema);
+box-shadow:0 0 26px rgba(255,243,216,.90);
+animation-delay:-4s;
+}
+@keyframes float{
+0%,100%{transform:translateY(0) scale(1)}
+50%{transform:translateY(-18px) scale(1.08)}
+}
+@media(max-width:940px){
+.hero-shell{grid-template-columns:1fr}
+.hero-card{min-height:590px}
+.details-layout{grid-template-columns:1fr}
+.action-zone{grid-template-columns:1fr}
+}
+@media(max-width:680px){
+.page{padding:12px}
+.hero{min-height:auto;padding:10px 0 24px}
+.hero-card{min-height:610px;padding:26px 20px;border-radius:28px}
+.name-card{padding:18px}
+.hero-actions{display:grid}
+.btn{width:100%}
+.quick-info{grid-template-columns:1fr}
+.portrait-card{min-height:430px}
+.info-mosaic{grid-template-columns:1fr}
+.info-card.wide{grid-column:span 1;grid-template-columns:1fr}
+.countdown-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+.time-box{min-height:118px}
+.calendar-day{min-height:235px}
+}
+@media(max-width:420px){
+.tag{width:100%;justify-content:center;letter-spacing:.16em}
+.mini-date{grid-template-columns:1fr;text-align:center}
+.mini-date strong{margin:0 auto}
+.countdown-grid{gap:10px}
+.action-card{padding:22px}
+}
+</style>
+</head>
+<body>
+<main class="page">
+<section class="hero" id="inicio">
+<span class="orb one"></span>
+<span class="orb two"></span>
+<span class="orb three"></span>
+<div class="hero-shell">
+<article class="hero-card">
+<div class="hero-content">
+<div class="tag"><span class="tag-dot"></span>Una noche de brillo y sueños</div>
+<div>
+<p class="intro-text">Hay momentos que se guardan para siempre. Hoy celebramos una etapa llena de ilusión, alegría y nuevos comienzos.</p>
+<div class="hero-title">Mis<span>Quince Años</span></div>
+</div>
+<div class="name-card">
+<small>Con mucho cariño te invita</small>
+<h1>Valeria Sofía</h1>
+</div>
+<div class="hero-actions">
+<a class="btn btn-primary" href="#confirmar">Confirmar asistencia</a>
+<a class="btn btn-secondary" href="#detalles">Ver detalles del evento</a>
+</div>
+</div>
+</article>
+<aside class="side-panel">
+<article class="portrait-card" aria-label="Ilustración decorativa de XV años">
+<div class="silhouette"></div>
+<div class="mini-date">
+<strong>21</strong>
+<span>Noviembre 2026<br>Recepción desde las 7:00 PM</span>
+</div>
+</article>
+<div class="quick-info">
+<div class="quick-box">
+<small>Celebración</small>
+<b>Salón Aurora</b>
+</div>
+<div class="quick-box">
+<small>Ciudad</small>
+<b>Toluca, Estado de México</b>
+</div>
+</div>
+</aside>
+</div>
+</section>
+<section class="section" id="detalles">
+<div class="section-header">
+<p class="eyebrow">Fecha, hora y ubicación</p>
+<h2 class="section-title">La cita especial</h2>
+<p class="section-text">Preparamos una noche elegante, juvenil y llena de detalles dorados para compartir este momento con las personas más importantes.</p>
+</div>
+<div class="details-layout">
+<article class="calendar-block">
+<div class="calendar-top">
+<span class="month-pill">Noviembre</span>
+<span class="year-text">2026</span>
+</div>
+<div class="calendar-day">
+<div>
+<span>21</span>
+<small>Sábado</small>
+</div>
+</div>
+</article>
+<div class="info-mosaic">
+<article class="info-card">
+<div class="icon">🕖</div>
+<h3>Hora de recepción</h3>
+<p>Los invitados podrán llegar a partir de las 7:00 PM para disfrutar la bienvenida antes del vals.</p>
+</article>
+<article class="info-card">
+<div class="icon">📍</div>
+<h3>Ubicación</h3>
+<p>Salón Aurora, Av. de las Flores 125, Toluca, Estado de México.</p>
+</article>
+<article class="info-card wide">
+<div>
+<div class="icon">👑</div>
+<h3>Momento principal</h3>
+<p>El vals comenzará a las 8:30 PM. Después continuará la cena, el brindis familiar y la celebración.</p>
+</div>
+<a class="btn btn-secondary" href="#contador">Ver contador</a>
+</article>
+</div>
+</div>
+</section>
+<section class="section" id="contador">
+<div class="countdown-section">
+<div class="section-header">
+<p class="eyebrow">Cuenta regresiva</p>
+<h2 class="section-title">Falta muy poco</h2>
+<p class="section-text">Cada día nos acerca más a una noche llena de luces, música y recuerdos inolvidables.</p>
+</div>
+<div class="countdown-grid" aria-label="Contador regresivo al evento">
+<div class="time-box">
+<span id="days">00</span>
+<small>Días</small>
+</div>
+<div class="time-box">
+<span id="hours">00</span>
+<small>Horas</small>
+</div>
+<div class="time-box">
+<span id="minutes">00</span>
+<small>Minutos</small>
+</div>
+<div class="time-box">
+<span id="seconds">00</span>
+<small>Segundos</small>
+</div>
+</div>
+</div>
+</section>
+<section class="section" id="confirmar">
+<div class="action-zone">
+<article class="action-card maps">
+<div>
+<p class="eyebrow">Google Maps</p>
+<h2>Cómo llegar</h2>
+<p>Abre la ubicación en Google Maps para revisar la ruta más cómoda desde tu punto de salida.</p>
+<div class="map-lines">
+<span>Salón Aurora</span>
+<span>Av. de las Flores 125</span>
+<span>Toluca, Estado de México</span>
+</div>
+</div>
+<a class="btn btn-primary" href="https://www.google.com/maps/search/?api=1&query=Salon%20Aurora%20Toluca%20Estado%20de%20Mexico" target="_blank" rel="noopener">Abrir Google Maps</a>
+</article>
+<article class="action-card whatsapp">
+<div>
+<p class="eyebrow">Confirmación básica</p>
+<h2>Confirma por WhatsApp</h2>
+<p>Ayúdanos confirmando tu asistencia con nombre y número de acompañantes para preparar tu lugar.</p>
+</div>
+<a class="btn btn-primary" href="https://wa.me/5217220000000?text=Hola%2C%20confirmo%20mi%20asistencia%20a%20los%20XV%20a%C3%B1os%20de%20Valeria%20Sof%C3%ADa.%20Mi%20nombre%20es%3A" target="_blank" rel="noopener">Confirmar asistencia</a>
+</article>
+</div>
+</section>
+<footer class="footer-note">
+<p>Demo paquete Básico</p>
+</footer>
+</main>
+<script>
+const eventDate=new Date('2026-11-21T19:00:00-06:00').getTime();
+const daysElement=document.getElementById('days');
+const hoursElement=document.getElementById('hours');
+const minutesElement=document.getElementById('minutes');
+const secondsElement=document.getElementById('seconds');
+function formatNumber(value){
+return String(value).padStart(2,'0');
+}
+function updateCountdown(){
+const now=new Date().getTime();
+const distance=eventDate-now;
+if(distance<=0){
+daysElement.textContent='00';
+hoursElement.textContent='00';
+minutesElement.textContent='00';
+secondsElement.textContent='00';
+return;
+}
+const days=Math.floor(distance/(1000*60*60*24));
+const hours=Math.floor((distance%(1000*60*60*24))/(1000*60*60));
+const minutes=Math.floor((distance%(1000*60*60))/(1000*60));
+const seconds=Math.floor((distance%(1000*60))/1000);
+daysElement.textContent=formatNumber(days);
+hoursElement.textContent=formatNumber(hours);
+minutesElement.textContent=formatNumber(minutes);
+secondsElement.textContent=formatNumber(seconds);
+}
+updateCountdown();setInterval(updateCountdown,1000);
+</script>
+</body>
+</html>
