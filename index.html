@@ -3505,10 +3505,30 @@
         width: 100%;
       }
 
+      .social-floating-stack {
+        right: 12px;
+        bottom: 14px;
+        gap: 8px;
+      }
+
       .social-float-btn {
-        width: 56px;
-        height: 56px;
-        border-radius: 18px;
+        width: 46px;
+        height: 46px;
+        border-radius: 16px;
+        box-shadow: 0 14px 34px rgba(0,0,0,0.20);
+      }
+
+      .social-float-btn svg {
+        width: 21px;
+        height: 21px;
+      }
+
+      .back-top {
+        right: 12px;
+        bottom: 176px;
+        width: 42px;
+        height: 42px;
+        border-radius: 15px;
       }
 
       .hero-visual {
@@ -3570,6 +3590,33 @@
 
       .footer-bottom {
         display: grid;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .social-floating-stack {
+        right: 10px;
+        bottom: 12px;
+        gap: 7px;
+      }
+
+      .social-float-btn {
+        width: 44px;
+        height: 44px;
+        border-radius: 15px;
+      }
+
+      .social-float-btn svg {
+        width: 20px;
+        height: 20px;
+      }
+
+      .back-top {
+        right: 10px;
+        bottom: 166px;
+        width: 40px;
+        height: 40px;
+        border-radius: 14px;
       }
     }
 
@@ -4716,7 +4763,7 @@
 
     const SITE_CONFIG = {
       brandName: 'Mi Evento Web',
-      version: '1.1.0',
+      version: '1.0.3',
       slogan: 'Invitaciones digitales interactivas, para momentos inolvidables.',
       domain: 'mieventoweb.com',
       facebookUrl: 'https://www.facebook.com/share/18NAcE83u2/?mibextid=wwXIfr',
@@ -5662,7 +5709,7 @@
     const $ = (selector, root = document) => root.querySelector(selector);
     const $$ = (selector, root = document) => Array.from(root.querySelectorAll(selector));
 
-    const DEMO_STATE_KEY = 'miEventoWeb.demoState.v3';
+    const DEMO_STATE_KEY = 'miEventoWeb.demoState.v4';
 
     function loadDemoState() {
       const defaults = {
@@ -5672,16 +5719,14 @@
       };
 
       try {
-        const saved = JSON.parse(localStorage.getItem(DEMO_STATE_KEY) || '{}');
-        const packageIds = ['', 'all', ...PACKAGES.map((item) => item.id)];
-        return {
-          activePackage: packageIds.includes(saved.activePackage) ? saved.activePackage : defaults.activePackage,
-          activeRealPackage: packageIds.includes(saved.activeRealPackage) ? saved.activeRealPackage : defaults.activeRealPackage,
-          search: typeof saved.search === 'string' ? saved.search : defaults.search
-        };
+        // Evita que una selección anterior guardada deje activado "Todas" al volver a entrar.
+        localStorage.removeItem('miEventoWeb.demoState.v3');
+        localStorage.removeItem(DEMO_STATE_KEY);
       } catch (error) {
-        return defaults;
+        // Si el navegador no permite tocar localStorage, se inicia sin selección de todos modos.
       }
+
+      return defaults;
     }
 
     const state = loadDemoState();
