@@ -24,6 +24,7 @@
         --peach: #e5a8a0;
         --lavender: #b5c5e6;
         --sage: #bcd4c2;
+        --gold: #d39a2f;
         --white-glass: rgba(255, 255, 255, 0.58);
         --glass-border: rgba(255, 255, 255, 0.82);
         --shadow: 0 18px 55px rgba(103, 84, 74, 0.12);
@@ -37,7 +38,7 @@
       html { scroll-behavior: smooth; }
 
       body {
-        min-width: 320px;
+        min-width: 0;
         margin: 0;
         overflow-x: hidden;
         color: var(--ink);
@@ -48,6 +49,7 @@
       }
 
       button, a { -webkit-tap-highlight-color: transparent; }
+      a, button { max-width: 100%; }
 
       #petal-canvas {
         position: fixed;
@@ -253,10 +255,13 @@
       .hero {
         position: relative;
         isolation: isolate;
-        display: grid;
-        min-height: 100svh;
+        display: flex;
+        min-height: min(100svh, 52rem);
         padding: 1.25rem;
-        place-items: center;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: .65rem;
       }
 
       .hero .watercolor--rose { top: -8.5rem; left: -9.5rem; transform: rotate(-24deg); }
@@ -275,7 +280,7 @@
       body.is-intro-complete .hero__halo { animation: haloReveal 1s .18s cubic-bezier(.16, 1, .3, 1) both, haloBreathe 5s 1.18s ease-in-out infinite; }
       body.is-intro-complete h1 { animation: nameReveal 1.05s .35s cubic-bezier(.16, 1, .3, 1) both; }
       body.is-intro-complete .hero__line { animation: softRise .75s .65s cubic-bezier(.16, 1, .3, 1) both; }
-      body.is-intro-complete .countdown { animation: softRise .75s .77s cubic-bezier(.16, 1, .3, 1) both; }
+      body.is-intro-complete .event-date { animation: softRise .75s .77s cubic-bezier(.16, 1, .3, 1) both; }
 
       .eyebrow {
         margin: 0 0 1.45rem;
@@ -288,22 +293,38 @@
       }
 
       .hero__halo {
+        position: relative;
+        isolation: isolate;
         display: grid;
-        width: min(90vw, 32rem);
+        width: min(76vw, 24rem);
         aspect-ratio: 1;
         margin: 0 auto -1.45rem;
         border: 1px solid rgba(255, 255, 255, 0.78);
         border-radius: 50%;
-        background: radial-gradient(circle, rgba(255,255,255,.56), rgba(255,255,255,.04) 65%);
+        background: radial-gradient(circle at 50% 40%, rgba(255,255,255,.76), rgba(255,255,255,.12) 47%, rgba(255,255,255,.02) 72%);
         box-shadow: 0 0 70px rgba(255,255,255,.6), inset 0 0 50px rgba(255,255,255,.38);
         place-items: center;
         animation: haloBreathe 5s ease-in-out infinite;
       }
 
-      .hero__cross {
-        width: 3.25rem;
-        color: rgba(181, 197, 230, 0.8);
-        filter: drop-shadow(0 4px 8px rgba(96, 105, 135, .13));
+      .hero__halo::before, .hero__halo::after {
+        position: absolute;
+        z-index: -1;
+        border: 1px solid rgba(211,154,47,.16);
+        border-radius: 50%;
+        content: "";
+      }
+
+      .hero__halo::before { inset: 8%; animation: haloOrbit 12s linear infinite; }
+      .hero__halo::after { inset: 17%; border-style: dashed; animation: haloOrbit 18s linear infinite reverse; }
+
+      .hero__chalice {
+        position: relative;
+        z-index: 1;
+        width: clamp(6.4rem, 26vw, 10rem);
+        color: var(--gold);
+        filter: drop-shadow(0 10px 14px rgba(157, 111, 35, .2));
+        animation: chaliceFloat 5.2s ease-in-out infinite;
       }
 
       h1, h2, p { margin-top: 0; }
@@ -313,7 +334,7 @@
         margin: 0;
         color: var(--ink);
         font-family: var(--script);
-        font-size: clamp(4.55rem, 19vw, 9.2rem);
+        font-size: clamp(4.3rem, 13.5vw, 7.2rem);
         font-weight: 400;
         letter-spacing: -0.035em;
         line-height: 0.79;
@@ -343,63 +364,43 @@
 
       .hero__line::after { transform: scaleX(-1); }
 
-      .countdown {
-        display: flex;
-        width: min(100%, 19.5rem);
-        margin: 1.1rem auto 0;
-        padding: .45rem;
-        border: 1px solid rgba(255,255,255,.8);
-        border-radius: 1.15rem;
-        background: rgba(255,255,255,.44);
-        box-shadow: 0 9px 25px rgba(100,83,72,.08), inset 0 1px rgba(255,255,255,.72);
-        gap: .35rem;
-        justify-content: center;
-      }
-
-      .countdown__unit {
-        min-width: 0;
-        padding: .42rem .33rem .38rem;
-        border-radius: .78rem;
-        background: rgba(255,255,255,.5);
-        flex: 1;
-      }
-
-      .countdown__number {
-        display: block;
+      .event-date {
+        display: inline-flex;
+        align-items: center;
+        margin-top: 1.05rem;
+        padding: .48rem 1rem .43rem;
+        border: 1px solid rgba(211,154,47,.23);
+        border-radius: 999px;
+        background: rgba(255,255,255,.45);
+        box-shadow: 0 10px 28px rgba(100,83,72,.1), inset 0 1px rgba(255,255,255,.86);
         color: var(--ink);
         font-family: var(--serif);
-        font-size: clamp(1.65rem, 7vw, 2.15rem);
-        font-weight: 600;
-        font-variant-numeric: tabular-nums;
-        line-height: .9;
+        font-style: italic;
+        gap: .68rem;
       }
 
-      .countdown__label {
-        display: block;
-        margin-top: .31rem;
-        color: #aa7c73;
-        font-family: var(--sans);
-        font-size: .46rem;
+      .event-date__day {
+        color: #ae7c62;
+        font-size: clamp(1.5rem, 6vw, 2rem);
+        font-style: normal;
         font-weight: 600;
-        letter-spacing: .14em;
+        line-height: .8;
+      }
+
+      .event-date__month {
+        padding-left: .68rem;
+        border-left: 1px solid rgba(174,124,98,.45);
+        font-size: clamp(.86rem, 3.8vw, 1rem);
+        font-weight: 600;
+        letter-spacing: .08em;
+        line-height: 1;
         text-transform: uppercase;
       }
 
-      .countdown--event-day {
-        display: block;
-        width: fit-content;
-        padding: .62rem 1rem;
-        color: rgba(74,63,53,.8);
-        font-family: var(--serif);
-        font-size: 1.05rem;
-        font-style: italic;
-      }
-
       .scroll-cue {
-        position: absolute;
-        bottom: 1.35rem;
-        left: 50%;
+        position: static;
         display: grid;
+        margin: 0 auto;
         color: rgba(74,63,53,.7);
         font-size: 0.56rem;
         font-weight: 600;
@@ -407,7 +408,6 @@
         text-align: center;
         text-decoration: none;
         text-transform: uppercase;
-        transform: translateX(-50%);
         gap: 0.48rem;
       }
 
@@ -461,6 +461,15 @@
         text-align: center;
       }
 
+      .section-heading::after {
+        display: block;
+        width: 4.7rem;
+        height: 1px;
+        margin: 1rem auto 0;
+        background: linear-gradient(90deg, transparent, var(--gold), transparent);
+        content: "";
+      }
+
       .section-kicker {
         margin-bottom: .7rem;
         color: #aa7c73;
@@ -491,26 +500,34 @@
         display: flex;
         min-height: 20.5rem;
         padding: 1.8rem 1.45rem 1.3rem;
-        border: 1px solid var(--glass-border);
-        border-radius: 1.65rem;
-        background: var(--white-glass);
-        box-shadow: var(--shadow), inset 0 1px rgba(255,255,255,.75);
-        -webkit-backdrop-filter: blur(13px) saturate(115%);
-        backdrop-filter: blur(13px) saturate(115%);
+        border: 1px solid rgba(255,255,255,.88);
+        border-radius: 1.9rem;
+        background: linear-gradient(145deg, rgba(255,255,255,.74), rgba(247,250,255,.31) 54%, rgba(255,255,255,.46));
+        box-shadow: 0 20px 44px rgba(103,84,74,.12), inset 0 1px rgba(255,255,255,.95), inset 0 0 0 5px rgba(255,255,255,.18);
+        -webkit-backdrop-filter: blur(20px) saturate(140%);
+        backdrop-filter: blur(20px) saturate(140%);
         flex-direction: column;
         align-items: center;
         text-align: center;
+        transform-style: preserve-3d;
+        transition: box-shadow .5s cubic-bezier(.16, 1, .3, 1), transform .5s cubic-bezier(.16, 1, .3, 1), border-color .5s ease;
       }
+
+      .glass-card > * { position: relative; z-index: 1; }
 
       .glass-card::before {
         position: absolute;
-        top: -7rem;
-        left: -5rem;
-        width: 13rem;
-        height: 13rem;
+        top: -7.5rem;
+        right: -6.5rem;
+        width: 17rem;
+        height: 17rem;
         border-radius: 50%;
-        background: radial-gradient(circle, rgba(255,255,255,.76), transparent 69%);
+        background: radial-gradient(circle at 40% 55%, rgba(255,255,255,1) 0 7%, rgba(255,255,255,.9) 16%, rgba(255,255,255,.26) 42%, transparent 69%);
         content: "";
+        filter: blur(2px);
+        pointer-events: none;
+        z-index: 0;
+        animation: cardHighlight 8s ease-in-out infinite alternate;
       }
 
       .glass-card::after {
@@ -520,9 +537,11 @@
         width: 9rem;
         height: 9rem;
         border-radius: 50%;
-        background: rgba(181,197,230,.16);
+        background: radial-gradient(circle, rgba(181,197,230,.3), rgba(181,197,230,.08) 52%, transparent 71%);
         content: "";
         filter: blur(7px);
+        pointer-events: none;
+        z-index: 0;
         animation: cardGlow 6s ease-in-out infinite alternate;
       }
 
@@ -530,8 +549,9 @@
 
       @media (hover: hover) {
         .glass-card.is-visible:hover {
-          box-shadow: 0 24px 60px rgba(103,84,74,.17), inset 0 1px rgba(255,255,255,.75);
-          transform: translateY(-.42rem) scale(1.008);
+          border-color: rgba(255,255,255,1);
+          box-shadow: 0 28px 62px rgba(103,84,74,.18), inset 0 1px rgba(255,255,255,.92), inset 0 0 0 5px rgba(255,255,255,.24);
+          transform: translateY(-.55rem) rotateX(1deg) scale(1.012);
         }
       }
 
@@ -541,12 +561,21 @@
         height: 3.45rem;
         margin-bottom: 1rem;
         padding: .82rem;
-        border: 1px solid rgba(255,255,255,.83);
+        border: 1px solid rgba(255,255,255,.95);
         border-radius: 50%;
-        background: rgba(255,255,255,.44);
+        background: radial-gradient(circle at 35% 28%, rgba(255,255,255,.92), rgba(255,255,255,.38));
         color: #a27d80;
-        box-shadow: 0 9px 20px rgba(110,85,75,.09);
+        box-shadow: 0 10px 23px rgba(110,85,75,.12), inset 0 1px rgba(255,255,255,.85);
         animation: iconFloat 4s ease-in-out infinite;
+      }
+
+      .card-icon::after {
+        position: absolute;
+        inset: -.3rem;
+        border: 1px dashed rgba(211,154,47,.32);
+        border-radius: 50%;
+        content: "";
+        animation: haloOrbit 16s linear infinite;
       }
 
       .glass-card:nth-child(2) .card-icon { color: #7d9684; }
@@ -560,6 +589,15 @@
         font-size: 1.82rem;
         font-weight: 600;
         line-height: 1;
+      }
+
+      .card-title::after {
+        display: block;
+        width: 2.15rem;
+        height: 1px;
+        margin: .72rem auto 0;
+        background: linear-gradient(90deg, transparent, var(--gold), transparent);
+        content: "";
       }
 
       .card-time {
@@ -603,11 +641,20 @@
       .map-link {
         min-height: 2.85rem;
         margin-top: auto;
-        padding: .7rem 1.3rem;
-        background: rgba(255,255,255,.67);
-        box-shadow: 0 8px 20px rgba(99,80,70,.1);
+        padding: .7rem 1.15rem .7rem 1.3rem;
+        background: rgba(255,255,255,.76);
+        box-shadow: 0 8px 20px rgba(99,80,70,.1), inset 0 1px rgba(255,255,255,.88);
         font-size: .66rem;
         text-transform: uppercase;
+      }
+
+      .map-link::after {
+        margin-left: .5rem;
+        color: #b98731;
+        content: "↗";
+        font-size: .98rem;
+        line-height: 0;
+        transition: transform .25s ease;
       }
 
       .map-link::before, .rsvp-button::before {
@@ -630,6 +677,7 @@
       }
 
       .map-link:hover::before, .map-link:focus-visible::before, .rsvp-button:hover::before, .rsvp-button:focus-visible::before { left: 125%; }
+      .map-link:hover::after, .map-link:focus-visible::after { transform: translate(.15rem, -.15rem); }
 
       .rsvp {
         padding: clamp(4.3rem, 9vw, 6.2rem) 1.25rem clamp(4.8rem, 9vw, 6.8rem);
@@ -641,16 +689,28 @@
 
       .rsvp__card {
         position: relative;
+        overflow: hidden;
         width: min(100%, 47rem);
         margin: auto;
         padding: clamp(2.45rem, 6vw, 3.7rem) 1.2rem;
-        border: 1px solid var(--glass-border);
-        border-radius: 1.8rem;
-        background: rgba(255,255,255,.56);
-        box-shadow: var(--shadow), inset 0 1px rgba(255,255,255,.85);
-        -webkit-backdrop-filter: blur(13px);
-        backdrop-filter: blur(13px);
+        border: 1px solid rgba(255,255,255,.9);
+        border-radius: 2.05rem;
+        background: linear-gradient(145deg, rgba(255,255,255,.72), rgba(255,255,255,.44));
+        box-shadow: 0 22px 52px rgba(103,84,74,.13), inset 0 1px rgba(255,255,255,.92), inset 0 0 0 5px rgba(255,255,255,.15);
+        -webkit-backdrop-filter: blur(16px) saturate(125%);
+        backdrop-filter: blur(16px) saturate(125%);
       }
+
+      .rsvp__card::before, .rsvp__card::after {
+        position: absolute;
+        border-radius: 50%;
+        content: "";
+        pointer-events: none;
+      }
+
+      .rsvp__card::before { top: -9rem; left: -7rem; width: 16rem; height: 16rem; background: rgba(241,163,176,.16); filter: blur(9px); }
+      .rsvp__card::after { right: -6rem; bottom: -8rem; width: 15rem; height: 15rem; background: rgba(181,197,230,.18); filter: blur(10px); }
+      .rsvp__card > * { position: relative; z-index: 1; }
 
       .rsvp__ornament {
         width: 4.5rem;
@@ -822,6 +882,18 @@
         50% { box-shadow: 0 15px 33px rgba(190,128,137,.44), 0 0 0 7px rgba(241,163,176,.1); }
       }
 
+      @keyframes chaliceFloat {
+        0%, 100% { filter: drop-shadow(0 10px 14px rgba(157,111,35,.2)); transform: translateY(0) rotate(-1deg); }
+        50% { filter: drop-shadow(0 17px 20px rgba(157,111,35,.28)); transform: translateY(-.45rem) rotate(1deg); }
+      }
+
+      @keyframes haloOrbit { to { transform: rotate(360deg); } }
+
+      @keyframes cardHighlight {
+        from { opacity: .55; transform: translate3d(-.8rem, -.6rem, 0) scale(.9); }
+        to { opacity: 1; transform: translate3d(1.1rem, .7rem, 0) scale(1.12); }
+      }
+
       @media (max-width: 34rem) {
         .hero {
           display: flex;
@@ -831,6 +903,7 @@
           align-items: center;
         }
 
+        .hero__content, .section-heading, .rsvp__card, .glass-card { min-width: 0; }
         .hero__content { padding: 1.05rem 0 .4rem; }
 
         .eyebrow {
@@ -845,7 +918,7 @@
           margin: 0 auto -.72rem;
         }
 
-        .hero__cross { width: 2.55rem; }
+        .hero__chalice { width: min(25vw, 5.3rem); }
 
         h1 {
           font-size: clamp(3.9rem, 18.5vw, 5.7rem);
@@ -861,16 +934,14 @@
 
         .hero__line::before, .hero__line::after { width: clamp(1.1rem, 8vw, 2.2rem); }
 
-        .countdown {
-          width: min(100%, 18rem);
+        .event-date {
+          max-width: calc(100vw - 2rem);
           margin-top: .78rem;
-          padding: .36rem;
-          border-radius: .96rem;
+          padding: .4rem .82rem .36rem;
+          gap: .55rem;
+          justify-content: center;
         }
-
-        .countdown__unit { padding: .35rem .22rem .3rem; }
-        .countdown__number { font-size: clamp(1.4rem, 6.5vw, 1.85rem); }
-        .countdown__label { font-size: .4rem; letter-spacing: .12em; }
+        .event-date__month { padding-left: .55rem; font-size: .78rem; }
 
         .scroll-cue {
           position: static;
@@ -883,6 +954,12 @@
         .scroll-cue__dot { width: 1.55rem; height: 2.25rem; }
         .scroll-cue__dot::after { margin-top: .42rem; }
         .floral { width: clamp(8rem, 30vw, 12rem); opacity: .56; }
+        .card-place, .rsvp__message { overflow-wrap: anywhere; }
+        .map-link, .rsvp-button { width: fit-content; min-width: min(100%, 15.5rem); text-align: center; }
+        .music-toggle {
+          right: max(.72rem, env(safe-area-inset-right));
+          bottom: max(.72rem, env(safe-area-inset-bottom));
+        }
       }
 
       @media (max-width: 24rem) {
@@ -892,7 +969,10 @@
         h1 { font-size: clamp(3.55rem, 18.2vw, 4.45rem); }
         .details, .rsvp { padding-right: 1rem; padding-left: 1rem; }
         .glass-card { min-height: 19.25rem; padding: 1.55rem 1rem 1.15rem; }
-        .map-link { padding-right: 1rem; padding-left: 1rem; font-size: .6rem; }
+        .event-date { padding-right: .62rem; padding-left: .62rem; gap: .4rem; font-size: .9rem; }
+        .event-date__month { padding-left: .4rem; font-size: .68rem; }
+        .map-link { padding-right: .9rem; padding-left: .9rem; font-size: .58rem; }
+        .music-toggle { width: 2.9rem; height: 2.9rem; }
       }
 
       @media (max-height: 34rem) and (orientation: landscape) {
@@ -901,7 +981,27 @@
         .hero__halo { width: min(35vw, 12rem); margin-bottom: -.55rem; }
         .eyebrow { margin-bottom: .45rem; }
         .hero__line { margin-top: .65rem; }
-        .countdown { margin-top: .5rem; }
+        .event-date { margin-top: .5rem; }
+        .intro__content { min-height: 0; transform: scale(.76); }
+        .music-toggle { right: .72rem; bottom: .72rem; }
+      }
+
+      @media (min-width: 35rem) and (max-height: 48rem) {
+        .hero {
+          min-height: auto;
+          padding-top: 1rem;
+          padding-bottom: 1rem;
+          justify-content: flex-start;
+        }
+
+        .hero__content { padding-top: .4rem; padding-bottom: .2rem; }
+        .hero__halo { width: min(42vw, 14rem); margin-bottom: -.55rem; }
+        .hero__chalice { width: min(20vw, 5.5rem); }
+        h1 { font-size: clamp(4rem, 11vw, 6rem); }
+        .eyebrow { margin-bottom: .65rem; }
+        .hero__line { margin-top: .9rem; }
+        .event-date { margin-top: .65rem; }
+        .scroll-cue { margin-top: .2rem; }
       }
 
       @media (min-width: 42rem) {
@@ -977,18 +1077,50 @@
         <div class="hero__content">
           <p class="eyebrow">Celebremos juntos la Primera Comunión de</p>
           <div class="hero__halo" aria-hidden="true">
-            <svg class="hero__cross" viewBox="0 0 54 76" fill="none">
-              <path d="M27 4v68M10 26h34" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" />
-              <path d="M27 9v60M15 26h24" stroke="white" stroke-opacity=".55" stroke-width=".8" stroke-linecap="round" />
+            <svg class="hero__chalice" viewBox="0 0 190 228" fill="none">
+              <defs>
+                <linearGradient id="gold-bowl" x1="50" y1="77" x2="142" y2="148" gradientUnits="userSpaceOnUse">
+                  <stop stop-color="#f6cf68" />
+                  <stop offset=".46" stop-color="#d99b24" />
+                  <stop offset="1" stop-color="#a96e15" />
+                </linearGradient>
+                <linearGradient id="gold-stem" x1="76" y1="140" x2="118" y2="204" gradientUnits="userSpaceOnUse">
+                  <stop stop-color="#f4cb62" />
+                  <stop offset="1" stop-color="#bd7d1a" />
+                </linearGradient>
+                <radialGradient id="host" cx="0" cy="0" r="1" gradientTransform="translate(95 48) rotate(90) scale(36)">
+                  <stop stop-color="#fff0b3" />
+                  <stop offset="1" stop-color="#e9b741" />
+                </radialGradient>
+              </defs>
+              <g stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                <g opacity=".72" stroke-width="2.4">
+                  <path d="M31 112c-15 1-25 10-31 22M35 125c-12 0-23 6-30 16M159 112c15 1 25 10 31 22M155 125c12 0 23 6 30 16" />
+                  <path d="M38 106c-7-8-10-18-8-28M47 118c-9-5-15-13-17-23M152 106c7-8 10-18 8-28M143 118c9-5 15-13 17-23" />
+                </g>
+                <g fill="none" stroke-width="2.1" opacity=".82">
+                  <path d="M35 117c12 5 19 14 21 27M27 102c12 2 21 9 26 20M155 117c-12 5-19 14-21 27M163 102c-12 2-21 9-26 20" />
+                </g>
+                <g>
+                  <circle cx="95" cy="48" r="34" fill="url(#host)" stroke-width="2.5" />
+                  <circle cx="95" cy="48" r="27" stroke="#f9df90" stroke-width="1.5" opacity=".8" />
+                  <path d="M95 29v38M79 48h32" stroke="#76501b" stroke-width="4.5" />
+                  <path d="M95 8V0M71 13l-7-10M119 13l7-10M51 31l-12-4M139 31l12-4M51 64l-12 5M139 64l12 5" stroke-width="2.4" opacity=".78" />
+                </g>
+                <path d="M49 80h92v26c0 30-19 52-46 52s-46-22-46-52V80Z" fill="url(#gold-bowl)" stroke-width="2.6" />
+                <path d="M60 86h13c0 28 5 48 22 64-22-3-35-20-35-44V86Z" fill="#ffe08a" opacity=".46" stroke="none" />
+                <path d="M78 158h34l-3 19 20 23H61l20-23-3-19Z" fill="url(#gold-stem)" stroke-width="2.6" />
+                <path d="M61 200h68c-7 13-18 20-34 20s-27-7-34-20Z" fill="#b97918" stroke-width="2.6" />
+                <path d="M78 166h34M74 187h42" stroke="#ffe08a" stroke-width="3" opacity=".72" />
+                <circle cx="95" cy="168" r="4" fill="#ffe9a3" stroke="none" />
+              </g>
             </svg>
           </div>
           <h1 id="main-title">Renata<br />Cruz Alvarez</h1>
           <div class="hero__line">Una fecha para atesorar</div>
-          <div class="countdown" aria-label="Cuenta regresiva para el evento" aria-live="polite">
-            <div class="countdown__unit"><span class="countdown__number" id="countdown-days">--</span><span class="countdown__label">Días</span></div>
-            <div class="countdown__unit"><span class="countdown__number" id="countdown-hours">--</span><span class="countdown__label">Horas</span></div>
-            <div class="countdown__unit"><span class="countdown__number" id="countdown-minutes">--</span><span class="countdown__label">Minutos</span></div>
-          </div>
+          <time class="event-date" datetime="2026-08-29" aria-label="Sábado 29 de agosto de 2026">
+            <span>Sábado</span><strong class="event-date__day">29</strong><span class="event-date__month">Agosto<br />2026</span>
+          </time>
         </div>
 
         <a class="scroll-cue" href="#detalles" aria-label="Ver detalles del evento">
@@ -1045,7 +1177,7 @@
           </svg>
           <p class="section-kicker">Con mucho cariño</p>
           <h2 id="rsvp-title">Acompáñame</h2>
-          <p class="rsvp__message">Tu presencia es el regalo más hermoso. Por favor, confirma tu asistencia antes del 10 de agosto.</p>
+          <p class="rsvp__message">Tu presencia es el regalo más hermoso. Por favor, confirma tu asistencia.</p>
           <a class="rsvp-button" href="https://wa.me/5214427881714?text=%C2%A1Hola!%20Confirmo%20mi%20asistencia%20a%20la%20Primera%20Comuni%C3%B3n%20de%20Renata." target="_blank" rel="noopener noreferrer">Confirmar Asistencia</a>
         </div>
       </section>
@@ -1087,31 +1219,6 @@
             intro.classList.add("intro--exit");
           }, 2800);
         }
-
-        const countdown = document.querySelector(".countdown");
-        const countdownDays = document.getElementById("countdown-days");
-        const countdownHours = document.getElementById("countdown-hours");
-        const countdownMinutes = document.getElementById("countdown-minutes");
-        const eventDate = new Date("2026-08-16T12:00:00-06:00");
-
-        function updateCountdown() {
-          const remaining = eventDate.getTime() - Date.now();
-          if (remaining <= 0) {
-            countdown.classList.add("countdown--event-day");
-            countdown.textContent = "¡Hoy es el gran día!";
-            return;
-          }
-
-          const days = Math.floor(remaining / 86400000);
-          const hours = Math.floor((remaining % 86400000) / 3600000);
-          const minutes = Math.floor((remaining % 3600000) / 60000);
-          countdownDays.textContent = String(days).padStart(2, "0");
-          countdownHours.textContent = String(hours).padStart(2, "0");
-          countdownMinutes.textContent = String(minutes).padStart(2, "0");
-        }
-
-        updateCountdown();
-        window.setInterval(updateCountdown, 60000);
 
         const reveals = document.querySelectorAll(".reveal");
         if (reduceMotion || !("IntersectionObserver" in window)) {
@@ -1164,7 +1271,7 @@
 
         const canvas = document.getElementById("petal-canvas");
         const context = canvas.getContext("2d");
-        const colors = ["241,163,176", "229,168,160", "181,197,230", "188,212,194"];
+        const colors = ["241,163,176", "229,168,160", "181,197,230", "188,212,194", "211,154,47"];
         let width = 0;
         let height = 0;
         let particles = [];
@@ -1172,18 +1279,20 @@
         let pointerY = 0;
 
         function createParticle(initial) {
-          const size = 2 + Math.random() * 4.5;
+          const kind = Math.random() < 0.16 ? "sparkle" : Math.random() < 0.48 ? "petal" : "light";
+          const size = kind === "sparkle" ? 1.4 + Math.random() * 2.8 : 1.6 + Math.random() * 4.8;
           return {
             x: Math.random() * width,
             y: initial ? Math.random() * height : height + size,
             size,
-            speedY: 0.1 + Math.random() * 0.31,
-            drift: 0.18 + Math.random() * 0.55,
+            kind,
+            speedY: 0.07 + Math.random() * 0.32,
+            drift: 0.14 + Math.random() * 0.62,
             phase: Math.random() * Math.PI * 2,
             color: colors[Math.floor(Math.random() * colors.length)],
-            opacity: 0.12 + Math.random() * 0.22,
+            opacity: 0.09 + Math.random() * 0.24,
             rotation: Math.random() * Math.PI,
-            rotationSpeed: (Math.random() - 0.5) * 0.012
+            rotationSpeed: (Math.random() - 0.5) * 0.016
           };
         }
 
@@ -1196,7 +1305,10 @@
           canvas.style.width = `${width}px`;
           canvas.style.height = `${height}px`;
           context.setTransform(ratio, 0, 0, ratio, 0, 0);
-          const count = Math.min(48, Math.max(22, Math.round(width / 24)));
+          const isCompactScreen = window.matchMedia("(max-width: 34rem)").matches;
+          const count = isCompactScreen
+            ? Math.min(76, Math.max(46, Math.round(width / 5.2)))
+            : Math.min(126, Math.max(68, Math.round(width / 13)));
           particles = Array.from({ length: count }, () => createParticle(true));
         }
 
@@ -1217,9 +1329,23 @@
           context.translate(particle.x, particle.y);
           context.rotate(particle.rotation);
           context.fillStyle = `rgba(${particle.color}, ${particle.opacity})`;
-          context.beginPath();
-          context.ellipse(0, 0, particle.size, particle.size * 0.58, 0, 0, Math.PI * 2);
-          context.fill();
+          if (particle.kind === "sparkle") {
+            context.beginPath();
+            context.moveTo(0, -particle.size * 1.55);
+            context.lineTo(particle.size * .58, -particle.size * .58);
+            context.lineTo(particle.size * 1.55, 0);
+            context.lineTo(particle.size * .58, particle.size * .58);
+            context.lineTo(0, particle.size * 1.55);
+            context.lineTo(-particle.size * .58, particle.size * .58);
+            context.lineTo(-particle.size * 1.55, 0);
+            context.lineTo(-particle.size * .58, -particle.size * .58);
+            context.closePath();
+            context.fill();
+          } else {
+            context.beginPath();
+            context.ellipse(0, 0, particle.size, particle.kind === "petal" ? particle.size * .52 : particle.size * .75, 0, 0, Math.PI * 2);
+            context.fill();
+          }
           context.restore();
         }
 
