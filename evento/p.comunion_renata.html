@@ -51,6 +51,17 @@
       button, a { -webkit-tap-highlight-color: transparent; }
       a, button { max-width: 100%; }
 
+      .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+      }
+
       #petal-canvas {
         position: fixed;
         z-index: 0;
@@ -720,13 +731,35 @@
 
       .rsvp__message {
         max-width: 34rem;
-        margin: .8rem auto 1.75rem;
+        margin: 1.25rem auto 1.75rem;
         color: rgba(74,63,53,.83);
         font-family: var(--serif);
         font-size: clamp(1.24rem, 5.1vw, 1.58rem);
         font-style: italic;
         line-height: 1.38;
       }
+
+      .godparents__label {
+        margin: .05rem 0 .5rem;
+        color: #aa7c73;
+        font-size: .62rem;
+        font-weight: 600;
+        letter-spacing: .22em;
+        text-transform: uppercase;
+      }
+
+      .godparents__names {
+        max-width: 36rem;
+        margin: 0 auto;
+        color: var(--ink);
+        font-family: var(--serif);
+        font-size: clamp(1.22rem, 4.7vw, 1.62rem);
+        font-weight: 600;
+        line-height: 1.28;
+      }
+
+      .godparents__names span { display: inline; }
+      .godparents__names span[aria-hidden="true"] { padding: 0 .27em; color: var(--gold); }
 
       .rsvp-button {
         min-width: min(100%, 17.5rem);
@@ -1158,7 +1191,7 @@
             </div>
             <h3 class="card-title">Recepción</h3>
             <p class="card-time">2:00 PM</p>
-            <p class="card-place">Lugar del Evento</p>
+            <p class="card-place">Antonio Garza No. 6<br />Fracc. Constituyentes del Parque, Quer&eacute;taro</p>
             <a class="map-link" href="https://maps.app.goo.gl/PWNhWqbvfb73KkJf7" target="_blank" rel="noopener noreferrer">Ubicación de la Recepción</a>
           </article>
         </div>
@@ -1175,8 +1208,9 @@
               <circle cx="42" cy="21" r="3.2" />
             </g>
           </svg>
-          <p class="section-kicker">Con mucho cariño</p>
-          <h2 id="rsvp-title">Acompáñame</h2>
+          <h2 id="rsvp-title" class="sr-only">Confirmación de asistencia</h2>
+          <p class="godparents__label">Mis padrinos</p>
+          <p class="godparents__names"><span>Mariela &Aacute;lvarez Contreras</span><span aria-hidden="true">&amp;</span><span>Iv&aacute;n Rodr&iacute;guez Arias</span></p>
           <p class="rsvp__message">Tu presencia es el regalo más hermoso. Por favor, confirma tu asistencia.</p>
           <a class="rsvp-button" href="https://wa.me/5214427881714?text=%C2%A1Hola!%20Confirmo%20mi%20asistencia%20a%20la%20Primera%20Comuni%C3%B3n%20de%20Renata." target="_blank" rel="noopener noreferrer">Confirmar Asistencia</a>
         </div>
